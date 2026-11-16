@@ -322,5 +322,168 @@ function drawCalendar(){
 }
 newQuestion();render();
 </script>
+ 
+<style>
+:root {
+  --pink: #667b4d;
+  --cream: #faf9ef;
+  --ink: #405136;
+}
+body {
+  background: linear-gradient(155deg,
+    #f8f9f0, #e5eedb 60%, #f8f5e9);
+  color: #405136;
+}
+header {
+  background: linear-gradient(135deg,#fcfbf2,#e2edda);
+  border-color: #cedbbb;
+}
+header h1 {
+  font-family: Georgia, "Nanum Myeongjo", serif;
+  letter-spacing: 1px;
+}
+nav button, .small {
+  background: #fffef7;
+  color: #536545;
+  border: 1px solid #d5e0ca;
+}
+nav button:hover, .small:hover {
+  background: #e4ecd9;
+}
+.paper {
+  background: #fffef8;
+  border: 1px solid #dde7d1;
+  box-shadow: 0 9px 27px #52674617;
+}
+.primary { background: #667b4d; color: white; }
+.primary:hover { background: #4b6138; }
+.photo {
+  border-color: #a2b98b;
+  background: #f3f8ee;
+}
+input, textarea, select {
+  border-color: #cfddc4;
+  background: #fffefa;
+}
+.memory {
+  border: 1px solid #e0e7d7;
+  transform: rotate(-.7deg);
+  transition: transform .2s ease;
+}
+.memory:nth-child(even) { transform: rotate(.8deg); }
+.memory:hover { transform: translateY(-5px) rotate(0); }
+.day { background: #edf3e6; }
+.day.marked { background: #a8bf91; }
+#secretLeaf {
+  margin-top: 8px;
+  font-size: 23px;
+  background: transparent;
+  transition: transform .25s ease;
+}
+.oliveGarden {
+  text-align: center;
+  background: linear-gradient(130deg,#f6faee,#e6f0d8);
+}
+.oliveGarden .plant {
+  font-size: 46px;
+  margin: 8px;
+}
+#secretLetter {
+  border: 0;
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 340px;
+  width: 85%;
+  text-align: center;
+  background: #faf9ed;
+  color: #405136;
+  box-shadow: 0 15px 50px #293a2d66;
+}
+#secretLetter::backdrop { background: #24362088; }
+#secretLetter button {
+  background: #667b4d;
+  color: white;
+  border: 0;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+@media(prefers-reduced-motion:reduce) {
+  .memory, #secretLeaf { transition: none; }
+}
+</style>
+
+<script>
+(() => {
+  const leaf = document.createElement("button");
+  leaf.id = "secretLeaf";
+  leaf.type = "button";
+  leaf.textContent = "🍃";
+  leaf.setAttribute("aria-label", "작은 잎사귀");
+  document.querySelector("header").append(leaf);
+
+  const letters = [
+    "평범했던 오늘도 나중에는 좋은 장면이 될지 몰라.",
+    "너의 하루에는 너만 발견할 수 있는 빛이 있어.",
+    "아무 일 없는 날에도 남겨 둘 순간은 있어.",
+    "작은 기쁨 하나가 오래 기억될 수 있어.",
+    "가끔은 한 장의 사진이 긴 이야기보다 많은 걸 말해."
+  ];
+
+  const dialog = document.createElement("dialog");
+  dialog.id = "secretLetter";
+  dialog.innerHTML = `
+    <div style="font-size:35px">✉️</div>
+    <h2>오늘 발견한 편지</h2>
+    <p></p>
+    <button type="button">닫기</button>
+  `;
+  dialog.querySelector("button").onclick = () => dialog.close();
+  document.body.append(dialog);
+
+  let count = 0;
+  leaf.onclick = () => {
+    count++;
+    leaf.style.transform = `rotate(${count * 15}deg)`;
+    if (count < 3) return;
+    count = 0;
+    dialog.querySelector("p").textContent =
+      letters[Math.floor(Date.now() / 86400000) % letters.length];
+    dialog.showModal();
+  };
+
+  const garden = document.createElement("section");
+  garden.className = "paper oliveGarden";
+  document.querySelector("#home .hero").after(garden);
+
+  function updateGarden() {
+    const n = memories.length;
+    const plant = n === 0 ? "🌱" :
+      n < 3 ? "🌿" : n < 6 ? "🪴" : "🌳";
+
+    garden.replaceChildren();
+
+    const heading = document.createElement("h2");
+    heading.textContent = "작은 마음의 정원";
+
+    const symbol = document.createElement("div");
+    symbol.className = "plant";
+    symbol.textContent = plant;
+
+    const desc = document.createElement("p");
+    desc.textContent =
+      `기록 ${n}개가 모였어. 하루의 조각이 쌓이면 정원도 자라나.`;
+
+    garden.append(heading, symbol, desc);
+  }
+
+  updateGarden();
+  const oldSave = saveMemory;
+  saveMemory = function() {
+    oldSave();
+    updateGarden();
+  };
+})();
+</script>
+
 </body>
 </html>
