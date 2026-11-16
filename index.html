@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오늘의 조각들</title>
+<style>
+:root{--pink:#d99a9d;--cream:#fffaf4;--ink:#564b48}
+*{box-sizing:border-box}
+body{margin:0;background:#f8f0e9;color:var(--ink);font-family:"Malgun Gothic",sans-serif}
+header{background:var(--cream);padding:24px;text-align:center;border-bottom:1px solid #eadbd4}
+h1{font-family:Georgia,serif;font-size:32px;margin:12px 0}
+h2{font-size:19px}
+p{line-height:1.8}
+button{border:0;cursor:pointer;font:inherit}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px auto}
+nav button,.small{background:white;border-radius:30px;padding:11px 17px;color:#766360}
+nav button:hover{background:#f1dedd}
+main{max-width:850px;margin:auto;padding:20px}
+.hero{text-align:center;padding:38px 10px}
+.hero p{font-size:14px;color:#947e78}
+.paper{background:#fffdf8;border-radius:20px;padding:24px;box-shadow:0 8px 28px #72534d14;margin-bottom:23px}
+input,textarea,select{width:100%;padding:13px;margin:9px 0;border:1px solid #e5d6ce;border-radius:12px;background:white;font:inherit;color:var(--ink)}
+textarea{height:105px;resize:vertical}
+.primary{background:var(--pink);color:white;border-radius:30px;padding:14px 25px}
+.photo{border:2px dashed #e2c6bf;border-radius:16px;min-height:140px;display:grid;place-items:center;overflow:hidden;margin:12px 0;background:#fff8f4;cursor:pointer;text-align:center;padding:8px}
+.photo img{max-width:100%;max-height:300px;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
+.memory{background:white;padding:12px 12px 20px;box-shadow:2px 4px 13px #78635826;border-radius:4px;overflow:hidden}
+.memory img{width:100%;height:195px;object-fit:cover;border-radius:3px}
+.memory .empty{height:150px;background:#f7ebe7;display:grid;place-items:center;font-size:40px}
+.memory p{word-break:break-word;font-size:14px}
+.muted{font-size:12px;color:#998681}
+.reactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.reactions button{background:#faf1ed;border-radius:20px;padding:7px 10px;font-size:12px}
+.comments{margin-top:10px;padding-top:10px;border-top:1px solid #eee}
+.comment{font-size:12px;padding:6px 0}
+#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.day{text-align:center;background:#fff5f1;padding:10px 2px;border-radius:8px;font-size:12px}
+.day.marked{background:#efc9c5}
+.hidden{display:none}
+footer{text-align:center;padding:35px;color:#a58e87;font-size:12px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#5a4a47;color:white;padding:12px 20px;border-radius:25px;display:none;text-align:center;max-width:90%}
+</style>
+</head>
+<body>
+<header>
+<div>✿ &nbsp; some pieces of today &nbsp; ✿</div>
+<h1>오늘의 조각들</h1>
+<p>별일 없던 하루에도, 남겨 두고 싶은 순간이 있으니까.</p>
+</header>
+
+<main>
+<nav>
+<button onclick="page('home')">🏠 오늘</button>
+<button onclick="page('write')">✏️ 기록하기</button>
+<button onclick="page('album')">📷 추억 앨범</button>
+<button onclick="page('calendarPage')">🗓️ 감정 달력</button>
+<button onclick="surprise()">🎁 추억 뽑기</button>
+</nav>
+
+<section id="home">
+<div class="hero">
+<div style="font-size:40px">🌷</div>
+<h2>오늘은 어떤 하루였어?</h2>
+<p>기뻤던 순간도, 조금 지쳤던 순간도<br>그대로 남겨 두어도 괜찮아.</p>
+<button class="primary" onclick="page('write')">오늘의 조각 남기기</button>
+</div>
+<div class="paper">
+<h2>💌 오늘의 작은 질문</h2>
+<p id="question"></p>
+<button class="small" onclick="newQuestion()">다른 질문 보기 ↻</button>
+</div>
+<h2>최근의 조각들</h2>
+<div id="recent" class="grid"></div>
+</section>
+
+<section id="write" class="hidden">
+<div class="paper">
+<h2>오늘의 한 장 📸</h2>
+<p class="muted">사진 한 장과 짧은 마음이면 충분해.</p>
+<input id="nickname" placeholder="이름 또는 별명 (선택)">
+<select id="mood">
+<option value="🌷">🌷 기분 좋은 하루</option>
+<option value="☀️">☀️ 따뜻했던 하루</option>
+<option value="🌧️">🌧️ 조금 울적한 하루</option>
+<option value="🌙">🌙 생각이 많았던 하루</option>
+<option value="🍀">🍀 평범하지만 소중한 하루</option>
+<option value="💗">💗 누군가 보고 싶은 하루</option>
+</select>
+<label class="photo" for="photoInput" id="photoPreview">
+<span>📷<br>눌러서 오늘의 사진을 골라 줘</span>
+</label>
+<input type="file" id="photoInput" accept="image/*" style="display:none">
+<textarea id="message" maxlength="500" placeholder="오늘 마음에 남은 순간은 뭐였어?"></textarea>
+<button class="primary" onclick="saveMemory()">조각 남기기 ♡</button>
+</div>
+</section>
+
+<section id="album" class="hidden">
+<div class="paper">
+<h2>우리의 추억 앨범 📖</h2>
+<p class="muted">작은 순간들이 모여 한 권의 앨범이 돼.</p>
+<select id="filter" onchange="render()">
+<option value="all">모든 마음</option>
+<option value="🌷">🌷 기분 좋은 하루</option>
+<option value="☀️">☀️ 따뜻했던 하루</option>
+<option value="🌧️">🌧️ 조금 울적한 하루</option>
+<option value="🌙">🌙 생각이 많았던 하루</option>
+<option value="🍀">🍀 평범하지만 소중한 하루</option>
+<option value="💗">💗 누군가 보고 싶은 하루</option>
+</select>
+</div>
+<div id="gallery" class="grid"></div>
+</section>
+
+<section id="calendarPage" class="hidden">
+<div class="paper">
+<h2>마음의 달력 🗓️</h2>
+<p id="month"></p>
+<div id="calendar"></div>
+</div>
+</section>
+
+<section id="surprisePage" class="hidden">
+<div class="paper" style="text-align:center">
+<h2>🎁 어느 날의 우리</h2>
+<p>잊고 있었던 하루를 다시 꺼내 볼까?</p>
+<div id="surpriseResult"></div>
+<button class="primary" onclick="surprise()">다른 추억 만나기</button>
+</div>
+</section>
+</main>
+
+<footer>오늘의 조각들 · 작은 날들이 모여 우리의 이야기가 됩니다.</footer>
+<div id="toast"></div>
+
+<script>
+const KEY="today-pieces-memories-v1";
+let memories=JSON.parse(localStorage.getItem(KEY)||"[]");
+let selectedPhoto="";
+
+const questions=[
+"오늘 가장 오래 기억하고 싶은 순간은?",
+"지금 가장 듣고 싶은 말은?",
+"오늘 너를 웃게 만든 작은 일은?",
+"오늘의 날씨를 마음으로 표현한다면?",
+"누군가에게 전하고 싶은 말이 있어?",
+"오늘의 너에게 선물하고 싶은 것은?",
+"다시 돌아가고 싶은 순간이 있었어?"
+];
+
+function notify(text){
+ const t=document.getElementById("toast");
+ t.textContent=text;t.style.display="block";
+ setTimeout(()=>t.style.display="none",3000);
+}
+function page(id){
+ ["home","write","album","calendarPage","surprisePage"].forEach(
+ x=>document.getElementById(x).classList.toggle("hidden",x!==id)
+ );
+ if(id==="album"||id==="home")render();
+ if(id==="calendarPage")drawCalendar();
+ window.scrollTo(0,0);
+}
+function newQuestion(){
+ document.getElementById("question").textContent=
+ questions[Math.floor(Math.random()*questions.length)];
+}
+document.getElementById("photoInput").onchange=async function(){
+ const file=this.files[0];if(!file)return;
+ if(!file.type.startsWith("image/"))return notify("이미지 파일을 선택해 줘.");
+ const img=new Image();
+ const url=URL.createObjectURL(file);
+ img.onload=()=>{
+  const c=document.createElement("canvas");
+  const scale=Math.min(1,900/img.width,900/img.height);
+  c.width=Math.round(img.width*scale);
+  c.height=Math.round(img.height*scale);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+  selectedPhoto=c.toDataURL("image/jpeg",.65);
+  document.getElementById("photoPreview").innerHTML="";
+  const preview=document.createElement("img");
+  preview.src=selectedPhoto;
+  document.getElementById("photoPreview").append(preview);
+  URL.revokeObjectURL(url);
+ };
+ img.onerror=()=>notify("사진을 읽을 수 없어.");
+ img.src=url;
+};
+function saveMemory(){
+ const text=document.getElementById("message").value.trim();
+ if(!text&&!selectedPhoto)return notify("사진이나 글을 남겨 줘.");
+ const item={
+  id:Date.now()+Math.random(),
+  date:new Date().toISOString(),
+  name:document.getElementById("nickname").value.trim()||"익명의 마음",
+  mood:document.getElementById("mood").value,
+  text,photo:selectedPhoto,
+  hearts:0,comments:[]
+ };
+ memories.unshift(item);
+ try{
+  localStorage.setItem(KEY,JSON.stringify(memories));
+ }catch(e){
+  memories.shift();
+  return notify("기기 저장 공간이 부족해. 사진 크기를 줄여 줘.");
+ }
+ selectedPhoto="";
+ document.getElementById("message").value="";
+ document.getElementById("photoInput").value="";
+ document.getElementById("photoPreview").textContent="📷 사진 선택";
+ notify("오늘의 조각을 남겼어 ♡");
+ page("home");
+}
+function persist(){
+ try{localStorage.setItem(KEY,JSON.stringify(memories))}
+ catch(e){notify("저장 공간이 부족해.");}
+}
+function makeCard(item){
+ const el=document.createElement("article");el.className="memory";
+ if(item.photo){
+  const img=document.createElement("img");
+  img.src=item.photo;img.alt="오늘의 사진";el.append(img);
+ }else{
+  const empty=document.createElement("div");
+  empty.className="empty";empty.textContent=item.mood;el.append(empty);
+ }
+ const date=document.createElement("div");
+ date.className="muted";
+ date.textContent=new Date(item.date).toLocaleDateString("ko-KR")+" · "+item.name;
+ el.append(date);
+ const title=document.createElement("h3");
+ title.textContent=item.mood;el.append(title);
+ const p=document.createElement("p");
+ p.textContent=item.text;el.append(p);
+ const reactions=document.createElement("div");
+ reactions.className="reactions";
+ const heart=document.createElement("button");
+ heart.textContent="💗 마음 "+item.hearts;
+ heart.onclick=()=>{
+  item.hearts++;persist();render();
+ };
+ reactions.append(heart);
+ el.append(reactions);
+ const comments=document.createElement("div");
+ comments.className="comments";
+ item.comments.forEach(v=>{
+  const comment=document.createElement("div");
+  comment.className="comment";comment.textContent="💬 "+v;
+  comments.append(comment);
+ });
+ const input=document.createElement("input");
+ input.placeholder="짧은 답장 남기기";
+ input.maxLength=200;
+ const button=document.createElement("button");
+ button.className="small";button.textContent="답장하기";
+ button.onclick=()=>{
+  if(!input.value.trim())return;
+  item.comments.push(input.value.trim());
+  persist();render();
+ };
+ comments.append(input,button);el.append(comments);
+ return el;
+}
+function fill(container,items){
+ const root=document.getElementById(container);
+ root.replaceChildren();
+ if(!items.length){
+  const p=document.createElement("p");
+  p.className="muted";
+  p.textContent="아직 남겨진 조각이 없어. 첫 순간을 남겨 볼까?";
+  root.append(p);return;
+ }
+ items.forEach(v=>root.append(makeCard(v)));
+}
+function render(){
+ fill("recent",memories.slice(0,4));
+ const f=document.getElementById("filter").value;
+ fill("gallery",memories.filter(x=>f==="all"||x.mood===f));
+}
+function surprise(){
+ page("surprisePage");
+ const root=document.getElementById("surpriseResult");
+ root.replaceChildren();
+ if(!memories.length){
+  root.textContent="첫 번째 추억을 남기면 여기서 다시 만날 수 있어.";
+  return;
+ }
+ root.append(makeCard(memories[Math.floor(Math.random()*memories.length)]));
+}
+function drawCalendar(){
+ const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+ document.getElementById("month").textContent=`${y}년 ${m+1}월`;
+ const root=document.getElementById("calendar");
+ root.replaceChildren();
+ ["일","월","화","수","목","금","토"].forEach(d=>{
+  const b=document.createElement("b");b.textContent=d;
+  b.className="day";root.append(b);
+ });
+ const first=new Date(y,m,1).getDay();
+ for(let i=0;i<first;i++)root.append(document.createElement("div"));
+ const days=new Date(y,m+1,0).getDate();
+ for(let d=1;d<=days;d++){
+  const entries=memories.filter(v=>{
+   const t=new Date(v.date);
+   return t.getFullYear()===y&&t.getMonth()===m&&t.getDate()===d;
+  });
+  const b=document.createElement("button");
+  b.className="day"+(entries.length?" marked":"");
+  b.textContent=d+(entries.length?" "+entries[0].mood:"");
+  b.onclick=()=>{
+   if(entries.length){
+    page("album");
+    document.getElementById("gallery").replaceChildren();
+    fill("gallery",entries);
+   }
+  };
+  root.append(b);
+ }
+}
+newQuestion();render();
+</script>
+</body>
+</html>
