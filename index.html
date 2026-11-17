@@ -485,5 +485,371 @@ input, textarea, select {
 })();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+(async function () {
+  const db = window.supabase.createClient(
+    "https://mdetrlvqjhqwzhxxrrvl.supabase.co",
+    "sb_publishable_L1vV4skO6Qn0fUoAdhlrXw_-OthNFec"
+  );
+
+  const $ = id => document.getElementById(id);
+  const status = document.createElement("p");
+  status.style.cssText =
+    "text-align:center;color:#53643d;padding:12px";
+  status.textContent = "☁️ 공유 앨범 연결 중...";
+  document.querySelector("nav").after(status);
+
+  let uid, loading = false;
+  let myLikes = new Set();
+
+  const oldRecords = JSON.parse(
+    localStorage.getItem("today-pieces-memories-v1")
+    || "[]"
+  );
+
+  // 이메일 없이 자동으로 익명 접속
+  try {
+    const {data:{session}} = await db.auth.getSession();
+
+    if (!session) {
+      const result = await db.auth.signInAnonymously();
+      if (result.error) throw result.error;
+    }
+
+    const user = await db.auth.getUser();
+    if (user.error) throw user.error;
+    uid = user.data.user.id;
+  } catch (e) {
+    status.textContent = "연결 실패: 익명 로그인 설정 확인 필요";
+    console.error(e);
+    return;
+  }
+
+  // 두 사람이 같은 앨범의 글을 불러오기
+  async function loadShared() {
+    if (loading) return;
+    loading = true;
+
+    try {
+      const [posts, comments, likes] = await Promise.all([
+        db.from("pieces_entries")
+          .select("*")
+          .order("created_at", {ascending:false})
+          .limit(500),
+
+        db.from("pieces_comments")
+          .select("*")
+          .limit(3000),
+
+        db.from("pieces_likes")
+          .select("*")
+          .limit(3000)
+      ]);
+
+      if (posts.error || comments.error || likes.error) {
+        throw posts.error || comments.error || likes.error;
+      }
+
+      myLikes = new Set(
+        likes.data
+          .filter(x => x.user_id === uid)
+          .map(x => x.entry_id)
+      );
+
+      memories = posts.data.map(p => ({
+        id: p.id,
+        name: p.display_name,
+        date: p.created_at,
+        text: p.body,
+        mood: p.mood,
+        photo: p.photo_path
+          ? db.storage.from("pieces-photos")
+              .getPublicUrl(p.photo_path).data.publicUrl
+          : "",
+        hearts: (p.legacy_hearts || 0)
+          + likes.data.filter(x => x.entry_id === p.id).length,
+        comments: [
+          ...(p.legacy_comments || []),
+          ...comments.data
+            .filter(x => x.entry_id === p.id)
+            .map(x => x.body)
+        ]
+      }));
+
+      render();
+      status.textContent =
+        "☁️ 실시간 공유 중 · " + memories.length + "개의 조각";
+
+    } catch (e) {
+      status.textContent = "공유 기록 불러오기 오류";
+      console.error(e);
+    } finally {
+      loading = false;
+    }
+  }
+
+  // 사진을 온라인 저장소에 업로드
+  async function uploadPhoto(data) {
+    if (!data) return null;
+
+    const blob = await (await fetch(data)).blob();
+    if (blob.size > 3145728) {
+      throw Error("사진 크기가 너무 커.");
+    }
+
+    const path = uid + "/" + crypto.randomUUID() + ".jpg";
+
+    const result = await db.storage
+      .from("pieces-photos")
+      .upload(path, blob, {contentType:"image/jpeg"});
+
+    if (result.error) throw result.error;
+    return path;
+  }
+
+  // 기존 글쓰기 기능을 온라인 저장으로 변경
+  saveMemory = async function () {
+    const text = $("message").value.trim();
+    const name = $("nickname").value.trim().slice(0,20)
+      || "익명의 마음";
+
+    if (!text && !selectedPhoto) {
+      return notify("사진이나 글을 남겨 줘.");
+    }
+
+    const button = document.querySelector("#write .primary");
+    button.disabled = true;
+
+    try {
+      const photo = await uploadPhoto(selectedPhoto);
+
+      const result = await db.from("pieces_entries").insert({
+        author_id: uid,
+        display_name: name,
+        mood: $("mood").value,
+        body: text,
+        photo_path: photo
+      });
+
+      if (result.error) throw result.error;
+
+      selectedPhoto = "";
+      $("message").value = "";
+      $("photoInput").value = "";
+      $("photoPreview").textContent = "📷 사진 선택";
+
+      await loadShared();
+      page("home");
+      notify("공유 앨범에 기록을 남겼어 🌿");
+
+    } catch (e) {
+      console.error(e);
+      notify("저장 오류. 입력한 글은 그대로 남아 있어.");
+    } finally {
+      button.disabled = false;
+    }
+  };
+
+  // 다른 사람이 쓴 글에도 댓글과 하트 남기기
+  makeCard = function (item) {
+    const card = document.createElement("article");
+    card.className = "memory";
+
+    if (item.photo) {
+      const img = document.createElement("img");
+      img.src = item.photo;
+      img.alt = "추억 사진";
+      img.loading = "lazy";
+      card.append(img);
+    } else {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = item.mood;
+      card.append(empty);
+    }
+
+    const info = document.createElement("div");
+    info.className = "muted";
+    info.textContent =
+      new Date(item.date).toLocaleDateString("ko-KR")
+      + " · " + item.name;
+    card.append(info);
+
+    const mood = document.createElement("h3");
+    mood.textContent = item.mood;
+    card.append(mood);
+
+    const text = document.createElement("p");
+    text.textContent = item.text;
+    card.append(text);
+
+    const reactions = document.createElement("div");
+    reactions.className = "reactions";
+
+    const heart = document.createElement("button");
+    heart.textContent =
+      (myLikes.has(item.id) ? "💗" : "🤍")
+      + " 마음 " + item.hearts;
+
+    heart.onclick = async () => {
+      heart.disabled = true;
+
+      const result = myLikes.has(item.id)
+        ? await db.from("pieces_likes")
+            .delete()
+            .eq("entry_id", item.id)
+            .eq("user_id", uid)
+        : await db.from("pieces_likes").insert({
+            entry_id: item.id,
+            user_id: uid
+          });
+
+      if (result.error) notify("하트 저장 오류");
+      heart.disabled = false;
+      await loadShared();
+    };
+
+    reactions.append(heart);
+    card.append(reactions);
+
+    const comments = document.createElement("div");
+    comments.className = "comments";
+
+    item.comments.forEach(value => {
+      const line = document.createElement("div");
+      line.className = "comment";
+      line.textContent = "💬 " + value;
+      comments.append(line);
+    });
+
+    const input = document.createElement("input");
+    input.placeholder = "짧은 답장 남기기";
+    input.maxLength = 200;
+
+    const reply = document.createElement("button");
+    reply.className = "small";
+    reply.textContent = "답장하기";
+
+    reply.onclick = async () => {
+      if (!input.value.trim()) return;
+
+      reply.disabled = true;
+
+      const result = await db.from("pieces_comments").insert({
+        entry_id: item.id,
+        author_id: uid,
+        body: input.value.trim()
+      });
+
+      if (result.error) notify("답장 저장 오류");
+
+      reply.disabled = false;
+      await loadShared();
+    };
+
+    comments.append(input, reply);
+    card.append(comments);
+
+    return card;
+  };
+
+  // 예전에 이 기기에 저장한 기록 이전
+  if (Array.isArray(oldRecords) && oldRecords.length) {
+    const move = document.createElement("button");
+    move.className = "small";
+    move.textContent = "📦 예전 기록 공유 앨범으로 옮기기";
+    status.after(move);
+
+    move.onclick = async () => {
+      if (!confirm(
+        oldRecords.length +
+        "개의 예전 기록을 온라인 앨범에 복사할까?"
+      )) return;
+
+      move.disabled = true;
+      let success = 0, failed = 0;
+
+      for (const item of oldRecords) {
+        try {
+          const legacyId = String(item.id);
+
+          const existing = await db
+            .from("pieces_entries")
+            .select("id")
+            .eq("author_id", uid)
+            .eq("legacy_id", legacyId)
+            .maybeSingle();
+
+          if (existing.error) throw existing.error;
+          if (existing.data) continue;
+
+          const photo = await uploadPhoto(item.photo || "");
+
+          const result = await db
+            .from("pieces_entries")
+            .insert({
+              author_id: uid,
+              legacy_id: legacyId,
+              display_name: String(
+                item.name || "익명의 마음"
+              ).slice(0,20),
+              mood: item.mood || "🍀",
+              body: String(item.text || "").slice(0,500),
+              photo_path: photo,
+              created_at: item.date,
+              legacy_hearts: item.hearts || 0,
+              legacy_comments: item.comments || []
+            });
+
+          if (result.error) throw result.error;
+          success++;
+        } catch (e) {
+          console.error(e);
+          failed++;
+        }
+      }
+
+      move.disabled = false;
+      notify("이전 완료 " + success +
+        "개 · 오류 " + failed + "개");
+      await loadShared();
+    };
+  }
+
+  // 처음 접속할 때 앨범 불러오기
+  await loadShared();
+
+  // 다른 사람이 새 글을 올리면 자동 갱신
+  db.channel("pieces-live-feed")
+    .on("postgres_changes", {
+      event: "INSERT",
+      schema: "public",
+      table: "pieces_entries"
+    }, async event => {
+      if (event.new.author_id !== uid) {
+        notify("🌿 새로운 조각이 도착했어!");
+      }
+      await loadShared();
+    })
+    .on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "pieces_comments"
+    }, loadShared)
+    .on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "pieces_likes"
+    }, loadShared)
+    .subscribe();
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) loadShared();
+  });
+})();
+</script>
+
 </body>
 </html>
