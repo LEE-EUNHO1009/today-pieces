@@ -850,6 +850,59 @@ input, textarea, select {
   });
 })();
 </script>
+-- 오늘의 조각들: 작성자/관리자 삭제 권한 추가
+-- 기존 기록을 지우지 않습니다.
+create table if not exists public.pieces_admins (
+ user_id uuid primary key references auth.users(id) on delete cascade
+);
+alter table public.pieces_admins enable row level security;
+revoke all on public.pieces_admins from anon,authenticated;
+grant select on public.pieces_admins to authenticated;
+drop policy if exists pieces_admin_self on public.pieces_admins;
+create policy pieces_admin_self on public.pieces_admins
+ for select to authenticated using (user_id=(select auth.uid()));
+
+-- 사진/글 삭제: 작성자 또는 관리자
+-- 기존 작성자 삭제 정책을 교체하여 관리자 권한을 확장합니다.
+drop policy if exists pieces_delete on public.pieces_entries;
+create policy pieces_delete on public.pieces_entries
+ for delete to authenticated using (
+  author_id=(select auth.uid()) or exists (
+   select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
+  )
+ );
+
+-- 댓글 삭제: 작성자 또는 관리자
+grant delete on public.pieces_comments to authenticated;
+drop policy if exists comments_delete on public.pieces_comments;
+create policy comments_delete on public.pieces_comments
+ for delete to authenticated using (
+  author_id=(select auth.uid()) or exists (
+   select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
+  )
+ );
+
+-- 사진 파일 삭제는 반드시 Storage API로 실행합니다.
+-- Storage API 삭제에 필요한 읽기/삭제 정책
+-- 사진은 이미 공개 버킷이며 이 정책은 전체 인터넷 공개 여부를 변경하지 않습니다.
+drop policy if exists pieces_photo_select_for_delete on storage.objects;
+create policy pieces_photo_select_for_delete on storage.objects
+ for select to authenticated using (
+  bucket_id='pieces-photos' and (
+    owner_id=(select auth.uid())::text or exists (
+      select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
+    )
+  )
+ );
+drop policy if exists pieces_photo_delete on storage.objects;
+create policy pieces_photo_delete on storage.objects
+ for delete to authenticated using (
+  bucket_id='pieces-photos' and (
+    owner_id=(select auth.uid())::text or exists (
+      select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
+    )
+  )
+ );
 
 </body>
 </html>
