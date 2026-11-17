@@ -4,514 +4,940 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#596e43">
 <title>오늘의 조각들</title>
+<link rel="manifest" href="./manifest.webmanifest">
 <style>
-:root{--pink:#d99a9d;--cream:#fffaf4;--ink:#564b48}
-*{box-sizing:border-box}
-body{margin:0;background:#f8f0e9;color:var(--ink);font-family:"Malgun Gothic",sans-serif}
-header{background:var(--cream);padding:24px;text-align:center;border-bottom:1px solid #eadbd4}
-h1{font-family:Georgia,serif;font-size:32px;margin:12px 0}
-h2{font-size:19px}
-p{line-height:1.8}
-button{border:0;cursor:pointer;font:inherit}
-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px auto}
-nav button,.small{background:white;border-radius:30px;padding:11px 17px;color:#766360}
-nav button:hover{background:#f1dedd}
-main{max-width:850px;margin:auto;padding:20px}
-.hero{text-align:center;padding:38px 10px}
-.hero p{font-size:14px;color:#947e78}
-.paper{background:#fffdf8;border-radius:20px;padding:24px;box-shadow:0 8px 28px #72534d14;margin-bottom:23px}
-input,textarea,select{width:100%;padding:13px;margin:9px 0;border:1px solid #e5d6ce;border-radius:12px;background:white;font:inherit;color:var(--ink)}
-textarea{height:105px;resize:vertical}
-.primary{background:var(--pink);color:white;border-radius:30px;padding:14px 25px}
-.photo{border:2px dashed #e2c6bf;border-radius:16px;min-height:140px;display:grid;place-items:center;overflow:hidden;margin:12px 0;background:#fff8f4;cursor:pointer;text-align:center;padding:8px}
-.photo img{max-width:100%;max-height:300px;border-radius:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
-.memory{background:white;padding:12px 12px 20px;box-shadow:2px 4px 13px #78635826;border-radius:4px;overflow:hidden}
-.memory img{width:100%;height:195px;object-fit:cover;border-radius:3px}
-.memory .empty{height:150px;background:#f7ebe7;display:grid;place-items:center;font-size:40px}
-.memory p{word-break:break-word;font-size:14px}
-.muted{font-size:12px;color:#998681}
-.reactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
-.reactions button{background:#faf1ed;border-radius:20px;padding:7px 10px;font-size:12px}
-.comments{margin-top:10px;padding-top:10px;border-top:1px solid #eee}
-.comment{font-size:12px;padding:6px 0}
-#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.day{text-align:center;background:#fff5f1;padding:10px 2px;border-radius:8px;font-size:12px}
-.day.marked{background:#efc9c5}
-.hidden{display:none}
-footer{text-align:center;padding:35px;color:#a58e87;font-size:12px}
-#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#5a4a47;color:white;padding:12px 20px;border-radius:25px;display:none;text-align:center;max-width:90%}
+:root {
+  --olive:#596e43;
+  --sage:#dfe9d1;
+  --cream:#fffef8;
+  --ink:#3e4b35;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:linear-gradient(140deg,#f9faf2,#eaf1e2);
+  color:var(--ink);
+  font-family:"Malgun Gothic",sans-serif;
+}
+header {
+  background:linear-gradient(130deg,#fffef8,#e7efdd);
+  padding:35px 16px;
+  text-align:center;
+}
+h1 {font:34px Georgia,serif}
+h2 {font-size:19px}
+p {line-height:1.8}
+button {cursor:pointer;border:0;font:inherit}
+main {max-width:900px;margin:auto;padding:16px}
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:24px;
+}
+nav button,.soft {
+  padding:11px 16px;
+  background:white;
+  border:1px solid #d5e0ca;
+  color:var(--olive);
+  border-radius:25px;
+}
+.primary {
+  padding:13px 22px;
+  border-radius:25px;
+  background:var(--olive);
+  color:white;
+}
+.card {
+  padding:24px;
+  margin-bottom:22px;
+  background:var(--cream);
+  border:1px solid #dae5d0;
+  border-radius:20px;
+  box-shadow:0 6px 20px #53643d12;
+}
+.hero {text-align:center;padding:30px 10px}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.memory {
+  padding:13px;
+  background:white;
+  border:1px solid #e1e9db;
+  border-radius:12px;
+  box-shadow:0 5px 15px #53643d18;
+  min-width:0;
+}
+.memory img {
+  width:100%;
+  height:195px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.memory p {white-space:pre-wrap;overflow-wrap:anywhere}
+.empty {
+  height:150px;
+  display:grid;
+  place-items:center;
+  font-size:40px;
+  background:#edf3e8;
+}
+input,textarea,select {
+  width:100%;
+  padding:12px;
+  border:1px solid #cbdac1;
+  border-radius:12px;
+  margin:8px 0;
+  font:inherit;
+}
+textarea {height:110px;resize:vertical}
+.photo {
+  display:block;
+  padding:30px 12px;
+  border:2px dashed #a8bc9d;
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
+}
+.photo img {max-width:100%;max-height:250px}
+.hidden {display:none!important}
+.muted {font-size:12px;color:#839075}
+.actions {display:flex;gap:8px;flex-wrap:wrap}
+#calendar {
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+.day {
+  text-align:center;
+  padding:10px 2px;
+  background:#eff4e9;
+  border-radius:8px;
+}
+.day.marked {background:#bfd2ad}
+#toast {
+  display:none;
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 20px;
+  border-radius:20px;
+  background:#34482f;
+  color:white;
+  z-index:20;
+}
+#leaf {background:transparent;font-size:27px}
+dialog {
+  border:0;
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+  color:var(--ink);
+}
+dialog::backdrop {background:#20351d80}
+footer {text-align:center;padding:35px;color:#839075}
+@media(max-width:600px) {
+  .card {padding:16px}
+  h1 {font-size:29px}
+}
 </style>
 </head>
 <body>
+
 <header>
-<div>✿ &nbsp; some pieces of today &nbsp; ✿</div>
+<div>✿ SOME PIECES OF TODAY ✿</div>
 <h1>오늘의 조각들</h1>
 <p>별일 없던 하루에도, 남겨 두고 싶은 순간이 있으니까.</p>
+<button id="leaf">🍃</button>
 </header>
 
 <main>
 <nav>
-<button onclick="page('home')">🏠 오늘</button>
-<button onclick="page('write')">✏️ 기록하기</button>
-<button onclick="page('album')">📷 추억 앨범</button>
-<button onclick="page('calendarPage')">🗓️ 감정 달력</button>
+<button onclick="show('home')">🏡 오늘</button>
+<button onclick="show('write')">✏️ 기록</button>
+<button onclick="show('album')">📷 앨범</button>
+<button onclick="show('calendarPage')">🗓️ 달력</button>
 <button onclick="surprise()">🎁 추억 뽑기</button>
 </nav>
 
+<div class="card">
+  <p id="status">☁️ 공유 앨범 연결 중...</p>
+  <div class="actions">
+    <button class="soft" onclick="backup()">기존 기록 백업</button>
+    <button class="soft" id="moveOld" onclick="moveOld()" hidden>
+      기존 기록 옮기기
+    </button>
+    <button class="soft" onclick="enablePush()">
+      🔔 휴대폰 알림 설정
+    </button>
+  </div>
+</div>
+
 <section id="home">
 <div class="hero">
-<div style="font-size:40px">🌷</div>
-<h2>오늘은 어떤 하루였어?</h2>
-<p>기뻤던 순간도, 조금 지쳤던 순간도<br>그대로 남겨 두어도 괜찮아.</p>
-<button class="primary" onclick="page('write')">오늘의 조각 남기기</button>
+  <div style="font-size:48px">🌿</div>
+  <h2>오늘은 어떤 하루였어?</h2>
+  <p>사진 한 장과 짧은 마음이면 충분해.</p>
+  <button class="primary" onclick="show('write')">
+    오늘의 조각 남기기
+  </button>
 </div>
-<div class="paper">
-<h2>💌 오늘의 작은 질문</h2>
-<p id="question"></p>
-<button class="small" onclick="newQuestion()">다른 질문 보기 ↻</button>
+
+<div class="card">
+  <h2>💌 오늘만 열리는 질문</h2>
+  <p id="question"></p>
+  <button class="soft" onclick="answerQuestion()">
+    이 질문에 답하기 ✏️
+  </button>
+  <p class="muted">매일 한국 시간 자정에 질문이 바뀌어.</p>
 </div>
+
+<div class="card">
+  <h2>🕰 한 달 전 오늘의 타임캡슐</h2>
+  <div id="capsule" class="grid"></div>
+</div>
+
+<div class="card">
+  <h2>🌿 함께 키우는 정원</h2>
+  <div id="garden" style="text-align:center"></div>
+</div>
+
 <h2>최근의 조각들</h2>
 <div id="recent" class="grid"></div>
 </section>
 
 <section id="write" class="hidden">
-<div class="paper">
-<h2>오늘의 한 장 📸</h2>
-<p class="muted">사진 한 장과 짧은 마음이면 충분해.</p>
-<input id="nickname" placeholder="이름 또는 별명 (선택)">
-<select id="mood">
-<option value="🌷">🌷 기분 좋은 하루</option>
-<option value="☀️">☀️ 따뜻했던 하루</option>
-<option value="🌧️">🌧️ 조금 울적한 하루</option>
-<option value="🌙">🌙 생각이 많았던 하루</option>
-<option value="🍀">🍀 평범하지만 소중한 하루</option>
-<option value="💗">💗 누군가 보고 싶은 하루</option>
-</select>
-<label class="photo" for="photoInput" id="photoPreview">
-<span>📷<br>눌러서 오늘의 사진을 골라 줘</span>
-</label>
-<input type="file" id="photoInput" accept="image/*" style="display:none">
-<textarea id="message" maxlength="500" placeholder="오늘 마음에 남은 순간은 뭐였어?"></textarea>
-<button class="primary" onclick="saveMemory()">조각 남기기 ♡</button>
+<div class="card">
+  <h2>오늘의 한 장 📷</h2>
+  <input id="nickname" maxlength="20" placeholder="별명 (선택)">
+  <select id="mood">
+    <option>🌷</option><option>☀️</option>
+    <option>🌧️</option><option>🌙</option>
+    <option>🍀</option><option>💗</option>
+  </select>
+  <label class="photo" for="photoInput" id="preview">
+    📷 사진을 선택해 줘
+  </label>
+  <input id="photoInput" type="file" accept="image/*" hidden>
+  <textarea id="message" maxlength="500"
+    placeholder="오늘 마음에 남은 순간은?"></textarea>
+  <button class="primary" id="submit" onclick="saveMemory()">
+    조각 남기기 ♡
+  </button>
 </div>
 </section>
 
 <section id="album" class="hidden">
-<div class="paper">
-<h2>우리의 추억 앨범 📖</h2>
-<p class="muted">작은 순간들이 모여 한 권의 앨범이 돼.</p>
-<select id="filter" onchange="render()">
-<option value="all">모든 마음</option>
-<option value="🌷">🌷 기분 좋은 하루</option>
-<option value="☀️">☀️ 따뜻했던 하루</option>
-<option value="🌧️">🌧️ 조금 울적한 하루</option>
-<option value="🌙">🌙 생각이 많았던 하루</option>
-<option value="🍀">🍀 평범하지만 소중한 하루</option>
-<option value="💗">💗 누군가 보고 싶은 하루</option>
-</select>
+<div class="card">
+  <h2>우리의 추억 앨범</h2>
+  <select id="filter" onchange="render()">
+    <option value="all">모든 마음</option>
+    <option>🌷</option><option>☀️</option>
+    <option>🌧️</option><option>🌙</option>
+    <option>🍀</option><option>💗</option>
+  </select>
 </div>
 <div id="gallery" class="grid"></div>
 </section>
 
 <section id="calendarPage" class="hidden">
-<div class="paper">
-<h2>마음의 달력 🗓️</h2>
-<p id="month"></p>
-<div id="calendar"></div>
+<div class="card">
+  <h2>마음의 달력 🗓️</h2>
+  <p id="month"></p>
+  <div id="calendar"></div>
 </div>
 </section>
 
 <section id="surprisePage" class="hidden">
-<div class="paper" style="text-align:center">
-<h2>🎁 어느 날의 우리</h2>
-<p>잊고 있었던 하루를 다시 꺼내 볼까?</p>
-<div id="surpriseResult"></div>
-<button class="primary" onclick="surprise()">다른 추억 만나기</button>
+<div class="card">
+  <h2>🎁 어느 날의 우리</h2>
+  <div id="surpriseResult"></div>
+  <button class="soft" onclick="surprise()">다른 추억 뽑기</button>
 </div>
 </section>
 </main>
 
-<footer>오늘의 조각들 · 작은 날들이 모여 우리의 이야기가 됩니다.</footer>
+<dialog id="letter">
+<h2>✉️ 발견한 편지</h2>
+<p id="letterText"></p>
+<button class="primary" onclick="letter.close()">접어 두기</button>
+</dialog>
+
 <div id="toast"></div>
-
-<script>
-const KEY="today-pieces-memories-v1";
-let memories=JSON.parse(localStorage.getItem(KEY)||"[]");
-let selectedPhoto="";
-
-const questions=[
-"오늘 가장 오래 기억하고 싶은 순간은?",
-"지금 가장 듣고 싶은 말은?",
-"오늘 너를 웃게 만든 작은 일은?",
-"오늘의 날씨를 마음으로 표현한다면?",
-"누군가에게 전하고 싶은 말이 있어?",
-"오늘의 너에게 선물하고 싶은 것은?",
-"다시 돌아가고 싶은 순간이 있었어?"
-];
-
-function notify(text){
- const t=document.getElementById("toast");
- t.textContent=text;t.style.display="block";
- setTimeout(()=>t.style.display="none",3000);
-}
-function page(id){
- ["home","write","album","calendarPage","surprisePage"].forEach(
- x=>document.getElementById(x).classList.toggle("hidden",x!==id)
- );
- if(id==="album"||id==="home")render();
- if(id==="calendarPage")drawCalendar();
- window.scrollTo(0,0);
-}
-function newQuestion(){
- document.getElementById("question").textContent=
- questions[Math.floor(Math.random()*questions.length)];
-}
-document.getElementById("photoInput").onchange=async function(){
- const file=this.files[0];if(!file)return;
- if(!file.type.startsWith("image/"))return notify("이미지 파일을 선택해 줘.");
- const img=new Image();
- const url=URL.createObjectURL(file);
- img.onload=()=>{
-  const c=document.createElement("canvas");
-  const scale=Math.min(1,900/img.width,900/img.height);
-  c.width=Math.round(img.width*scale);
-  c.height=Math.round(img.height*scale);
-  c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-  selectedPhoto=c.toDataURL("image/jpeg",.65);
-  document.getElementById("photoPreview").innerHTML="";
-  const preview=document.createElement("img");
-  preview.src=selectedPhoto;
-  document.getElementById("photoPreview").append(preview);
-  URL.revokeObjectURL(url);
- };
- img.onerror=()=>notify("사진을 읽을 수 없어.");
- img.src=url;
-};
-function saveMemory(){
- const text=document.getElementById("message").value.trim();
- if(!text&&!selectedPhoto)return notify("사진이나 글을 남겨 줘.");
- const item={
-  id:Date.now()+Math.random(),
-  date:new Date().toISOString(),
-  name:document.getElementById("nickname").value.trim()||"익명의 마음",
-  mood:document.getElementById("mood").value,
-  text,photo:selectedPhoto,
-  hearts:0,comments:[]
- };
- memories.unshift(item);
- try{
-  localStorage.setItem(KEY,JSON.stringify(memories));
- }catch(e){
-  memories.shift();
-  return notify("기기 저장 공간이 부족해. 사진 크기를 줄여 줘.");
- }
- selectedPhoto="";
- document.getElementById("message").value="";
- document.getElementById("photoInput").value="";
- document.getElementById("photoPreview").textContent="📷 사진 선택";
- notify("오늘의 조각을 남겼어 ♡");
- page("home");
-}
-function persist(){
- try{localStorage.setItem(KEY,JSON.stringify(memories))}
- catch(e){notify("저장 공간이 부족해.");}
-}
-function makeCard(item){
- const el=document.createElement("article");el.className="memory";
- if(item.photo){
-  const img=document.createElement("img");
-  img.src=item.photo;img.alt="오늘의 사진";el.append(img);
- }else{
-  const empty=document.createElement("div");
-  empty.className="empty";empty.textContent=item.mood;el.append(empty);
- }
- const date=document.createElement("div");
- date.className="muted";
- date.textContent=new Date(item.date).toLocaleDateString("ko-KR")+" · "+item.name;
- el.append(date);
- const title=document.createElement("h3");
- title.textContent=item.mood;el.append(title);
- const p=document.createElement("p");
- p.textContent=item.text;el.append(p);
- const reactions=document.createElement("div");
- reactions.className="reactions";
- const heart=document.createElement("button");
- heart.textContent="💗 마음 "+item.hearts;
- heart.onclick=()=>{
-  item.hearts++;persist();render();
- };
- reactions.append(heart);
- el.append(reactions);
- const comments=document.createElement("div");
- comments.className="comments";
- item.comments.forEach(v=>{
-  const comment=document.createElement("div");
-  comment.className="comment";comment.textContent="💬 "+v;
-  comments.append(comment);
- });
- const input=document.createElement("input");
- input.placeholder="짧은 답장 남기기";
- input.maxLength=200;
- const button=document.createElement("button");
- button.className="small";button.textContent="답장하기";
- button.onclick=()=>{
-  if(!input.value.trim())return;
-  item.comments.push(input.value.trim());
-  persist();render();
- };
- comments.append(input,button);el.append(comments);
- return el;
-}
-function fill(container,items){
- const root=document.getElementById(container);
- root.replaceChildren();
- if(!items.length){
-  const p=document.createElement("p");
-  p.className="muted";
-  p.textContent="아직 남겨진 조각이 없어. 첫 순간을 남겨 볼까?";
-  root.append(p);return;
- }
- items.forEach(v=>root.append(makeCard(v)));
-}
-function render(){
- fill("recent",memories.slice(0,4));
- const f=document.getElementById("filter").value;
- fill("gallery",memories.filter(x=>f==="all"||x.mood===f));
-}
-function surprise(){
- page("surprisePage");
- const root=document.getElementById("surpriseResult");
- root.replaceChildren();
- if(!memories.length){
-  root.textContent="첫 번째 추억을 남기면 여기서 다시 만날 수 있어.";
-  return;
- }
- root.append(makeCard(memories[Math.floor(Math.random()*memories.length)]));
-}
-function drawCalendar(){
- const now=new Date(),y=now.getFullYear(),m=now.getMonth();
- document.getElementById("month").textContent=`${y}년 ${m+1}월`;
- const root=document.getElementById("calendar");
- root.replaceChildren();
- ["일","월","화","수","목","금","토"].forEach(d=>{
-  const b=document.createElement("b");b.textContent=d;
-  b.className="day";root.append(b);
- });
- const first=new Date(y,m,1).getDay();
- for(let i=0;i<first;i++)root.append(document.createElement("div"));
- const days=new Date(y,m+1,0).getDate();
- for(let d=1;d<=days;d++){
-  const entries=memories.filter(v=>{
-   const t=new Date(v.date);
-   return t.getFullYear()===y&&t.getMonth()===m&&t.getDate()===d;
-  });
-  const b=document.createElement("button");
-  b.className="day"+(entries.length?" marked":"");
-  b.textContent=d+(entries.length?" "+entries[0].mood:"");
-  b.onclick=()=>{
-   if(entries.length){
-    page("album");
-    document.getElementById("gallery").replaceChildren();
-    fill("gallery",entries);
-   }
-  };
-  root.append(b);
- }
-}
-newQuestion();render();
-</script>
- 
-<style>
-:root {
-  --pink: #667b4d;
-  --cream: #faf9ef;
-  --ink: #405136;
-}
-body {
-  background: linear-gradient(155deg,
-    #f8f9f0, #e5eedb 60%, #f8f5e9);
-  color: #405136;
-}
-header {
-  background: linear-gradient(135deg,#fcfbf2,#e2edda);
-  border-color: #cedbbb;
-}
-header h1 {
-  font-family: Georgia, "Nanum Myeongjo", serif;
-  letter-spacing: 1px;
-}
-nav button, .small {
-  background: #fffef7;
-  color: #536545;
-  border: 1px solid #d5e0ca;
-}
-nav button:hover, .small:hover {
-  background: #e4ecd9;
-}
-.paper {
-  background: #fffef8;
-  border: 1px solid #dde7d1;
-  box-shadow: 0 9px 27px #52674617;
-}
-.primary { background: #667b4d; color: white; }
-.primary:hover { background: #4b6138; }
-.photo {
-  border-color: #a2b98b;
-  background: #f3f8ee;
-}
-input, textarea, select {
-  border-color: #cfddc4;
-  background: #fffefa;
-}
-.memory {
-  border: 1px solid #e0e7d7;
-  transform: rotate(-.7deg);
-  transition: transform .2s ease;
-}
-.memory:nth-child(even) { transform: rotate(.8deg); }
-.memory:hover { transform: translateY(-5px) rotate(0); }
-.day { background: #edf3e6; }
-.day.marked { background: #a8bf91; }
-#secretLeaf {
-  margin-top: 8px;
-  font-size: 23px;
-  background: transparent;
-  transition: transform .25s ease;
-}
-.oliveGarden {
-  text-align: center;
-  background: linear-gradient(130deg,#f6faee,#e6f0d8);
-}
-.oliveGarden .plant {
-  font-size: 46px;
-  margin: 8px;
-}
-#secretLetter {
-  border: 0;
-  border-radius: 20px;
-  padding: 28px;
-  max-width: 340px;
-  width: 85%;
-  text-align: center;
-  background: #faf9ed;
-  color: #405136;
-  box-shadow: 0 15px 50px #293a2d66;
-}
-#secretLetter::backdrop { background: #24362088; }
-#secretLetter button {
-  background: #667b4d;
-  color: white;
-  border: 0;
-  border-radius: 20px;
-  padding: 10px 20px;
-}
-@media(prefers-reduced-motion:reduce) {
-  .memory, #secretLeaf { transition: none; }
-}
-</style>
-
-<script>
-(() => {
-  const leaf = document.createElement("button");
-  leaf.id = "secretLeaf";
-  leaf.type = "button";
-  leaf.textContent = "🍃";
-  leaf.setAttribute("aria-label", "작은 잎사귀");
-  document.querySelector("header").append(leaf);
-
-  const letters = [
-    "평범했던 오늘도 나중에는 좋은 장면이 될지 몰라.",
-    "너의 하루에는 너만 발견할 수 있는 빛이 있어.",
-    "아무 일 없는 날에도 남겨 둘 순간은 있어.",
-    "작은 기쁨 하나가 오래 기억될 수 있어.",
-    "가끔은 한 장의 사진이 긴 이야기보다 많은 걸 말해."
-  ];
-
-  const dialog = document.createElement("dialog");
-  dialog.id = "secretLetter";
-  dialog.innerHTML = `
-    <div style="font-size:35px">✉️</div>
-    <h2>오늘 발견한 편지</h2>
-    <p></p>
-    <button type="button">닫기</button>
-  `;
-  dialog.querySelector("button").onclick = () => dialog.close();
-  document.body.append(dialog);
-
-  let count = 0;
-  leaf.onclick = () => {
-    count++;
-    leaf.style.transform = `rotate(${count * 15}deg)`;
-    if (count < 3) return;
-    count = 0;
-    dialog.querySelector("p").textContent =
-      letters[Math.floor(Date.now() / 86400000) % letters.length];
-    dialog.showModal();
-  };
-
-  const garden = document.createElement("section");
-  garden.className = "paper oliveGarden";
-  document.querySelector("#home .hero").after(garden);
-
-  function updateGarden() {
-    const n = memories.length;
-    const plant = n === 0 ? "🌱" :
-      n < 3 ? "🌿" : n < 6 ? "🪴" : "🌳";
-
-    garden.replaceChildren();
-
-    const heading = document.createElement("h2");
-    heading.textContent = "작은 마음의 정원";
-
-    const symbol = document.createElement("div");
-    symbol.className = "plant";
-    symbol.textContent = plant;
-
-    const desc = document.createElement("p");
-    desc.textContent =
-      `기록 ${n}개가 모였어. 하루의 조각이 쌓이면 정원도 자라나.`;
-
-    garden.append(heading, symbol, desc);
-  }
-
-  updateGarden();
-  const oldSave = saveMemory;
-  saveMemory = function() {
-    oldSave();
-    updateGarden();
-  };
-})();
-</script>
+<footer>오늘의 조각들 · 작은 날들이 모여 우리의 이야기가 됩니다.</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
 <script>
-(async function () {
-  const db = window.supabase.createClient(
-    "https://mdetrlvqjhqwzhxxrrvl.supabase.co",
-    "sb_publishable_L1vV4skO6Qn0fUoAdhlrXw_-OthNFec"
+const $ = id => document.getElementById(id);
+
+const db = window.supabase.createClient(
+  "https://mdetrlvqjhqwzhxxrrvl.supabase.co",
+  "sb_publishable_L1vV4skO6Qn0fUoAdhlrXw_-OthNFec"
+);
+
+const OLD_KEY = "today-pieces-memories-v1";
+let uid = null;
+let isAdmin = false;
+let memories = [];
+let comments = [];
+let likes = [];
+let selectedPhoto = "";
+let ready = false;
+
+// 총 130개 질문
+const questions = `
+오늘 가장 오래 기억하고 싶은 순간은?
+오늘 가장 먼저 눈에 들어온 것은?
+오늘 유난히 예뻤던 풍경은?
+오늘 가장 맛있었던 한 입은?
+오늘의 하늘은 무슨 색이었어?
+오늘 가장 자주 들은 소리는?
+오늘의 하루에 제목을 붙인다면?
+오늘 예상하지 못한 일은?
+오늘 걸은 길 중 마음에 남은 곳은?
+오늘 소중했던 사소한 행동은?
+지금 내 마음을 색으로 표현한다면?
+오늘 가장 크게 느낀 감정은?
+오늘 나를 웃게 한 작은 일은?
+지금 가장 듣고 싶은 말은?
+오늘 조금 속상했던 순간은?
+오늘 마음이 놓였던 때는?
+요즘 무엇이 기다려져?
+오늘의 나에게 해 주고 싶은 말은?
+오늘은 어떤 날씨를 닮았어?
+오늘 마음이 가벼워진 이유는?
+오늘 떠오른 사람은 누구야?
+누군가에게 전하고 싶은 작은 고마움은?
+지금 가장 보고 싶은 사람은?
+오늘 기억나는 대화는?
+누군가와 함께 걷고 싶은 길은?
+다시 만나면 꼭 묻고 싶은 것은?
+누가 내 마음을 편안하게 해 줘?
+오늘 누군가를 웃게 했어?
+요즘 가장 궁금한 사람은?
+오늘 떠올랐던 누군가의 말은?
+어릴 때 좋아하던 간식은?
+기억 속 가장 선명한 여름은?
+예전에 자주 찾던 장소는?
+다시 듣고 싶은 목소리가 있어?
+잊을 수 없는 냄새가 있어?
+오래된 사진 한 장을 고른다면?
+간직한 물건에 담긴 사연은?
+다시 돌아가고 싶은 하루는?
+기억 속 가장 따뜻한 식탁은?
+오래전의 나에게 편지를 쓴다면?
+오늘 사진으로 남기고 싶은 것은?
+앨범에서 가장 아끼는 사진은?
+최근 찍은 사진 중 좋아하는 장면은?
+사진은 없지만 선명한 순간은?
+지금 창밖에 제목을 붙인다면?
+오늘의 햇빛은 어땠어?
+누군가에게 보여 주고 싶은 장면은?
+오늘을 영화의 한 컷으로 만든다면?
+내가 찍고 싶은 다음 사진은?
+오늘 어떤 표정을 간직하고 싶어?
+비 오는 날 듣기 좋은 노래는?
+좋아하는 계절의 냄새는?
+혼자 쉬고 싶은 장소는?
+최근 반복해서 듣는 노래는?
+좋아하는 하루의 시간대는?
+아무 이유 없이 좋아하는 단어는?
+다시 펼치고 싶은 책은?
+어떤 조명의 방이 좋아?
+요즘 가장 좋아하는 작은 물건은?
+누군가에게 추천하고 싶은 음식은?
+시간을 10분 멈출 수 있다면?
+하루 동안 투명인간이 된다면?
+내 방에 비밀문이 생긴다면?
+구름을 선물받으면 어디 둘래?
+내일 다른 도시에 눈을 뜬다면?
+오늘이 디저트라면 무엇일까?
+하루 동안 동물이 될 수 있다면?
+미래의 나에게 택배를 보낸다면?
+말하는 식물이 있다면 무슨 질문을 할래?
+내가 만들고 싶은 작은 행성은?
+오늘 나를 쉬게 한 것은?
+오늘 버텼다고 느낀 순간은?
+아무것도 안 해도 괜찮은 장소는?
+지금 내려놓고 싶은 고민은?
+나를 진정시키는 소리는?
+힘든 날 떠올리는 장면은?
+오늘 나를 위해 한 일은?
+지금 가장 필요한 쉼은?
+오늘 잘한 일을 하나 꼽는다면?
+내일의 나에게 남길 위로는?
+봄이 오면 가장 먼저 하고 싶은 일은?
+여름밤에 걷고 싶은 곳은?
+가을이면 생각나는 사람은?
+겨울에 가장 좋아하는 풍경은?
+해 질 무렵 좋아하는 장소는?
+새벽에 떠오르는 생각은?
+이달의 가장 선명한 순간은?
+한 달 전의 나와 달라진 점은?
+시간이 느리게 흘렀으면 하는 때는?
+올해 끝나기 전에 남길 추억은?
+다음 주에 기대하는 일은?
+언젠가 가고 싶은 동네는?
+앞으로 배워 보고 싶은 것은?
+미래의 나에게 묻고 싶은 질문은?
+조금씩 시작하고 싶은 습관은?
+다음 생일엔 뭘 하고 싶어?
+일 년 뒤에도 간직하고 싶은 것은?
+언젠가 함께 해 보고 싶은 일은?
+다음 달에 찍고 싶은 사진은?
+작지만 이루고 싶은 소원은?
+오늘 새롭게 배운 것은?
+오늘 우연히 얻은 기쁨은?
+오늘 계획을 바꾼 이유는?
+오늘 하고 싶었지만 못한 것은?
+오늘 아무도 몰랐던 나의 노력은?
+오늘 스스로에게 놀란 순간은?
+오늘의 작은 성취는?
+오늘 처음 해 본 일은?
+오늘 가장 많이 떠올린 말은?
+다시 선택해도 오늘을 똑같이 보낼까?
+요즘 매일 보는 풍경은?
+우리 동네의 좋아하는 가게는?
+집으로 오는 길에 만난 것은?
+오늘 가장 오래 머무른 장소는?
+오늘 만난 동물은?
+지금 책상 위에서 좋아하는 물건은?
+문을 열면 처음 보이는 것은?
+요즘 자주 찾는 작은 행복은?
+어느 길로 다시 돌아가고 싶어?
+오늘 가장 따뜻했던 곳은?
+오늘의 음악을 고른다면?
+오늘 누군가와 나누고 싶은 것은?
+요즘 잊고 싶지 않은 말은?
+어느 순간에 작은 용기가 필요했어?
+오늘 손에 쥐었던 가장 소중한 것은?
+오늘 가장 마음에 남은 표정은?
+지금 기분을 식물로 나타낸다면?
+다음에 함께 보고 싶은 풍경은?
+오늘의 나에게 작은 선물을 준다면?
+한 장의 사진에 내일을 담는다면?
+`.trim().split("\n");
+
+function dateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone:"Asia/Seoul",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(date);
+  const get = type => parts.find(p => p.type === type).value;
+  return get("year") + "-" + get("month") + "-" + get("day");
+}
+
+function dailyQuestion() {
+  const days = Math.floor(
+    Date.parse(dateKey() + "T00:00:00Z") / 86400000
   );
+  return questions[days % questions.length];
+}
 
-  const $ = id => document.getElementById(id);
-  const status = document.createElement("p");
-  status.style.cssText =
-    "text-align:center;color:#53643d;padding:12px";
-  status.textContent = "☁️ 공유 앨범 연결 중...";
-  document.querySelector("nav").after(status);
+function notify(message) {
+  const el = $("toast");
+  el.textContent = message;
+  el.style.display = "block";
+  setTimeout(() => el.style.display = "none", 3500);
+}
 
-  let uid, loading = false;
-  let myLikes = new Set();
+function show(id) {
+  ["home","write","album","calendarPage","surprisePage"]
+    .forEach(x => $(x).classList.toggle("hidden", x !== id));
+  if (id === "calendarPage") drawCalendar();
+  window.scrollTo(0,0);
+}
 
-  const oldRecords = JSON.parse(
-    localStorage.getItem("today-pieces-memories-v1")
-    || "[]"
-  );
+function answerQuestion() {
+  $("message").value = dailyQuestion() + "\n";
+  show("write");
+}
 
-  // 이메일 없이 자동으로 익명 접속
+// 비밀 편지
+let taps = 0;
+$("leaf").onclick = () => {
+  if (++taps < 3) return;
+  taps = 0;
+
+  const messages = [
+    "아무 일 없던 날도 오래 기억할 장면이 될 수 있어.",
+    "작은 마음들이 모여 우리의 정원이 자라고 있어.",
+    "오늘을 그대로 남겨 둬도 괜찮아.",
+    "네가 좋아했던 순간을 여기서 다시 만날 수 있어.",
+    "평범한 하루에도 너만의 빛이 있었어."
+  ];
+
+  $("letterText").textContent =
+    dateKey().endsWith("-01")
+    ? "새로운 달이 시작됐어. 어떤 장면을 남길까?"
+    : memories.length >= 20
+      ? "우리의 정원에 숨겨진 꽃이 피었어."
+      : messages[
+          Number(dateKey().replaceAll("-","")) % messages.length
+        ];
+
+  $("letter").showModal();
+};
+
+// 사진 크기 줄여서 업로드
+$("photoInput").onchange = async function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    const scale = Math.min(1,1000/img.width,1000/img.height);
+    canvas.width = Math.round(img.width * scale);
+    canvas.height = Math.round(img.height * scale);
+    canvas.getContext("2d").drawImage(
+      img,0,0,canvas.width,canvas.height
+    );
+    selectedPhoto = canvas.toDataURL("image/jpeg",0.7);
+    const preview = new Image();
+    preview.src = selectedPhoto;
+    $("preview").replaceChildren(preview);
+    URL.revokeObjectURL(url);
+  };
+  img.onerror = () => {
+    notify("사진을 열 수 없어.");
+    URL.revokeObjectURL(url);
+  };
+  img.src = url;
+};
+
+async function uploadPhoto(data) {
+  if (!data) return null;
+  const blob = await (await fetch(data)).blob();
+  if (blob.size > 3145728) throw Error("사진 용량 초과");
+
+  const path = uid + "/" + crypto.randomUUID() + ".jpg";
+  const result = await db.storage.from("pieces-photos")
+    .upload(path,blob,{contentType:"image/jpeg"});
+
+  if (result.error) throw result.error;
+  return path;
+}
+
+// 새 글 작성
+async function saveMemory() {
+  if (!ready) return notify("공유 앨범 연결을 확인해 줘.");
+
+  const body = $("message").value.trim();
+  if (!body && !selectedPhoto) {
+    return notify("사진이나 글을 남겨 줘.");
+  }
+
+  $("submit").disabled = true;
+
   try {
-    const {data:{session}} = await db.auth.getSession();
+    const photo_path = await uploadPhoto(selectedPhoto);
+    const result = await db.from("pieces_entries").insert({
+      author_id:uid,
+      display_name:$("nickname").value.trim() || "익명의 마음",
+      mood:$("mood").value,
+      body,
+      photo_path
+    });
+
+    if (result.error) throw result.error;
+
+    $("message").value = "";
+    $("photoInput").value = "";
+    $("preview").textContent = "📷 사진 선택";
+    selectedPhoto = "";
+
+    await load();
+    show("home");
+    notify("오늘의 조각을 남겼어 🌿");
+
+  } catch (e) {
+    console.error(e);
+    notify("저장에 실패했어. 글은 입력창에 남아 있어.");
+  } finally {
+    $("submit").disabled = false;
+  }
+}
+
+// 앨범 카드
+function makeCard(post) {
+  const card = document.createElement("article");
+  card.className = "memory";
+
+  if (post.photo_path) {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.alt = "추억 사진";
+    img.src = db.storage.from("pieces-photos")
+      .getPublicUrl(post.photo_path).data.publicUrl;
+    card.append(img);
+  } else {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = post.mood;
+    card.append(empty);
+  }
+
+  const date = document.createElement("p");
+  date.className = "muted";
+  date.textContent =
+    new Date(post.created_at).toLocaleDateString("ko-KR")
+    + " · " + post.display_name;
+  card.append(date);
+
+  const mood = document.createElement("h3");
+  mood.textContent = post.mood;
+  card.append(mood);
+
+  const text = document.createElement("p");
+  text.textContent = post.body;
+  card.append(text);
+
+  const actions = document.createElement("div");
+  actions.className = "actions";
+
+  // 하트
+  const heart = document.createElement("button");
+  heart.className = "soft";
+  const liked = likes.some(
+    x => x.entry_id === post.id && x.user_id === uid
+  );
+  heart.textContent = (liked ? "💗" : "🤍") + " 마음 " +
+    ((post.legacy_hearts || 0) +
+     likes.filter(x => x.entry_id === post.id).length);
+
+  heart.onclick = async () => {
+    heart.disabled = true;
+    const result = liked
+      ? await db.from("pieces_likes").delete()
+          .eq("entry_id",post.id).eq("user_id",uid)
+      : await db.from("pieces_likes").insert({
+          entry_id:post.id,user_id:uid
+        });
+
+    if (result.error) notify("하트 저장 실패");
+    heart.disabled = false;
+    await load();
+  };
+  actions.append(heart);
+
+  // 글 삭제: 작성자 또는 관리자만
+  if (post.author_id === uid || isAdmin) {
+    const del = document.createElement("button");
+    del.className = "soft";
+    del.textContent = "🗑 글 삭제";
+    del.onclick = async () => {
+      if (!confirm("사진·글·댓글·하트를 삭제할까?")) return;
+      del.disabled = true;
+
+      const result = await db.from("pieces_entries")
+        .delete().eq("id",post.id).select("id");
+
+      if (result.error || !result.data?.length) {
+        notify("삭제 권한을 확인해 줘.");
+      } else {
+        if (post.photo_path) {
+          const photoResult = await db.storage
+            .from("pieces-photos").remove([post.photo_path]);
+          if (photoResult.error) {
+            notify("글은 삭제됐지만 사진 원본 삭제는 실패했어.");
+          }
+        }
+        await load();
+        notify("글을 삭제했어.");
+      }
+      del.disabled = false;
+    };
+    actions.append(del);
+  }
+  card.append(actions);
+
+  const box = document.createElement("div");
+
+  // 이전 기록의 댓글
+  (post.legacy_comments || []).forEach(value => {
+    const p = document.createElement("p");
+    p.textContent = "💬 " + value;
+    box.append(p);
+  });
+
+  // 새 댓글과 삭제
+  comments.filter(c => c.entry_id === post.id).forEach(c => {
+    const line = document.createElement("div");
+    line.className = "actions";
+
+    const text = document.createElement("span");
+    text.textContent = "💬 " + c.body;
+    line.append(text);
+
+    if (c.author_id === uid || isAdmin) {
+      const del = document.createElement("button");
+      del.className = "soft";
+      del.textContent = "삭제";
+
+      del.onclick = async () => {
+        if (!confirm("댓글을 삭제할까?")) return;
+        const result = await db.from("pieces_comments")
+          .delete().eq("id",c.id).select("id");
+
+        if (result.error || !result.data?.length) {
+          notify("댓글 삭제 실패");
+        } else {
+          await load();
+        }
+      };
+      line.append(del);
+    }
+    box.append(line);
+  });
+
+  const input = document.createElement("input");
+  input.placeholder = "짧은 답장 남기기";
+  input.maxLength = 200;
+
+  const reply = document.createElement("button");
+  reply.className = "soft";
+  reply.textContent = "답장하기";
+  reply.onclick = async () => {
+    if (!input.value.trim()) return;
+    reply.disabled = true;
+
+    const result = await db.from("pieces_comments").insert({
+      entry_id:post.id,
+      author_id:uid,
+      body:input.value.trim()
+    });
+
+    if (result.error) notify("답장 저장 실패");
+    reply.disabled = false;
+    await load();
+  };
+
+  box.append(input,reply);
+  card.append(box);
+  return card;
+}
+
+function fill(id,items) {
+  const root = $(id);
+  root.replaceChildren();
+  if (!items.length) {
+    root.textContent = "아직 남겨진 조각이 없어.";
+    return;
+  }
+  items.forEach(item => root.append(makeCard(item)));
+}
+
+function render() {
+  fill("recent",memories.slice(0,4));
+  const filter = $("filter").value;
+  fill("gallery",memories.filter(
+    x => filter === "all" || x.mood === filter
+  ));
+  extras();
+}
+
+// 타임캡슐과 정원
+function extras() {
+  $("question").textContent = dailyQuestion();
+
+  const parts = dateKey().split("-").map(Number);
+  const previousMonthEnd = new Date(
+    Date.UTC(parts[0],parts[1]-1,0)
+  ).getUTCDate();
+  const past = new Date(Date.UTC(
+    parts[0],parts[1]-2,
+    Math.min(parts[2],previousMonthEnd),12
+  ));
+
+  const key = dateKey(past);
+  const entries = memories.filter(
+    m => dateKey(new Date(m.created_at)) === key
+  );
+
+  $("capsule").replaceChildren();
+  if (entries.length) {
+    entries.slice(0,3).forEach(
+      m => $("capsule").append(makeCard(m))
+    );
+  } else {
+    $("capsule").textContent =
+      "한 달 전 이 날짜의 기록이 아직 없어.";
+  }
+
+  const stages = ["🌱","🌿","🪴","🌳","🌳🌼","🌳🦋","🌳🌸🦋"];
+  const thresholds = [0,1,3,6,10,20,35];
+  let level = 0;
+  thresholds.forEach((n,i) => {
+    if (memories.length >= n) level = i;
+  });
+
+  $("garden").textContent = stages[level] +
+    "  함께 남긴 조각 " + memories.length + "개";
+}
+
+// 랜덤 추억
+function surprise() {
+  show("surprisePage");
+  $("surpriseResult").replaceChildren();
+  if (!memories.length) {
+    $("surpriseResult").textContent = "아직 추억이 없어.";
+    return;
+  }
+  const item = memories[
+    Math.floor(Math.random()*memories.length)
+  ];
+  $("surpriseResult").append(makeCard(item));
+}
+
+// 감정 달력
+function drawCalendar() {
+  const now = new Date();
+  const parts = dateKey(now).split("-").map(Number);
+  const y = parts[0],m = parts[1]-1;
+  $("month").textContent = y + "년 " + (m+1) + "월";
+  const root = $("calendar");
+  root.replaceChildren();
+
+  ["일","월","화","수","목","금","토"].forEach(day => {
+    const b = document.createElement("b");
+    b.className = "day";
+    b.textContent = day;
+    root.append(b);
+  });
+
+  for (let i=0;i<new Date(y,m,1).getDay();i++) {
+    root.append(document.createElement("div"));
+  }
+
+  const days = new Date(y,m+1,0).getDate();
+  for (let d=1;d<=days;d++) {
+    const key = [y,String(m+1).padStart(2,"0"),
+                 String(d).padStart(2,"0")].join("-");
+    const found = memories.filter(
+      v => dateKey(new Date(v.created_at)) === key
+    );
+
+    const btn = document.createElement("button");
+    btn.className = "day" + (found.length ? " marked" : "");
+    btn.textContent = d + (found.length ? " " + found[0].mood : "");
+    btn.onclick = () => {
+      if (found.length) {
+        show("album");
+        fill("gallery",found);
+      }
+    };
+    root.append(btn);
+  }
+}
+
+// 공동 기록 불러오기
+async function load() {
+  const [posts,commentResult,likeResult] = await Promise.all([
+    db.from("pieces_entries").select("*")
+      .order("created_at",{ascending:false}).limit(1000),
+    db.from("pieces_comments").select("*").limit(3000),
+    db.from("pieces_likes").select("*").limit(3000)
+  ]);
+
+  if (posts.error || commentResult.error || likeResult.error) {
+    console.error(posts.error || commentResult.error || likeResult.error);
+    notify("공유 기록을 읽지 못했어.");
+    return;
+  }
+
+  memories = posts.data;
+  comments = commentResult.data;
+  likes = likeResult.data;
+  ready = true;
+
+  $("status").textContent = "☁️ 실시간 공유 중 · " +
+    memories.length + "개의 기록";
+  render();
+}
+
+// 기존 브라우저 기록 백업
+function oldRecords() {
+  try {
+    return JSON.parse(localStorage.getItem(OLD_KEY) || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+function backup() {
+  const blob = new Blob(
+    [localStorage.getItem(OLD_KEY) || "[]"],
+    {type:"application/json"}
+  );
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "오늘의조각들_기존기록.json";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+}
+
+// 기존 기록 공동 앨범으로 이전
+async function moveOld() {
+  const records = oldRecords();
+  if (!confirm(records.length+"개 기록을 공동 앨범에 복사할까?")) {
+    return;
+  }
+
+  let count = 0;
+  for (const item of records) {
+    try {
+      const legacyId = String(item.id);
+      const existing = await db.from("pieces_entries")
+        .select("id").eq("author_id",uid)
+        .eq("legacy_id",legacyId).maybeSingle();
+
+      if (existing.error) throw existing.error;
+      if (existing.data) continue;
+
+      const photo = await uploadPhoto(item.photo || "");
+      const result = await db.from("pieces_entries").insert({
+        author_id:uid,
+        legacy_id:legacyId,
+        display_name:item.name || "익명의 마음",
+        mood:item.mood || "🍀",
+        body:item.text || "",
+        photo_path:photo,
+        created_at:item.date,
+        legacy_hearts:item.hearts || 0,
+        legacy_comments:item.comments || []
+      });
+
+      if (result.error) throw result.error;
+      count++;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  await load();
+  notify(count+"개 기록을 옮겼어. 원본은 유지돼.");
+}
+
+// 푸시 수신 준비
+async function enablePush() {
+  notify("휴대폰 푸시를 사용하려면 VAPID 키와 Supabase 발송 서버를 연결해야 해.");
+}
+
+// 연결 시작
+async function start() {
+  try {
+    let {data:{session},error} = await db.auth.getSession();
+    if (error) throw error;
 
     if (!session) {
       const result = await db.auth.signInAnonymously();
@@ -521,388 +947,48 @@ input, textarea, select {
     const user = await db.auth.getUser();
     if (user.error) throw user.error;
     uid = user.data.user.id;
-  } catch (e) {
-    status.textContent = "연결 실패: 익명 로그인 설정 확인 필요";
-    console.error(e);
-    return;
-  }
 
-  // 두 사람이 같은 앨범의 글을 불러오기
-  async function loadShared() {
-    if (loading) return;
-    loading = true;
+    const adminResult = await db.from("pieces_admins")
+      .select("user_id").eq("user_id",uid).maybeSingle();
+    isAdmin = Boolean(adminResult.data && !adminResult.error);
 
-    try {
-      const [posts, comments, likes] = await Promise.all([
-        db.from("pieces_entries")
-          .select("*")
-          .order("created_at", {ascending:false})
-          .limit(500),
+    await load();
 
-        db.from("pieces_comments")
-          .select("*")
-          .limit(3000),
+    if (oldRecords().length) $("moveOld").hidden = false;
 
-        db.from("pieces_likes")
-          .select("*")
-          .limit(3000)
-      ]);
-
-      if (posts.error || comments.error || likes.error) {
-        throw posts.error || comments.error || likes.error;
-      }
-
-      myLikes = new Set(
-        likes.data
-          .filter(x => x.user_id === uid)
-          .map(x => x.entry_id)
-      );
-
-      memories = posts.data.map(p => ({
-        id: p.id,
-        name: p.display_name,
-        date: p.created_at,
-        text: p.body,
-        mood: p.mood,
-        photo: p.photo_path
-          ? db.storage.from("pieces-photos")
-              .getPublicUrl(p.photo_path).data.publicUrl
-          : "",
-        hearts: (p.legacy_hearts || 0)
-          + likes.data.filter(x => x.entry_id === p.id).length,
-        comments: [
-          ...(p.legacy_comments || []),
-          ...comments.data
-            .filter(x => x.entry_id === p.id)
-            .map(x => x.body)
-        ]
-      }));
-
-      render();
-      status.textContent =
-        "☁️ 실시간 공유 중 · " + memories.length + "개의 조각";
-
-    } catch (e) {
-      status.textContent = "공유 기록 불러오기 오류";
-      console.error(e);
-    } finally {
-      loading = false;
-    }
-  }
-
-  // 사진을 온라인 저장소에 업로드
-  async function uploadPhoto(data) {
-    if (!data) return null;
-
-    const blob = await (await fetch(data)).blob();
-    if (blob.size > 3145728) {
-      throw Error("사진 크기가 너무 커.");
-    }
-
-    const path = uid + "/" + crypto.randomUUID() + ".jpg";
-
-    const result = await db.storage
-      .from("pieces-photos")
-      .upload(path, blob, {contentType:"image/jpeg"});
-
-    if (result.error) throw result.error;
-    return path;
-  }
-
-  // 기존 글쓰기 기능을 온라인 저장으로 변경
-  saveMemory = async function () {
-    const text = $("message").value.trim();
-    const name = $("nickname").value.trim().slice(0,20)
-      || "익명의 마음";
-
-    if (!text && !selectedPhoto) {
-      return notify("사진이나 글을 남겨 줘.");
-    }
-
-    const button = document.querySelector("#write .primary");
-    button.disabled = true;
-
-    try {
-      const photo = await uploadPhoto(selectedPhoto);
-
-      const result = await db.from("pieces_entries").insert({
-        author_id: uid,
-        display_name: name,
-        mood: $("mood").value,
-        body: text,
-        photo_path: photo
-      });
-
-      if (result.error) throw result.error;
-
-      selectedPhoto = "";
-      $("message").value = "";
-      $("photoInput").value = "";
-      $("photoPreview").textContent = "📷 사진 선택";
-
-      await loadShared();
-      page("home");
-      notify("공유 앨범에 기록을 남겼어 🌿");
-
-    } catch (e) {
-      console.error(e);
-      notify("저장 오류. 입력한 글은 그대로 남아 있어.");
-    } finally {
-      button.disabled = false;
-    }
-  };
-
-  // 다른 사람이 쓴 글에도 댓글과 하트 남기기
-  makeCard = function (item) {
-    const card = document.createElement("article");
-    card.className = "memory";
-
-    if (item.photo) {
-      const img = document.createElement("img");
-      img.src = item.photo;
-      img.alt = "추억 사진";
-      img.loading = "lazy";
-      card.append(img);
-    } else {
-      const empty = document.createElement("div");
-      empty.className = "empty";
-      empty.textContent = item.mood;
-      card.append(empty);
-    }
-
-    const info = document.createElement("div");
-    info.className = "muted";
-    info.textContent =
-      new Date(item.date).toLocaleDateString("ko-KR")
-      + " · " + item.name;
-    card.append(info);
-
-    const mood = document.createElement("h3");
-    mood.textContent = item.mood;
-    card.append(mood);
-
-    const text = document.createElement("p");
-    text.textContent = item.text;
-    card.append(text);
-
-    const reactions = document.createElement("div");
-    reactions.className = "reactions";
-
-    const heart = document.createElement("button");
-    heart.textContent =
-      (myLikes.has(item.id) ? "💗" : "🤍")
-      + " 마음 " + item.hearts;
-
-    heart.onclick = async () => {
-      heart.disabled = true;
-
-      const result = myLikes.has(item.id)
-        ? await db.from("pieces_likes")
-            .delete()
-            .eq("entry_id", item.id)
-            .eq("user_id", uid)
-        : await db.from("pieces_likes").insert({
-            entry_id: item.id,
-            user_id: uid
-          });
-
-      if (result.error) notify("하트 저장 오류");
-      heart.disabled = false;
-      await loadShared();
-    };
-
-    reactions.append(heart);
-    card.append(reactions);
-
-    const comments = document.createElement("div");
-    comments.className = "comments";
-
-    item.comments.forEach(value => {
-      const line = document.createElement("div");
-      line.className = "comment";
-      line.textContent = "💬 " + value;
-      comments.append(line);
-    });
-
-    const input = document.createElement("input");
-    input.placeholder = "짧은 답장 남기기";
-    input.maxLength = 200;
-
-    const reply = document.createElement("button");
-    reply.className = "small";
-    reply.textContent = "답장하기";
-
-    reply.onclick = async () => {
-      if (!input.value.trim()) return;
-
-      reply.disabled = true;
-
-      const result = await db.from("pieces_comments").insert({
-        entry_id: item.id,
-        author_id: uid,
-        body: input.value.trim()
-      });
-
-      if (result.error) notify("답장 저장 오류");
-
-      reply.disabled = false;
-      await loadShared();
-    };
-
-    comments.append(input, reply);
-    card.append(comments);
-
-    return card;
-  };
-
-  // 예전에 이 기기에 저장한 기록 이전
-  if (Array.isArray(oldRecords) && oldRecords.length) {
-    const move = document.createElement("button");
-    move.className = "small";
-    move.textContent = "📦 예전 기록 공유 앨범으로 옮기기";
-    status.after(move);
-
-    move.onclick = async () => {
-      if (!confirm(
-        oldRecords.length +
-        "개의 예전 기록을 온라인 앨범에 복사할까?"
-      )) return;
-
-      move.disabled = true;
-      let success = 0, failed = 0;
-
-      for (const item of oldRecords) {
-        try {
-          const legacyId = String(item.id);
-
-          const existing = await db
-            .from("pieces_entries")
-            .select("id")
-            .eq("author_id", uid)
-            .eq("legacy_id", legacyId)
-            .maybeSingle();
-
-          if (existing.error) throw existing.error;
-          if (existing.data) continue;
-
-          const photo = await uploadPhoto(item.photo || "");
-
-          const result = await db
-            .from("pieces_entries")
-            .insert({
-              author_id: uid,
-              legacy_id: legacyId,
-              display_name: String(
-                item.name || "익명의 마음"
-              ).slice(0,20),
-              mood: item.mood || "🍀",
-              body: String(item.text || "").slice(0,500),
-              photo_path: photo,
-              created_at: item.date,
-              legacy_hearts: item.hearts || 0,
-              legacy_comments: item.comments || []
-            });
-
-          if (result.error) throw result.error;
-          success++;
-        } catch (e) {
-          console.error(e);
-          failed++;
+    db.channel("pieces-live")
+      .on("postgres_changes",{
+        event:"*",schema:"public",table:"pieces_entries"
+      }, async event => {
+        if (event.eventType === "INSERT" &&
+            event.new.author_id !== uid) {
+          notify("🌿 새로운 조각이 도착했어.");
         }
-      }
+        await load();
+      })
+      .on("postgres_changes",{
+        event:"*",schema:"public",table:"pieces_comments"
+      },load)
+      .on("postgres_changes",{
+        event:"*",schema:"public",table:"pieces_likes"
+      },load)
+      .subscribe();
 
-      move.disabled = false;
-      notify("이전 완료 " + success +
-        "개 · 오류 " + failed + "개");
-      await loadShared();
-    };
+  } catch (e) {
+    console.error(e);
+    $("status").textContent =
+      "⚠️ 공유 앨범 연결 오류. Supabase 설정을 확인해 줘.";
   }
+}
 
-  // 처음 접속할 때 앨범 불러오기
-  await loadShared();
-
-  // 다른 사람이 새 글을 올리면 자동 갱신
-  db.channel("pieces-live-feed")
-    .on("postgres_changes", {
-      event: "INSERT",
-      schema: "public",
-      table: "pieces_entries"
-    }, async event => {
-      if (event.new.author_id !== uid) {
-        notify("🌿 새로운 조각이 도착했어!");
-      }
-      await loadShared();
-    })
-    .on("postgres_changes", {
-      event: "*",
-      schema: "public",
-      table: "pieces_comments"
-    }, loadShared)
-    .on("postgres_changes", {
-      event: "*",
-      schema: "public",
-      table: "pieces_likes"
-    }, loadShared)
-    .subscribe();
-
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) loadShared();
-  });
-})();
+start();
+setInterval(() => {
+  if (dateKey() !== window.lastQuestionDate) {
+    window.lastQuestionDate = dateKey();
+    extras();
+  }
+},60000);
+window.lastQuestionDate = dateKey();
 </script>
--- 오늘의 조각들: 작성자/관리자 삭제 권한 추가
--- 기존 기록을 지우지 않습니다.
-create table if not exists public.pieces_admins (
- user_id uuid primary key references auth.users(id) on delete cascade
-);
-alter table public.pieces_admins enable row level security;
-revoke all on public.pieces_admins from anon,authenticated;
-grant select on public.pieces_admins to authenticated;
-drop policy if exists pieces_admin_self on public.pieces_admins;
-create policy pieces_admin_self on public.pieces_admins
- for select to authenticated using (user_id=(select auth.uid()));
-
--- 사진/글 삭제: 작성자 또는 관리자
--- 기존 작성자 삭제 정책을 교체하여 관리자 권한을 확장합니다.
-drop policy if exists pieces_delete on public.pieces_entries;
-create policy pieces_delete on public.pieces_entries
- for delete to authenticated using (
-  author_id=(select auth.uid()) or exists (
-   select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
-  )
- );
-
--- 댓글 삭제: 작성자 또는 관리자
-grant delete on public.pieces_comments to authenticated;
-drop policy if exists comments_delete on public.pieces_comments;
-create policy comments_delete on public.pieces_comments
- for delete to authenticated using (
-  author_id=(select auth.uid()) or exists (
-   select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
-  )
- );
-
--- 사진 파일 삭제는 반드시 Storage API로 실행합니다.
--- Storage API 삭제에 필요한 읽기/삭제 정책
--- 사진은 이미 공개 버킷이며 이 정책은 전체 인터넷 공개 여부를 변경하지 않습니다.
-drop policy if exists pieces_photo_select_for_delete on storage.objects;
-create policy pieces_photo_select_for_delete on storage.objects
- for select to authenticated using (
-  bucket_id='pieces-photos' and (
-    owner_id=(select auth.uid())::text or exists (
-      select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
-    )
-  )
- );
-drop policy if exists pieces_photo_delete on storage.objects;
-create policy pieces_photo_delete on storage.objects
- for delete to authenticated using (
-  bucket_id='pieces-photos' and (
-    owner_id=(select auth.uid())::text or exists (
-      select 1 from public.pieces_admins a where a.user_id=(select auth.uid())
-    )
-  )
- );
-
 </body>
 </html>
