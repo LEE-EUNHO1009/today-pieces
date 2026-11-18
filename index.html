@@ -2168,5 +2168,185 @@ document.addEventListener('visibilitychange',()=>{
   }
 });
 </script>
+  
+<!-- 오늘의 조각들: 닉네임·실시간 문구·사진 미션 개선 -->
+<style>
+  /* 정상 연결 상태는 화면에 표시하지 않음 */
+  #status:empty,
+  #status[hidden] {
+    display: none !important;
+  }
+
+  /* 사진 미션 펼치기 버튼 */
+  #missionToggle {
+    display: block;
+    margin: 12px auto 16px;
+    padding: 10px 20px;
+    border: 1px solid #cbd8bd;
+    border-radius: 30px;
+    background: #fffef9;
+    color: #536846;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #missionToggle[hidden] {
+    display: none !important;
+  }
+
+  #missionToggle:hover {
+    background: #edf3e7;
+  }
+
+  /* 닉네임 안내 문구 */
+  #nicknameStatus {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #73806b;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  // 1. 정상적인 실시간 연결 문구 숨기기
+  const statusElement = document.getElementById("status");
+
+  function updateConnectionMessage() {
+    if (!statusElement) return;
+
+    const message = statusElement.textContent.trim();
+
+    if (
+      message.startsWith("☁️ 실시간 공유 중") ||
+      message.startsWith("실시간 공유 중") ||
+      message.startsWith("☁️ 공유 앨범 연결됨")
+    ) {
+      statusElement.hidden = true;
+    } else if (message.includes("오류") ||
+               message.includes("실패")) {
+      statusElement.hidden = false;
+    }
+  }
+
+  if (statusElement) {
+    const statusObserver = new MutationObserver(
+      updateConnectionMessage
+    );
+
+    statusObserver.observe(statusElement, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+
+    updateConnectionMessage();
+  }
+
+  // 2. 사진 미션: 게시물 3개까지 기본 표시
+  let missionExpanded = false;
+
+  const gallery = document.getElementById("missionGallery");
+  let toggle = document.getElementById("missionToggle");
+
+  if (gallery && !toggle) {
+    toggle = document.createElement("button");
+    toggle.id = "missionToggle";
+    toggle.type = "button";
+    toggle.textContent = "사진 더보기";
+    toggle.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    gallery.after(toggle);
+  }
+
+  function updateMissionGallery() {
+    if (!gallery || !toggle) return;
+
+    const cards = Array.from(gallery.children).filter(
+      element => element.classList.contains("memory")
+    );
+
+    if (cards.length <= 3) {
+      cards.forEach(card => {
+        card.hidden = false;
+      });
+
+      toggle.hidden = true;
+      missionExpanded = false;
+      return;
+    }
+
+    cards.forEach((card, index) => {
+      card.hidden = !missionExpanded && index >= 3;
+    });
+
+    toggle.hidden = false;
+    toggle.textContent = missionExpanded
+      ? "사진 접기 ▲"
+      : `사진 ${cards.length - 3}개 더보기 ▼`;
+
+    toggle.setAttribute(
+      "aria-expanded",
+      String(missionExpanded)
+    );
+  }
+
+  if (gallery && toggle) {
+    toggle.addEventListener("click", function () {
+      missionExpanded = !missionExpanded;
+      updateMissionGallery();
+    });
+
+    const galleryObserver = new MutationObserver(
+      updateMissionGallery
+    );
+
+    galleryObserver.observe(gallery, {
+      childList: true
+    });
+
+    updateMissionGallery();
+  }
+
+  // 3. 닉네임 중복 확인
+  // Supabase pieces_profiles 테이블을 사용함
+  // 실제 중복 방지는 SQL UNIQUE 제약으로 보장해야 함
+
+  const nicknameInput =
+    document.getElementById("nicknameEntry");
+
+  const nicknameButton =
+    document.getElementById("nicknameClaim");
+
+  const nicknameStatus =
+    document.getElementById("nicknameStatus");
+
+  if (nicknameInput && nicknameButton) {
+    nicknameInput.maxLength = 16;
+
+    nicknameInput.addEventListener("input", function () {
+      const name = this.value.trim();
+
+      if (nicknameStatus) {
+        nicknameStatus.textContent =
+          name.length < 2
+            ? "닉네임은 2자 이상 입력해 줘."
+            : "닉네임 등록을 누르면 중복 여부를 확인해.";
+      }
+    });
+  }
+
+  // 닉네임은 기존 index.html의 claimNickname()
+  // 함수가 Supabase에 등록하도록 유지함.
+  // 같은 이름을 다른 사람이 등록했을 때는
+  // pieces_profiles_nickname_unique 인덱스가 차단함.
+
+  console.info(
+    "오늘의 조각들: 사진 미션 펼치기 및 표시 설정 적용"
+  );
+})();
+</script>
+
 </body>
 </html>
