@@ -911,5 +911,65 @@ $('filmMonth').value=dayKST().slice(0,7);$('capsuleDate').min=addDays(dayKST(),1
 let lastDay=dayKST();setInterval(()=>{const now=dayKST();if(now!==lastDay){lastDay=now;$('capsuleDate').min=addDays(now,1);drawHome();if(db&&uid)load()}},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&db&&uid)load()});
 </script>
+  
+<script>
+/* 내 스티커북: 처음 3개만 표시하고 펼치기/접기 */
+
+(function () {
+  let stickerBookExpanded = false;
+
+  const originalDrawStickers = window.drawStickers;
+
+  window.drawStickers = function () {
+    // 기존 스티커 수집 상태를 그대로 사용
+    originalDrawStickers();
+
+    const root = document.getElementById("stickers");
+    if (!root) return;
+
+    const stickers = Array.from(
+      root.querySelectorAll(".sticker")
+    );
+
+    // 접었을 때는 처음 3개만 표시
+    stickers.forEach((sticker, index) => {
+      sticker.style.display =
+        stickerBookExpanded || index < 3
+          ? "inline-block"
+          : "none";
+    });
+
+    // 스티커가 3개 이하라면 버튼 생성 안 함
+    if (stickers.length <= 3) return;
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "soft";
+
+    toggle.style.cssText =
+      "display:block; margin:15px auto 0;";
+
+    toggle.textContent = stickerBookExpanded
+      ? "▲ 스티커북 접기"
+      : "▼ 스티커 " + (stickers.length - 3) + "개 더보기";
+
+    toggle.setAttribute(
+      "aria-expanded",
+      String(stickerBookExpanded)
+    );
+
+    toggle.onclick = function () {
+      stickerBookExpanded = !stickerBookExpanded;
+      window.drawStickers();
+    };
+
+    root.appendChild(toggle);
+  };
+
+  // 처음 화면에도 즉시 적용
+  window.drawStickers();
+})();
+</script>
+
 </body>
 </html>
