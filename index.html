@@ -1,81 +1,269 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#65764b">
-<meta name="description" content="평범한 하루의 작은 장면들을 함께 모으는 공유 추억 앨범">
-<title>오늘의 조각들 · 함께 모은 하루</title>
+<title>오늘의 조각들</title>
 <style>
-:root{--olive:#64764b;--dark:#354530;--leaf:#8ca574;--soft:#e5ecd9;--cream:#fbfaf4;--paper:#fffefa;--ink:#384434;--muted:#73806b;--line:#dce5d4;--shadow:0 10px 28px #38523312}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(145deg,#f8f9f1,#eaf0e3 65%,#f6f3e9);color:var(--ink);font:15px/1.75 'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:wait}a{color:var(--olive)}h1,h2,h3,p{margin:0}h2{font-size:20px;letter-spacing:-.4px}h3{font-size:16px}p{line-height:1.8}.muted{font-size:13px;color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}.hidden{display:none!important}
-header{text-align:center;padding:38px 16px 30px;background:linear-gradient(135deg,#fffff9,#e9f0e0);border-bottom:1px solid var(--line)}header .eyebrow{font:11px Georgia,serif;letter-spacing:2px;color:#82916e}header h1{font:38px/1.3 Georgia,'Malgun Gothic',serif;letter-spacing:-1px;color:#45563a;margin:10px 0}header p{font-size:14px;color:#748069}#leaf{font-size:25px;border:0;background:transparent;padding:8px 16px;transition:transform .3s}#leaf:hover{transform:rotate(-20deg)}
-main{max-width:940px;margin:auto;padding:18px 16px 70px}nav{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:0 0 20px}nav button,.soft,.chip{padding:9px 13px;border:1px solid var(--line);border-radius:99px;background:white;color:#526743}nav button:hover,.soft:hover,.chip:hover{background:#f0f5ea}.primary{border:1px solid var(--olive);border-radius:99px;background:var(--olive);color:white;padding:11px 19px}.primary:hover{background:#50623d}
-.card{padding:23px;background:var(--paper);border:1px solid var(--line);border-radius:22px;margin-bottom:19px;box-shadow:var(--shadow)}.card h2{margin-bottom:9px}.hero{text-align:center;padding:22px 6px 27px}.hero .emoji{font-size:48px}.hero h2{font-size:24px}.hero p{margin:7px 0 17px;color:#738169}.kicker{font-size:11px;letter-spacing:1.5px;color:var(--leaf);text-transform:uppercase;font-weight:bold}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.flex{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.center{text-align:center}.pill{display:inline-block;padding:3px 10px;background:#edf3e7;color:#58704c;border-radius:99px;font-size:12px}
-.memory{min-width:0;background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;padding:12px;box-shadow:0 4px 15px #30472d0b}.memory img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}.empty-photo{background:#edf2e6;height:145px;border-radius:9px;display:grid;place-items:center;font-size:40px}.memory h3{margin:9px 0 2px}.memory .body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;margin:8px 0}.memory .meta{font-size:12px;color:var(--muted);margin-top:8px}.memory .actions{display:flex;gap:6px;flex-wrap:wrap}.memory .actions button{padding:4px 9px;font-size:12px}.comment{padding:6px 0;border-top:1px solid #edf1e9;display:flex;align-items:start;justify-content:space-between;gap:8px;font-size:13px;overflow-wrap:anywhere}.comment span{min-width:0}.comment button{border:0;background:none;color:#8d6b69;font-size:12px}.memory input{margin-top:7px}
-input,textarea,select{padding:11px 12px;border:1px solid #cddbc4;border-radius:12px;width:100%;background:white;color:var(--ink);outline-offset:2px}textarea{resize:vertical;min-height:115px}label.field{display:block;font-weight:bold;font-size:13px;margin:13px 0 5px}.file-choice{display:block;padding:24px 10px;text-align:center;border:2px dashed #b4c6a4;border-radius:15px;cursor:pointer;background:#f5f8ef}.file-choice img{max-width:100%;max-height:250px;border-radius:8px}.modebutton[aria-pressed="true"]{background:var(--olive);color:white;border-color:var(--olive)}.label-note{margin-top:7px;color:#738169;font-size:12px}.notice{background:#edf3e5;border-radius:14px;padding:13px 16px;font-size:13px}
-#calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{text-align:center;padding:9px 2px;border-radius:10px;background:#eef3e7;color:var(--ink);border:0;min-height:42px;font-size:13px}.day.marked{background:#c7d6b5}.day.label{font-weight:bold;background:none}.film{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;background:#303a2f;padding:14px;border-radius:12px}.frame{background:#fdf9ed;padding:6px 6px 10px;transform:rotate(var(--tilt,0deg));cursor:pointer;border:0;text-align:center}.frame img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.frame figcaption{font-size:10px;margin-top:5px;color:#607051}.frame:focus-visible{outline:3px solid #d0c882}.no-photos{background:#e7eee0;border-radius:10px;padding:22px;text-align:center;color:#738169}
-#garden-stage{min-height:155px;border-radius:18px;background:linear-gradient(#eff6e8,#dce8d1);text-align:center;padding:18px}.garden-land{font-size:55px;line-height:1.5;word-break:break-all}.collect{display:flex;gap:8px;flex-wrap:wrap}.collect button{border:1px solid #d3dfc8;background:white;border-radius:12px;padding:10px 12px;color:#526743}.collect button[disabled]{background:#f4f4ef;color:#a9b4a0}.cabinet{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.drawer{border:1px solid #cfdbc4;background:#f6f5ec;border-radius:14px;padding:16px 10px;text-align:center;min-height:115px;color:var(--olive)}.drawer.locked{filter:grayscale(.75);color:#8c9387}.drawer .icon{font-size:27px}.sticker{display:inline-block;background:#f2f5e9;border:1px solid #cfdbc4;border-radius:16px;padding:8px 10px;margin:4px;font-size:13px}.sticker.locked{opacity:.4;filter:grayscale(1)}
-dialog{color:var(--ink);border:1px solid #d9e5d1;border-radius:20px;padding:26px;max-width:min(90vw,510px);box-shadow:0 20px 80px #0002}dialog::backdrop{background:#24351c8c}dialog h2{margin-bottom:10px}#toast{display:none;position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#33482c;color:white;padding:12px 18px;border-radius:99px;z-index:100;box-shadow:0 8px 20px #0002;text-align:center;max-width:90vw;font-size:13px}footer{text-align:center;color:#7b8d74;padding:18px 15px 35px;font-size:12px}
-@media(max-width:620px){header{padding:28px 12px 22px}header h1{font-size:32px}.cols2{grid-template-columns:1fr}.card{padding:16px}.grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}.memory{padding:8px}.memory .body{font-size:13px}.garden-land{font-size:39px}nav{gap:5px}nav button{padding:8px 10px;font-size:12px}}
-
-/* 신규 기능: 닉네임·미션 펼치기·꿈속 방탈출 */
-.profile-strip{display:grid;gap:7px;margin-bottom:9px}
-.profile-strip .profile-line{display:flex;gap:8px;align-items:center}
-.profile-line input{flex:1;min-width:0;margin:0}
-.profile-line button{white-space:nowrap}
-#status, #status[hidden], #gameNav[hidden], #missionToggle[hidden]{display:none!important}
-.manage-tools{margin:14px 0;color:#73806b;font-size:13px}
-.manage-tools summary{cursor:pointer}
-#nicknameSettings{margin:13px 0 17px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#f3f7ee}
-#missionToggle{display:block;margin:10px auto 16px;min-height:42px}
-#missionToggle{margin-top:10px}
-.secret-photo{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:1px dashed #aebfa6;border-radius:18px;background:linear-gradient(120deg,#f6f5ec,#eaf1e4);padding:15px;color:#5b6d4c;text-align:left}
-.secret-photo .secret-polaroid{font-size:35px;filter:sepia(.18);transform:rotate(-7deg);padding:10px;background:white;box-shadow:0 3px 10px #0001}
-.game-shell{background:linear-gradient(140deg,#fdfbf1,#f0f3e8);border:1px solid #d3dfc7;border-radius:21px;overflow:hidden;padding:16px;box-shadow:var(--shadow)}
-.game-heading{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:0 0 12px}
-.game-world{position:relative;width:100%;aspect-ratio:16/9;min-height:260px;max-height:460px;overflow:hidden;border:5px solid #f9f4e7;border-radius:17px;isolation:isolate;box-shadow:inset 0 0 45px #18292244,0 6px 26px #202c2530}
-.game-world::before{content:'';position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 16%,#fffbd2,transparent 48%),linear-gradient(145deg,#a7b9a1,#607869 76%)}
-.game-world::after{content:'';position:absolute;inset:auto 0 0;height:27%;background:linear-gradient(0deg,#263b2866,transparent);z-index:-1;pointer-events:none}
-.game-world.intro::before{background:radial-gradient(ellipse at 50% 35%,#faf8e5,#7d8d88 68%,#34443a)}
-.game-world.hall::before{background:radial-gradient(ellipse at 50% 20%,#ead7b7,#a0ae9f 63%,#5e6d5d)}
-.game-world.greenhouse::before{background:radial-gradient(circle at 49% 30%,#dcecb1,#8db391 57%,#294e38)}
-.game-world.post::before{background:radial-gradient(circle at 48% 24%,#f1e5c9,#aa9faf 59%,#645972)}
-.game-world.photo::before{background:radial-gradient(circle at 49% 30%,#eadcbd,#9e8c7b 65%,#534e4b)}
-.game-world.cinema::before{background:radial-gradient(ellipse at 50% 33%,#a89a70,#5a5d4d 43%,#2e3531 86%)}
-.game-world.ending::before{background:radial-gradient(ellipse at 50% 25%,#f7eec7,#b0caaf 61%,#718878)}
-.game-world::selection{background:#fcffae}
-.game-object{position:absolute;transform:translate(-50%,-50%);border:1px solid #ffffffe0;box-shadow:0 6px 18px #18251f3d;border-radius:15px;background:#fffdf5df;min-width:70px;max-width:110px;padding:8px 6px;color:#3b5138;transition:transform .16s,background .16s;z-index:2}
-.game-object:hover,.game-object:focus-visible{transform:translate(-50%,-54%) scale(1.07);background:#fffdeb}
-.object-emoji{display:block;font-size:32px;line-height:1.2}
-.object-label{display:block;font-size:11px;margin-top:5px;font-weight:600}
-.game-log{margin:11px 0;padding:12px 14px;background:#e9f0df;border-left:4px solid #9cb18a;border-radius:9px;min-height:48px;white-space:pre-wrap}
-.game-inventory{display:flex;flex-wrap:wrap;gap:7px;min-height:38px;padding:10px;border:1px dashed #b1c5a6;border-radius:12px;margin-top:8px}
-.game-item{font-size:12px;background:white;border-radius:20px;padding:5px 11px;border:1px solid #d4e2cb}
-.game-inline{display:flex;gap:8px;align-items:center}
-.game-inline input{width:min(200px,55%)}
-.game-choices{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0 3px}
-.game-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-width:400px;margin:14px auto}
-.game-tile{border:2px solid #cdd8c1;background:linear-gradient(135deg,#f7e8d0,#fbfcf3);min-height:92px;border-radius:9px;font-size:20px;color:#435339}
-.game-tile.selected{border-color:#768c58;background:#e3edcf;box-shadow:0 0 0 4px #91ab6930}
-.game-ending-prompt{font-size:16px;font-weight:700;margin-top:14px}
-.game-ending-quote{font:italic 18px/1.8 Georgia,serif;color:#536744;margin:14px 0 21px}
-.game-pair{padding:15px;background:#f2f4ed;border:1px solid #dce6d3;border-radius:14px;margin-top:15px}
-.game-pair input{max-width:200px;text-transform:uppercase;letter-spacing:2px}
-#gameHintOutput{margin:9px 0;padding:12px;border-radius:12px;background:#f2eee0;color:#685f4c}
-@media(max-width:620px){.game-world{min-height:300px;aspect-ratio:1/1}.game-object{min-width:60px;max-width:85px;padding:6px 3px}.object-emoji{font-size:26px}.object-label{font-size:10px}.game-shell{padding:10px}.profile-strip .profile-line{gap:4px}}
+:root {
+  --olive:#65764b;
+  --dark:#354530;
+  --cream:#fafaf3;
+  --paper:#fffefa;
+  --line:#dce5d4;
+  --muted:#75836c;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:linear-gradient(135deg,#f8f9f1,#eaf0e3);
+  color:var(--dark);
+  font:15px/1.7 "Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+h1,h2,h3,p {margin:0}
+h2 {font-size:20px;margin-bottom:10px}
+p {margin-bottom:8px}
+button,input,textarea,select {font:inherit}
+button {cursor:pointer}
+button:disabled {opacity:.5;cursor:default}
+header {
+  text-align:center;
+  background:linear-gradient(130deg,#fffef8,#e7efdd);
+  padding:37px 15px;
+}
+header h1 {
+  font:36px Georgia,serif;
+  color:#45563a;
+  margin:9px 0;
+}
+header p {color:#7b8b73}
+main {max-width:950px;margin:auto;padding:18px 15px 65px}
+nav {
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:22px;
+}
+button.soft,nav button {
+  border:1px solid var(--line);
+  background:#fffefa;
+  color:#526843;
+  border-radius:25px;
+  padding:10px 14px;
+}
+button.primary {
+  border:0;
+  background:var(--olive);
+  color:white;
+  border-radius:25px;
+  padding:11px 19px;
+}
+.card {
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:19px;
+  box-shadow:0 6px 20px #3c4e3010;
+}
+.hero {text-align:center;padding:30px 8px}
+.hero .plant {font-size:50px}
+.hero h2 {font-size:25px}
+.hero p {color:var(--muted);margin-bottom:18px}
+.muted {color:var(--muted);font-size:13px}
+.tiny {color:var(--muted);font-size:12px}
+.hidden,[hidden] {display:none!important}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;
+}
+.cols2 {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row {display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select,textarea {
+  width:100%;
+  border:1px solid #cfddc5;
+  background:white;
+  color:var(--dark);
+  padding:11px;
+  border-radius:12px;
+  margin:7px 0;
+}
+textarea {min-height:110px;resize:vertical}
+label.field {display:block;margin-top:13px;font-weight:bold}
+.memory {
+  min-width:0;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  overflow:hidden;
+}
+.memory img {
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  border-radius:9px;
+}
+.memory p {white-space:pre-wrap;overflow-wrap:anywhere}
+.memory .meta {color:var(--muted);font-size:12px}
+.memory .actions {display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.memory .actions button {padding:6px 10px;font-size:12px}
+.memory .comment {
+  border-top:1px solid #edf1e9;
+  padding:8px 0;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+.photo-choice {
+  display:block;
+  border:2px dashed #b9c9ab;
+  background:#f5f8f0;
+  text-align:center;
+  padding:25px;
+  border-radius:15px;
+  cursor:pointer;
+}
+.photo-choice img {max-width:100%;max-height:260px}
+.notice {
+  background:#edf3e6;
+  border-radius:12px;
+  padding:13px;
+  margin:10px 0;
+}
+.sticker {
+  display:inline-block;
+  padding:8px 11px;
+  margin:4px;
+  background:#eff4e9;
+  border:1px solid #d3dfc9;
+  border-radius:15px;
+  font-size:12px;
+}
+.locked {opacity:.5}
+#garden {
+  background:linear-gradient(#edf5e5,#dce9d1);
+  border-radius:17px;
+  text-align:center;
+  padding:25px;
+  font-size:33px;
+}
+#calendar {
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+.day {
+  background:#eef3e8;
+  padding:9px 2px;
+  border:0;
+  border-radius:8px;
+  text-align:center;
+  font-size:12px;
+}
+.day.marked {background:#c6d7b4}
+.film {
+  background:#303b30;
+  padding:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(115px,1fr));
+  gap:9px;
+  border-radius:15px;
+}
+.film button {background:#fff9eb;padding:6px;border:0}
+.film img {width:100%;aspect-ratio:1;object-fit:cover}
+.drawer {
+  background:#f2f5eb;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:17px;
+  cursor:pointer;
+}
+#toast {
+  display:none;
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#34482c;
+  color:white;
+  padding:12px 18px;
+  border-radius:20px;
+  z-index:100;
+  max-width:90vw;
+}
+dialog {
+  border:0;
+  border-radius:18px;
+  padding:25px;
+  max-width:min(90vw,500px);
+}
+dialog::backdrop {background:#1d302080}
+footer {text-align:center;padding:30px;color:#829078;font-size:12px}
+#gameWorld {
+  min-height:260px;
+  padding:22px;
+  border-radius:18px;
+  background:radial-gradient(circle at 50% 20%,#e6edc4,#819a8a 65%,#425b4a);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin:15px 0;
+}
+.game-object {
+  min-width:88px;
+  border:1px solid #fff;
+  background:#fffdf0de;
+  border-radius:13px;
+  padding:15px 10px;
+  color:#465b3c;
+}
+.game-object span {display:block;font-size:28px}
+#gameLog {background:#edf2e6;padding:13px;border-radius:12px}
+#inventory {display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+#inventory span {background:white;padding:7px 12px;border-radius:20px}
+#gamePuzzle {margin:14px 0}
+#tiles {display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#tiles button {padding:20px;background:#f1e9d7;border:1px solid #cebd9f}
+#tiles button.selected {outline:3px solid #78925b}
+.secret-photo {
+  display:block;
+  width:100%;
+  text-align:left;
+  background:#f4f5ea;
+  border:1px dashed #b6c6a8;
+  border-radius:16px;
+  padding:17px;
+  color:#536646;
+  margin-top:20px;
+}
+.section-heading {margin:25px 0 12px}
+@media(max-width:620px) {
+  .cols2 {grid-template-columns:1fr}
+  .card {padding:16px}
+  .grid {grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+  header h1 {font-size:31px}
+}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="eyebrow">SOME PIECES OF TODAY</div>
+  <div style="letter-spacing:3px;font-size:11px;color:#82916e">
+    SOME PIECES OF TODAY
+  </div>
   <h1>오늘의 조각들</h1>
   <p>별일 없던 하루에도, 남겨 두고 싶은 순간이 있으니까.</p>
-  <button id="leaf" aria-label="숨겨진 편지를 발견해 봐">🍃</button>
+  <button id="leaf" style="background:none;border:0;font-size:27px">🍃</button>
 </header>
+
 <main>
-<nav aria-label="주요 메뉴">
+<nav>
   <button onclick="show('home')">🏡 오늘</button>
   <button onclick="show('write')">✏️ 기록</button>
   <button onclick="show('album')">📷 앨범</button>
@@ -83,174 +271,295 @@ dialog{color:var(--ink);border:1px solid #d9e5d1;border-radius:20px;padding:26px
   <button onclick="show('filmPage')">🎞️ 필름</button>
   <button onclick="show('capsulePage')">✉️ 타임캡슐</button>
   <button onclick="surprise()">🎁 추억 뽑기</button>
-  <button id="gameNav" hidden onclick="openGame()">🗝️ 비밀의 방</button>
+  <button onclick="openGame()">🗝️ 비밀의 방</button>
 </nav>
-<p id="status" role="status" aria-live="polite" hidden></p>
+
 <section id="home">
   <div class="hero">
-    <div class="emoji">🌿</div><h2>우리가 모으는 하루</h2>
-    <p>각자의 하루가 한곳에 모이면, 새로운 이야기가 돼.</p>
-    <button class="primary" onclick="show('write')">오늘의 조각 남기기 ♡</button>
-  </div>
-  <div class="card">
-    <div class="kicker">SAME QUESTION, DIFFERENT DAYS</div>
-    <h2>💌 같은 질문, 다른 하루</h2>
-    <p id="dailyQuestion" style="margin:10px 0;font-size:18px;font-weight:bold"></p>
-    <p class="muted">오늘의 질문은 우리 모두에게 같아. 한국 시간 자정에 바뀌어.</p>
-    <div id="answers" class="cols2" style="margin:15px 0"></div>
-    <button class="primary" onclick="chooseMode('answer');show('write')">내 답변 남기기</button>
-  </div>
-  <div class="card">
-    <div class="kicker">A MONTH AGO</div><h2>🕰️ 한 달 전 오늘의 타임캡슐</h2>
-    <div id="oldCapsule" class="grid" style="margin-top:12px"></div>
-  </div>
-  <div class="card">
-    <div class="kicker">OUR GARDEN</div><h2>🌱 함께 키우는 정원</h2>
-    <div id="garden-stage"><div id="garden-art" class="garden-land">🌱</div><p id="garden-stat" class="muted"></p></div>
-    <p class="tiny" style="margin:10px 0">잠겨 있는 장식도 시간이 지나면 나타나. 열린 장식을 눌러 그날을 다시 만나 봐.</p>
-    <div id="garden-items" class="collect"></div>
-  </div>
-  <div class="card">
-    <div class="kicker">SMALL SURPRISES</div><h2>🗝️ 비밀 서랍</h2>
-    <p class="muted">기록이 쌓이거나 같은 질문에 함께 답하면 새로운 편지가 열려.</p>
-    <div id="drawers" class="cabinet" style="margin-top:12px"></div>
-  </div>
-  <div class="card">
-    <div class="kicker">PHOTO MISSION</div><h2>📷 오늘의 사진 미션</h2>
-    <p id="missionTitle" style="font-weight:bold;margin:6px 0"></p>
-    <p class="muted">사진을 올리면 스티커를 모을 수 있어. 서로의 미션 사진도 구경해 봐.</p>
-    <div id="missionGallery" class="grid" style="margin:13px 0"></div>
-    <button id="missionToggle" class="soft" hidden onclick="toggleMissionGallery()" aria-expanded="false">사진 더보기</button>
-    <button class="primary" onclick="chooseMode('mission');show('write')">미션 사진 남기기</button>
-    <h3 style="margin-top:19px">내 스티커북</h3>
-    <div id="stickers"></div>
-  </div>
-  <div class="section-head"><h2>최근의 조각들</h2><button class="soft" onclick="show('album')">모두 보기</button></div>
-  <div id="recent" class="grid"></div>
-  <div style="margin-top:18px">
-    <button id="secret13" class="secret-photo" onclick="openGame()">
-      <span class="secret-polaroid">🖼️</span>
-      <span><strong>13번째 사진이 발견되었어.</strong><span class="muted" style="display:block">뒷면에 작은 문이 그려져 있어. 눌러 볼래?</span></span>
+    <div class="plant">🌿</div>
+    <h2>우리가 모으는 하루</h2>
+    <p>각자의 하루가 한곳에 모이면 새로운 이야기가 돼.</p>
+    <button class="primary" onclick="show('write')">
+      오늘의 조각 남기기 ♡
     </button>
   </div>
+
+  <div class="card">
+    <h2>💌 같은 질문, 다른 하루</h2>
+    <p id="question" style="font-size:18px;font-weight:bold"></p>
+    <p class="muted">한국 시간 자정에 새로운 질문이 나타나.</p>
+    <div id="answers" class="cols2" style="margin:14px 0"></div>
+    <button class="primary" onclick="chooseMode('answer');show('write')">
+      오늘의 질문에 답하기
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>🕰️ 한 달 전 오늘</h2>
+    <div id="oldMemories" class="grid"></div>
+  </div>
+
+  <div class="card">
+    <h2>🌿 함께 키우는 정원</h2>
+    <div id="garden">🌱</div>
+    <div id="gardenObjects" class="row" style="margin-top:15px"></div>
+  </div>
+
+  <div class="card">
+    <h2>🗝️ 비밀 서랍</h2>
+    <div id="drawers" class="grid"></div>
+  </div>
+
+  <div class="card">
+    <h2>📷 오늘의 사진 미션</h2>
+    <p id="missionQuestion"></p>
+    <div id="missionGallery" class="grid"></div>
+    <button id="missionMore" class="soft" hidden
+      onclick="missionExpanded=!missionExpanded;renderHome()">
+      사진 펼치기
+    </button>
+    <p style="margin:12px 0">
+      <button class="primary" onclick="chooseMode('mission');show('write')">
+        미션 사진 남기기
+      </button>
+    </p>
+    <h3>내 스티커북</h3>
+    <div id="stickers"></div>
+    <button id="stickerMore" class="soft"
+      onclick="stickersExpanded=!stickersExpanded;renderStickers()">
+      ▼ 스티커 더보기
+    </button>
+  </div>
+
+  <h2 class="section-heading">최근의 조각들</h2>
+  <div id="recent" class="grid"></div>
+
+  <button class="secret-photo" onclick="openGame()">
+    🖼️ <strong>13번째 사진이 발견되었어.</strong>
+    <span class="muted" style="display:block">
+      뒷면에 작은 문이 그려져 있어. 눌러 볼래?
+    </span>
+  </button>
 </section>
+
 <section id="write" class="hidden">
   <div class="card">
-    <div class="kicker">LEAVE A LITTLE PIECE</div><h2>✏️ 오늘의 조각 남기기</h2>
-    <p class="muted">원하는 방식으로 기록해. 별명은 다른 사람에게 보이는 이름이야.</p>
+    <h2>✏️ 오늘의 조각 남기기</h2>
 
-    <div class="profile-strip" id="nicknameSettings">
-      <label for="nicknameEntry"><strong>🌿 내 닉네임</strong> <span class="muted">(2~16자 · 중복 사용 불가)</span></label>
-      <div class="profile-line">
-        <input id="nicknameEntry" maxlength="16" autocomplete="nickname" placeholder="사용할 닉네임을 정해 줘" aria-describedby="nicknameStatus">
-        <button id="nicknameClaim" class="primary" onclick="claimNickname()">닉네임 등록</button>
+    <div class="notice">
+      <strong>🌿 내 닉네임</strong>
+      <p class="tiny">
+        처음 한 번 등록하면 계속 사용할 수 있어.
+        다른 사람은 같은 닉네임을 등록할 수 없어.
+      </p>
+      <div class="row">
+        <input id="nicknameEntry" maxlength="16"
+          placeholder="닉네임 (1~16자)"
+          style="flex:1;min-width:140px">
+        <button class="primary" onclick="claimNickname()">
+          닉네임 등록
+        </button>
       </div>
-      <p id="nicknameStatus" class="tiny" role="status">닉네임을 먼저 등록하면 기록과 게임에서 사용해.</p>
-    </div>
-    <details class="manage-tools">
-      <summary>기존 기록 관리</summary>
-      <div class="flex" style="margin:10px 0">
-        <button class="soft" onclick="backup()">기록 백업</button>
-        <button class="soft hidden" id="moveOld" onclick="moveOld()">기존 기록 옮기기</button>
-        <button class="soft" onclick="copyUserId()">관리자 등록용 내 ID 복사</button>
+      <p id="nicknameStatus" class="muted"></p>
+
+      <button class="soft" onclick="issueRecovery()">
+        🔑 복구코드 발급
+      </button>
+      <div id="recoveryBox" class="hidden">
+        <p class="muted">복구코드를 안전하게 보관해 줘.</p>
+        <textarea id="recoveryOutput" readonly></textarea>
+        <button class="soft" onclick="copyRecovery()">복사</button>
       </div>
-    </details>
-    <div class="flex" style="margin:12px 0">
-      <button class="chip modebutton" data-mode="normal" aria-pressed="true" onclick="chooseMode('normal')">자유 기록</button>
-      <button class="chip modebutton" data-mode="answer" aria-pressed="false" onclick="chooseMode('answer')">같은 질문에 답하기</button>
-      <button class="chip modebutton" data-mode="mission" aria-pressed="false" onclick="chooseMode('mission')">사진 미션</button>
+
+      <details style="margin-top:12px">
+        <summary>다른 기기에서 기존 닉네임 되찾기</summary>
+        <input id="recoverName" placeholder="기존 닉네임">
+        <input id="recoverCode" placeholder="복구코드">
+        <button class="primary" onclick="recoverNickname()">
+          내 닉네임 불러오기
+        </button>
+      </details>
     </div>
+
+    <div class="row" style="margin:15px 0">
+      <button class="soft" onclick="chooseMode('normal')">자유 기록</button>
+      <button class="soft" onclick="chooseMode('answer')">질문 답변</button>
+      <button class="soft" onclick="chooseMode('mission')">사진 미션</button>
+    </div>
+
     <div id="modeHint" class="notice"></div>
-    <label class="field" for="nickname">글에 표시될 닉네임</label><input id="nickname" maxlength="16" placeholder="위에서 등록한 닉네임" readonly>
-    <label class="field" for="mood">오늘의 마음</label>
-    <select id="mood"><option>🌷</option><option>☀️</option><option>🌧️</option><option>🌙</option><option>🍀</option><option>💗</option></select>
-    <label class="field" for="photoInput">사진</label>
-    <label id="preview" class="file-choice" for="photoInput">📷 사진을 선택해 줘</label>
+
+    <label class="field">글에 표시될 닉네임</label>
+    <input id="nickname" readonly placeholder="닉네임을 등록해 줘">
+
+    <label class="field">오늘의 마음</label>
+    <select id="mood">
+      <option>🌷</option><option>☀️</option>
+      <option>🌧️</option><option>🌙</option>
+      <option>🍀</option><option>💗</option>
+    </select>
+
+    <label class="field">사진</label>
+    <label id="preview" class="photo-choice" for="photoInput">
+      📷 사진을 선택해 줘
+    </label>
     <input id="photoInput" type="file" accept="image/*" hidden>
-    <label class="field" for="message">짧은 마음</label>
-    <textarea id="message" maxlength="500" placeholder="오늘 어떤 장면을 간직하고 싶어?"></textarea>
-    <button class="primary" id="submit" onclick="saveMemory()">조각 남기기 ♡</button>
-    <p class="label-note">사진은 JPEG로 줄여 저장해. 원본의 위치 정보 등은 새 캔버스에서 제거돼.</p>
+
+    <label class="field">짧은 마음</label>
+    <textarea id="message" maxlength="500"
+      placeholder="오늘 어떤 장면을 간직하고 싶어?"></textarea>
+
+    <button id="saveButton" class="primary" onclick="saveMemory()">
+      조각 남기기 ♡
+    </button>
+
+    <details style="margin-top:20px">
+      <summary>기존 기록 관리</summary>
+      <button class="soft" onclick="backup()">기록 백업</button>
+      <button class="soft" onclick="moveOld()">기존 기록 옮기기</button>
+      <button class="soft" onclick="copyUserId()">내 계정 ID 복사</button>
+    </details>
   </div>
 </section>
+
 <section id="album" class="hidden">
-  <div class="card"><h2>📷 우리의 추억 앨범</h2><p class="muted">모두가 함께 볼 수 있는 기록이야.</p>
-    <select id="filter" onchange="render()"><option value="all">모든 마음</option><option>🌷</option><option>☀️</option><option>🌧️</option><option>🌙</option><option>🍀</option><option>💗</option></select></div>
+  <div class="card">
+    <h2>📷 우리의 추억 앨범</h2>
+    <select id="filter" onchange="renderPosts()">
+      <option value="all">모든 마음</option>
+      <option>🌷</option><option>☀️</option>
+      <option>🌧️</option><option>🌙</option>
+      <option>🍀</option><option>💗</option>
+    </select>
+  </div>
   <div id="gallery" class="grid"></div>
 </section>
-<section id="calendarPage" class="hidden"><div class="card"><h2>🗓️ 마음의 달력</h2><p id="month" class="muted" style="margin:8px 0"></p><div id="calendar"></div></div></section>
-<section id="filmPage" class="hidden">
-  <div class="card"><div class="kicker">MONTHLY FILM</div><h2>🎞️ 이번 달의 필름</h2>
-    <p class="muted">한 달에 모인 사진들을 필름처럼 꺼내 봐. 사진을 누르면 기록을 읽을 수 있어.</p>
-    <label class="field" for="filmMonth">돌아볼 달</label><input id="filmMonth" type="month" onchange="drawFilm()"></div>
-  <div id="film" class="film"></div>
-  <div id="filmText" class="card" style="margin-top:14px"></div>
-</section>
-<section id="capsulePage" class="hidden">
-  <div class="card"><div class="kicker">A LETTER TO THE FUTURE</div><h2>✉️ 미래에 열리는 타임캡슐</h2>
-    <p class="muted">오늘 마음을 봉인해 둬. 선택한 날짜가 되기 전에는 편지 내용이 데이터베이스에서도 공개되지 않아.</p>
-    <label class="field" for="capsuleName">보내는 이름</label><input id="capsuleName" maxlength="20" placeholder="익명의 마음">
-    <label class="field" for="capsuleDate">열리는 날짜</label><input id="capsuleDate" type="date">
-    <label class="field" for="capsuleBody">봉인할 편지</label><textarea id="capsuleBody" maxlength="1000" placeholder="그때의 너에게 전하고 싶은 말은?"></textarea>
-    <button class="primary" id="sealButton" onclick="sealCapsule()">편지 봉인하기 ✉️</button>
+
+<section id="calendarPage" class="hidden">
+  <div class="card">
+    <h2>🗓️ 마음의 달력</h2>
+    <p id="month"></p>
+    <div id="calendar"></div>
   </div>
-  <div class="card"><h2>🔒 기다리는 편지와 열린 편지</h2><div id="envelopes"></div></div>
 </section>
-<section id="surprisePage" class="hidden"><div class="card"><h2>🎁 어느 날의 조각</h2><div id="surpriseResult" style="max-width:450px;margin:12px auto"></div><button class="soft" onclick="surprise()">다른 추억 뽑기</button></div></section>
+
+<section id="filmPage" class="hidden">
+  <div class="card">
+    <h2>🎞️ 이번 달의 필름</h2>
+    <input id="filmMonth" type="month" onchange="drawFilm()">
+    <div id="film" class="film"></div>
+    <div id="filmDetail" style="margin-top:15px"></div>
+  </div>
+</section>
+
+<section id="capsulePage" class="hidden">
+  <div class="card">
+    <h2>✉️ 미래에 열리는 타임캡슐</h2>
+    <label class="field">열리는 날짜</label>
+    <input id="capsuleDate" type="date">
+    <label class="field">미래의 나에게 보내는 편지</label>
+    <textarea id="capsuleBody" maxlength="1000"></textarea>
+    <button id="sealButton" class="primary" onclick="sealCapsule()">
+      편지 봉인하기
+    </button>
+  </div>
+  <div class="card">
+    <h2>🔒 기다리는 편지</h2>
+    <div id="envelopes"></div>
+  </div>
+</section>
+
+<section id="surprisePage" class="hidden">
+  <div class="card">
+    <h2>🎁 어느 날의 조각</h2>
+    <div id="surpriseResult"></div>
+    <button class="soft" onclick="surprise()">다른 추억 뽑기</button>
+  </div>
+</section>
 
 <section id="gamePage" class="hidden">
-  <div class="game-shell">
-    <div class="kicker">THE MISSING THIRTEENTH PIECE · EP. 01</div>
-    <div class="game-heading"><h2>🗝️ 사라진 13번째 조각</h2><span class="pill" id="gameProgress">0 / 12장의 사진</span></div>
-    <p class="muted" style="margin-bottom:10px">혼자 탐험할 수 있어. 둘이 접속하면 마지막 방에서 협동 퍼즐이 열려.</p>
-    <h3 id="gameRoom">사라진 사진</h3>
-    <p id="gameSceneDescription" class="muted" style="margin-bottom:12px"></p>
-    <div id="gameWorld" class="game-world intro" aria-label="물건을 눌러 조사하는 탐색 화면"></div>
-    <div id="gameMessage" class="game-log" aria-live="polite">사진을 누르면 이야기가 시작돼.</div>
-    <div id="gamePuzzle" style="margin:10px 0"></div>
-    <div class="section-head"><strong>🎒 주머니</strong><span class="tiny">조사해서 얻은 물건</span></div>
-    <div id="gameInventory" class="game-inventory"></div>
-    <div class="flex" style="margin-top:14px">
-      <button id="gameHintButton" class="soft" onclick="gameShowHint()">힌트 보기 (1/3)</button>
-      <button id="gameRestartButton" class="soft" onclick="gameConfirmRestart()">처음부터 다시</button>
-      <button class="soft" onclick="show('home')">앨범으로 돌아가기</button>
-    </div>
-    <p id="gameHintOutput" hidden></p>
-    <div id="gamePartnerArea" class="game-pair" hidden>
-      <strong>🌗 둘이 함께 여는 비밀 복도</strong>
-      <p class="muted">한 사람이 방을 만들고 6자리 코드를 알려 줘. 다른 사람은 같은 코드를 입력해. 두 사람은 서로 다른 숫자를 보게 돼.</p>
-      <div class="flex" style="margin:10px 0">
-        <button class="soft" onclick="gamePairCreate()">협동방 만들기</button>
-        <input id="gameJoinCode" maxlength="6" placeholder="6자리 코드" aria-label="협동방 입장 코드">
-        <button class="soft" onclick="gamePairJoin()">코드로 입장</button>
-        <button class="soft" onclick="gamePairLeave()">협동방 나가기</button>
+  <div class="card">
+    <h2>🗝️ 사라진 13번째 조각</h2>
+    <p id="gameRoom"></p>
+    <p class="muted">물건을 눌러 조사하고 숨겨진 문을 열어 봐.</p>
+    <div id="gameWorld"></div>
+    <p id="gameLog"></p>
+    <div id="gamePuzzle"></div>
+    <h3>🎒 주머니</h3>
+    <div id="inventory"></div>
+    <button class="soft" onclick="gameHint()">힌트 보기</button>
+    <button class="soft" onclick="restartGame()">다시 시작</button>
+    <p id="gameHintText" class="muted"></p>
+
+    <div id="coopArea" class="notice" hidden>
+      <h3>🌗 두 사람이 함께 여는 비밀 복도</h3>
+      <p id="coopStatus" class="muted"></p>
+      <div class="row">
+        <button class="soft" onclick="createCoop()">협동방 만들기</button>
+        <input id="coopCode" maxlength="6"
+          placeholder="6자리 코드" style="max-width:160px">
+        <button class="soft" onclick="joinCoop()">입장</button>
       </div>
-      <p id="gamePartnerInfo" class="muted">상대방을 초대할 수 있어.</p>
-      <p id="gameRoleClue" class="notice" hidden style="margin:10px 0"></p>
-      <div id="gameBonusPuzzle" hidden>
-        <p><strong>복도 문양: 🌙 → 🔑 → 🌱 → 💧</strong></p>
-        <p class="muted">각 방의 숫자를 서로 알려주고 하나의 암호를 완성해 봐.</p>
-        <div class="game-inline"><input id="gameBonusCode" maxlength="4" inputmode="numeric" placeholder="협동 암호 4자리"><button class="primary" onclick="gamePairSolve()">보너스 문 열기</button></div>
-      </div>
+      <p id="coopClue"></p>
+      <input id="coopAnswer" maxlength="4"
+        placeholder="협동 암호 4자리">
+      <button class="primary" onclick="solveCoop()">문 열기</button>
     </div>
   </div>
 </section>
 </main>
-<dialog id="letter"><h2 id="letterTitle">✉️ 발견한 편지</h2><p id="letterText" style="white-space:pre-wrap;margin:15px 0"></p><button class="primary" onclick="document.getElementById('letter').close()">접어 두기</button></dialog>
-<div id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="letter">
+  <h2 id="letterTitle">✉️ 발견한 편지</h2>
+  <p id="letterText" style="white-space:pre-wrap"></p>
+  <button class="primary"
+    onclick="document.getElementById('letter').close()">
+    접어 두기
+  </button>
+</dialog>
+
+<div id="toast"></div>
 <footer>오늘의 조각들 · 작은 날들이 모여 우리의 이야기가 됩니다.</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-'use strict';
+"use strict";
+
 const $ = id => document.getElementById(id);
-const APP_URL = 'https://mdetrlvqjhqwzhxxrrvl.supabase.co';
-const APP_PUBLISHABLE_KEY = 'sb_publishable_L1vV4skO6Qn0fUoAdhlrXw_-OthNFec';
-const OLD_KEY = 'today-pieces-memories-v1';
-let db,uid=null,isAdmin=false,ready=false,enhanced=false;
-let memories=[],comments=[],likes=[],envelopes=[],openedLetters=[];
-let selectedPhoto='',mode='normal',currentPage='home',loading=false;
-let profileNick='',nicknameBackendReady=false,missionExpanded=false;
-const questions = `
+
+const db = window.supabase.createClient(
+  "https://mdetrlvqjhqwzhxxrrvl.supabase.co",
+  "sb_publishable_L1vV4skO6Qn0fUoAdhlrXw_-OthNFec"
+);
+
+const OLD_KEY = "today-pieces-memories-v1";
+const GAME_KEY = "today-pieces-game-v2";
+
+let uid = null;
+let ownerId = null;
+let nickname = "";
+let isAdmin = false;
+let authorIds = new Set();
+let posts = [];
+let comments = [];
+let likes = [];
+let envelopes = [];
+let letters = [];
+let selectedPhoto = "";
+let mode = "normal";
+let ready = false;
+let enhanced = false;
+let missionExpanded = false;
+let stickersExpanded = false;
+let currentPage = "home";
+let lastLoaded = false;
+let currentGame = null;
+let coopChannel = null;
+let coopRole = "";
+let coopReady = false;
+
+// 오늘의 질문 130개
+const QUESTIONS = `
 오늘 가장 오래 기억하고 싶은 순간은?
 오늘 가장 먼저 눈에 들어온 것은?
 오늘 유난히 예뻤던 풍경은?
@@ -300,7 +609,6 @@ const questions = `
 누군가에게 보여 주고 싶은 장면은?
 오늘을 영화의 한 컷으로 만든다면?
 내가 찍고 싶은 다음 사진은?
-오늘 어떤 표정을 간직하고 싶어?
 비 오는 날 듣기 좋은 노래는?
 좋아하는 계절의 냄새는?
 혼자 쉬고 싶은 장소는?
@@ -381,595 +689,1670 @@ const questions = `
 다음에 함께 보고 싶은 풍경은?
 오늘의 나에게 작은 선물을 준다면?
 한 장의 사진에 내일을 담는다면?
-`.trim().split('\n');
-const missions = [
-['초록색을 발견해 봐','🍃'],['오늘의 하늘을 찍어 줘','☁️'],['빛과 그림자를 찾아 줘','🌤️'],['좋아하는 컵을 보여 줘','☕'],['조용한 길을 찍어 줘','🚶'],['작은 꽃을 찾아 줘','🌼'],['오늘의 책 한 쪽을 담아 줘','📖'],['창문 밖 풍경을 보여 줘','🪟'],['오늘의 간식을 남겨 줘','🍪'],['걸으면서 본 나무를 찍어 줘','🌳'],['가장 오래 머문 자리를 찍어 줘','🪑'],['따뜻한 조명 한 장','🕯️'],['둥근 모양을 찾아 줘','🟡'],['나를 웃게 만든 물건을 찍어 줘','😊'],['내가 좋아하는 색 찾기','🎨'],['오늘의 운동화 한 장','👟'],['물에 비친 모습을 찾아 줘','💧'],['반짝이는 것을 찍어 줘','✨'],['아침 식탁을 남겨 줘','🥐'],['해 질 무렵의 풍경','🌇'],['작은 손글씨 한 장','✍️'],['길가의 표지판을 담아 줘','🪧'],['오늘의 그림자를 찍어 줘','🌙'],['나의 작은 정리 기록','🧺'],['오래된 물건 하나','🧸'],['분홍색을 찾아 줘','🌷'],['편안한 공간 한 장','🏡'],['오늘 본 동물을 남겨 줘','🐾'],['소중한 사람을 떠올리게 하는 물건','💌'],['나만의 하루를 닮은 사진','📸']
-];
-const gardenObjects=[
- {n:0,name:'첫 씨앗',emoji:'🌱'}, {n:2,name:'새싹',emoji:'🍀'}, {n:5,name:'꽃',emoji:'🌼'},
- {n:10,name:'나무',emoji:'🌳'},{n:18,name:'벤치',emoji:'🪑'}, {n:27,name:'고양이',emoji:'🐈'},
- {n:40,name:'연못',emoji:'🪷'},{n:60,name:'나비',emoji:'🦋'}
-];
-const drawerObjects=[
- {name:'첫 장의 편지',icon:'✉️',hint:'기록 1개',test:()=>memories.length>=1,letter:'첫 장면이 남았어. 평범했던 날을 잊지 않으려는 마음이 이곳의 첫 번째 열쇠야.'},
- {name:'다섯 조각의 편지',icon:'🗝️',hint:'기록 5개',test:()=>memories.length>=5,letter:'작은 하루를 다섯 번 기억해 줬구나. 따뜻한 장면은 이렇게 쌓이는 모양이야.'},
- {name:'우리의 편지',icon:'💌',hint:'두 사람의 기록',test:()=>new Set(memories.map(x=>x.author_id)).size>=2,letter:'같은 공간에서 다른 하루가 만났어. 서로의 기록을 읽는 일이, 때로는 안부를 묻는 방식이 될 수 있어.'},
- {name:'같은 질문의 비밀',icon:'🔑',hint:'같은 날 두 사람의 질문 답변',test:()=>pairedDays().length>0,letter:'같은 질문을 읽고도 서로 다른 장면을 떠올렸어. 서로의 하루를 아는 방식은 한 가지가 아니지.'},
- {name:'오래된 정원',icon:'🎁',hint:'기록 30개',test:()=>memories.length>=30,letter:'서른 개의 조각이 정원을 이루었어. 다음에 다시 펼치면 또 다른 풍경이 보일 거야.'}
-];
-function dayKST(date=new Date()){
- const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
- const get=t=>parts.find(x=>x.type===t).value;
- return `${get('year')}-${get('month')}-${get('day')}`;
-}
-function addDays(day,number){let d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+number);return d.toISOString().slice(0,10)}
-function todayIndex(){return Math.floor(Date.parse(dayKST()+'T00:00:00Z')/86400000)}
-function questionToday(){return questions[todayIndex()%questions.length]}
-function missionToday(){return {key:'m'+String(todayIndex()%missions.length).padStart(2,'0'),name:missions[todayIndex()%missions.length][0],emoji:missions[todayIndex()%missions.length][1]}}
-function notify(message){const el=$('toast');el.textContent=message;el.style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.style.display='none',3800)}
-function dialog(title,text){$('letterTitle').textContent=title;$('letterText').textContent=text;$('letter').showModal()}
-function show(id){currentPage=id;['home','write','album','calendarPage','filmPage','capsulePage','surprisePage','gamePage'].forEach(x=>$(x).classList.toggle('hidden',x!==id));if(id==='calendarPage')drawCalendar();if(id==='filmPage')drawFilm();if(id==='capsulePage')drawEnvelopes();window.scrollTo({top:0,behavior:'instant'})}
-function chooseMode(next){mode=next;document.querySelectorAll('.modebutton').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
- const hints={normal:'자유롭게 사진이나 글을 남길 수 있어.',answer:'오늘의 질문: '+questionToday(),mission:'오늘의 사진 미션: '+missionToday().emoji+' '+missionToday().name+' (사진이 꼭 필요해)'};
- $('modeHint').textContent=hints[mode];}
-let leafTaps=0;$('leaf').onclick=()=>{leafTaps++;if(leafTaps===3){leafTaps=0;const day=dayKST();let msg=day.endsWith('-01')?'새로운 달의 첫 페이지야. 오늘은 어떤 장면을 남길까?':memories.length>=20?'많은 계절을 작은 정원에 모아 뒀어. 다시 들르기를 기다리고 있을게.':'가끔은 아무 일 없는 날이 가장 오래 기억에 남아. 오늘의 한 조각도 여기에 남겨 줘.';dialog('🍃 작은 잎 속의 편지',msg)}};
-$('photoInput').onchange=function(){const file=this.files?.[0];if(!file)return;if(!file.type.startsWith('image/'))return notify('사진 파일을 골라 줘');const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{try{let c=document.createElement('canvas'),scale=Math.min(1,1000/img.width,1000/img.height);c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);selectedPhoto=c.toDataURL('image/jpeg',.74);let preview=new Image();preview.src=selectedPhoto;$('preview').replaceChildren(preview)}catch(e){notify('사진 변환 오류')}finally{URL.revokeObjectURL(url)}};img.onerror=()=>{URL.revokeObjectURL(url);notify('사진을 읽을 수 없어')};img.src=url};
-async function uploadPhoto(data){if(!data)return null;const blob=await(await fetch(data)).blob();if(blob.size>3145728)throw Error('사진이 너무 커. 다른 사진을 골라 줘.');const path=uid+'/'+crypto.randomUUID()+'.jpg';const r=await db.storage.from('pieces-photos').upload(path,blob,{contentType:'image/jpeg'});if(r.error)throw r.error;return path}
-async function saveMemory(){if(!ready)return notify('공유 앨범 연결을 확인해 줘');if(!profileNick){$('nicknameEntry').focus();return notify('먼저 중복되지 않는 닉네임을 등록해 줘.');}if(!enhanced&&mode!=='normal')return notify('먼저 Supabase에 추가 기능 SQL을 실행해 줘');const body=$('message').value.trim();if(!body&&!selectedPhoto)return notify('사진이나 글을 남겨 줘');if(mode==='mission'&&!selectedPhoto)return notify('사진 미션에는 사진이 필요해');const btn=$('submit');btn.disabled=true;let photo_path=null;try{photo_path=await uploadPhoto(selectedPhoto);let obj={author_id:uid,display_name:profileNick,mood:$('mood').value,body,photo_path};if(mode==='answer'){obj.question_day=dayKST();obj.question_text=questionToday()}if(mode==='mission'){obj.mission_key=missionToday().key;obj.mission_day=dayKST()}const res=await db.from('pieces_entries').insert(obj);if(res.error)throw res.error;$('message').value='';$('photoInput').value='';$('preview').textContent='📷 사진을 선택해 줘';selectedPhoto='';await load();show('home');notify('오늘의 조각을 함께 남겼어 🌿')}catch(e){console.error(e);notify('저장 실패: '+(e.message||'연결 확인 필요'));if(photo_path){await db.storage.from('pieces-photos').remove([photo_path])}}finally{btn.disabled=false}}
-function photoURL(post){return post.photo_path?db.storage.from('pieces-photos').getPublicUrl(post.photo_path).data.publicUrl:null}
-function textNode(tag,value,cls){const e=document.createElement(tag);e.textContent=value;if(cls)e.className=cls;return e}
-function makeCard(post){const card=document.createElement('article');card.className='memory';let url=photoURL(post);if(url){const img=new Image();img.src=url;img.alt='기록 사진';img.loading='lazy';card.append(img)}else card.append(textNode('div',post.mood,'empty-photo'));
- const info=textNode('div',new Date(post.created_at).toLocaleDateString('ko-KR')+' · '+post.display_name,'meta');card.append(info);card.append(textNode('h3',post.mood));if(post.question_day)card.append(textNode('p','💌 '+post.question_text,'tiny'));if(post.mission_key)card.append(textNode('p','📷 미션에 참여한 기록','tiny'));if(post.body)card.append(textNode('p',post.body,'body'));
- const acts=document.createElement('div');acts.className='actions';const liked=likes.some(x=>x.entry_id===post.id&&x.user_id===uid);const heart=textNode('button',(liked?'💗':'🤍')+' 마음 '+((post.legacy_hearts||0)+likes.filter(x=>x.entry_id===post.id).length),'soft');heart.onclick=async()=>{heart.disabled=true;try{const res=liked?await db.from('pieces_likes').delete().eq('entry_id',post.id).eq('user_id',uid):await db.from('pieces_likes').insert({entry_id:post.id,user_id:uid});if(res.error)throw res.error;await load()}catch(e){notify('하트 저장 실패')}finally{heart.disabled=false}};acts.append(heart);
- if(post.author_id===uid||isAdmin){const del=textNode('button','🗑 글 삭제','soft');del.onclick=async()=>{if(!confirm('사진·글·댓글·하트를 함께 삭제할까? 되돌릴 수 없어.'))return;del.disabled=true;try{const res=await db.from('pieces_entries').delete().eq('id',post.id).select('id');if(res.error||!res.data?.length)throw res.error||Error('삭제 권한 없음');if(post.photo_path){const p=await db.storage.from('pieces-photos').remove([post.photo_path]);if(p.error)notify('글은 지웠지만 사진 원본 삭제가 실패했어')}await load();notify('글을 삭제했어')}catch(e){notify('삭제 실패. Supabase 권한 설정을 확인해 줘')}finally{del.disabled=false}};acts.append(del)}card.append(acts);
- const replyBox=document.createElement('div');const legacy=Array.isArray(post.legacy_comments)?post.legacy_comments:[];
- legacy.forEach((v,i)=>{const line=document.createElement('div');line.className='comment';line.append(textNode('span','💬 '+String(v)));if(post.author_id===uid||isAdmin){const del=textNode('button','삭제');del.onclick=async()=>{if(!confirm('이전 댓글을 삭제할까?'))return;const next=legacy.filter((_,j)=>j!==i);const res=await db.from('pieces_entries').update({legacy_comments:next}).eq('id',post.id).select('id');if(res.error||!res.data?.length)notify('이전 댓글 삭제 권한이 없어. SQL 설정을 확인해 줘');else await load()};line.append(del)}replyBox.append(line)});
- comments.filter(c=>c.entry_id===post.id).forEach(c=>{const line=document.createElement('div');line.className='comment';line.append(textNode('span','💬 '+c.body));if(c.author_id===uid||isAdmin){const del=textNode('button','삭제');del.onclick=async()=>{if(!confirm('이 댓글을 삭제할까?'))return;const res=await db.from('pieces_comments').delete().eq('id',c.id).select('id');if(res.error||!res.data?.length)notify('댓글 삭제 실패. SQL 권한을 확인해 줘');else await load()};line.append(del)}replyBox.append(line)});
- const input=document.createElement('input');input.maxLength=200;input.placeholder='짧은 답장 남기기';input.setAttribute('aria-label','댓글');const reply=textNode('button','답장하기','soft');reply.onclick=async()=>{const body=input.value.trim();if(!body)return;reply.disabled=true;try{const res=await db.from('pieces_comments').insert({entry_id:post.id,author_id:uid,body});if(res.error)throw res.error;await load()}catch(e){notify('댓글 저장 실패')}finally{reply.disabled=false}};replyBox.append(input,reply);card.append(replyBox);return card}
-function fill(id,items,message='아직 남겨진 조각이 없어.'){let root=$(id);root.replaceChildren();if(!items.length){root.append(textNode('p',message,'muted'));return}items.forEach(x=>root.append(makeCard(x)))}
-function render(){fill('recent',memories.slice(0,4));const f=$('filter').value;fill('gallery',memories.filter(x=>f==='all'||x.mood===f));drawHome();if(currentPage==='filmPage')drawFilm();if(currentPage==='capsulePage')drawEnvelopes();if(currentPage==='calendarPage')drawCalendar()}
-function pairedDays(){const groups=new Map();for(const p of memories){if(!p.question_day)continue;if(!groups.has(p.question_day))groups.set(p.question_day,new Set());groups.get(p.question_day).add(p.author_id)}return [...groups].filter(([,v])=>v.size>=2).map(([k])=>k)}
-function toggleMissionGallery(){missionExpanded=!missionExpanded;drawHome();}
-function drawHome(){const today=dayKST();$('dailyQuestion').textContent=questionToday();const todayAnswers=memories.filter(x=>x.question_day===today);const unique=[];for(const p of todayAnswers){if(!unique.some(x=>x.author_id===p.author_id))unique.push(p)}$('answers').replaceChildren();for(const p of unique.slice(0,2)){$('answers').append(makeCard(p))}for(let i=unique.length;i<2;i++){const place=document.createElement('div');place.className='card center';place.style.margin='0';place.append(textNode('div','💌','garden-land'));place.append(textNode('p','아직 도착하지 않은 답변','muted'));$('answers').append(place)}
- const ks=today.split('-').map(Number),lastDay=new Date(Date.UTC(ks[0],ks[1]-1,0)).getUTCDate();const past=new Date(Date.UTC(ks[0],ks[1]-2,Math.min(ks[2],lastDay),12));const key=dayKST(past);const old=memories.filter(x=>dayKST(new Date(x.created_at))===key);fill('oldCapsule',old.slice(0,4),'한 달 전 이 날짜에 남겨진 기록은 아직 없어.');
- $('missionTitle').textContent=missionToday().emoji+' '+missionToday().name;
-  const missionPosts=memories.filter(x=>x.mission_key===missionToday().key&&x.mission_day===today);
-  fill('missionGallery',missionExpanded?missionPosts:missionPosts.slice(0,3),'오늘의 미션 사진을 기다리고 있어.');
-  const toggle=$('missionToggle');toggle.hidden=missionPosts.length<=3;
-  toggle.textContent=missionExpanded?'접기 · 처음 3개만 보기':'사진 펼치기 · '+(missionPosts.length-3)+'개 더 보기';
-  toggle.setAttribute('aria-expanded',String(missionExpanded));
- drawStickers();drawGarden();drawDrawers()}
-function drawStickers(){const earned=new Set(memories.filter(x=>x.author_id===uid&&x.mission_key&&x.photo_path).map(x=>x.mission_key));const root=$('stickers');root.replaceChildren();for(let i=0;i<missions.length;i++){const key='m'+String(i).padStart(2,'0'),has=earned.has(key);const s=textNode('span',(has?missions[i][1]:'🔒')+' '+missions[i][0], 'sticker'+(has?'':' locked'));s.title=has?'내가 모은 스티커':'사진 미션을 완료하면 열려';root.append(s)}const counter=textNode('p','내가 모은 스티커 '+earned.size+' / '+missions.length,'muted');root.prepend(counter)}
-function drawGarden(){const n=memories.length;const unlocked=gardenObjects.filter(x=>n>=x.n),art=unlocked.map(x=>x.emoji).join(' ');$('garden-art').textContent=art;$('garden-stat').textContent='함께 남긴 조각 '+n+'개 · 열린 장식 '+unlocked.length+'/'+gardenObjects.length;const root=$('garden-items');root.replaceChildren();for(const item of gardenObjects){const opened=n>=item.n,btn=textNode('button',(opened?item.emoji:'🔒')+' '+item.name+(opened?'':' · '+item.n+'개 필요'));btn.disabled=!opened;btn.onclick=()=>{const memory=memories.length?memories[Math.min(Math.max(0,item.n-1),memories.length-1)]:null;dialog(item.emoji+' '+item.name,memory?'이 장식이 열렸을 때의 조각\n\n'+(memory.body||'사진으로 남은 하루')+'\n— '+memory.display_name:'정원에 첫 씨앗을 심었어.')};root.append(btn)}}
-function drawDrawers(){const root=$('drawers');root.replaceChildren();for(const entry of drawerObjects){const opened=entry.test(),btn=document.createElement('button');btn.className='drawer'+(opened?'':' locked');btn.append(textNode('div',opened?entry.icon:'🔒','icon'));btn.append(textNode('div',entry.name));btn.append(textNode('div',opened?'열어 보기':entry.hint,'tiny'));btn.onclick=()=>opened?dialog(entry.icon+' '+entry.name,entry.letter):notify('아직 열리지 않았어 · '+entry.hint);root.append(btn)}}
-function drawCalendar(){const now=dayKST().split('-').map(Number),y=now[0],m=now[1]-1;$('month').textContent=y+'년 '+(m+1)+'월';const root=$('calendar');root.replaceChildren();['일','월','화','수','목','금','토'].forEach(d=>root.append(textNode('b',d,'day label')));const first=new Date(y,m,1).getDay();for(let i=0;i<first;i++)root.append(document.createElement('div'));for(let d=1,n=new Date(y,m+1,0).getDate();d<=n;d++){const key=[y,String(m+1).padStart(2,'0'),String(d).padStart(2,'0')].join('-');const found=memories.filter(x=>dayKST(new Date(x.created_at))===key);const btn=textNode('button',d+(found.length?' '+found[0].mood:''),'day'+(found.length?' marked':''));btn.onclick=()=>{if(found.length){show('album');fill('gallery',found)}};root.append(btn)}}
-function drawFilm() {const month=$('filmMonth').value||dayKST().slice(0,7);const selected=memories.filter(x=>x.created_at&&dayKST(new Date(x.created_at)).slice(0,7)===month),photos=selected.filter(x=>x.photo_path);const film=$('film');film.replaceChildren();const summary=$('filmText');summary.replaceChildren();summary.append(textNode('h3',month.replace('-','년 ')+'월의 장면'));summary.append(textNode('p','모인 조각 '+selected.length+'개 · 사진 '+photos.length+'장','muted'));if(!photos.length){film.append(textNode('p','이달에 남긴 사진이 아직 없어.','no-photos'));return}photos.forEach((p,i)=>{const frame=document.createElement('button');frame.className='frame';frame.style.setProperty('--tilt',i%2?'.9deg':'-.9deg');const img=new Image();img.src=photoURL(p);img.alt=p.display_name+'의 사진';img.loading='lazy';frame.append(img,textNode('span',dayKST(new Date(p.created_at)).slice(5)+' · '+p.display_name,'tiny'));frame.onclick=()=>{summary.replaceChildren(makeCard(p));summary.scrollIntoView({behavior:'smooth',block:'nearest'})};film.append(frame)})}
-function surprise(){show('surprisePage');$('surpriseResult').replaceChildren();if(!memories.length){$('surpriseResult').textContent='첫 추억을 남겨 봐';return}$('surpriseResult').append(makeCard(memories[Math.floor(Math.random()*memories.length)]))}
-function drawEnvelopes(){const root=$('envelopes');root.replaceChildren();if(!envelopes.length){root.append(textNode('p','아직 봉인된 편지가 없어.','muted'));return}const today=dayKST();envelopes.forEach(e=>{const opened=e.open_on<=today,card=document.createElement('div');card.className='notice';card.style.margin='8px 0';card.append(textNode('strong',(opened?'💌 열림 · ':'🔒 봉인 중 · ')+e.display_name));card.append(textNode('p','열리는 날 '+e.open_on,'tiny'));if(opened){const item=openedLetters.find(l=>l.envelope_id===e.id);card.append(textNode('p',item?item.body:'편지 내용을 불러오지 못했어.','body'))}else card.append(textNode('p','열리는 날까지 편지는 잠겨 있어.','muted'));if(e.author_id===uid||isAdmin){const del=textNode('button','편지 삭제','soft');del.onclick=async()=>{if(!confirm('봉인한 편지를 영구 삭제할까?'))return;const res=await db.from('pieces_capsule_envelopes').delete().eq('id',e.id).select('id');if(res.error||!res.data?.length)notify('편지 삭제 실패');else{notify('편지를 삭제했어');await load()}};card.append(del)}root.append(card)})}
-async function sealCapsule(){if(!ready)return notify('공유 앨범 연결을 확인해 줘');if(!profileNick)return notify('먼저 닉네임을 등록해 줘');if(!enhanced)return notify('먼저 Supabase 추가 기능 SQL을 실행해 줘');const open_on=$('capsuleDate').value,body=$('capsuleBody').value.trim(),display_name=profileNick;if(!open_on||open_on<=dayKST())return notify('내일 이후의 날짜를 골라 줘');if(!body)return notify('봉인할 편지를 적어 줘');if(body.length>1000)return notify('1000자까지 쓸 수 있어');$('sealButton').disabled=true;let envelope=null;try{const res=await db.from('pieces_capsule_envelopes').insert({author_id:uid,display_name,open_on}).select('id').single();if(res.error)throw res.error;envelope=res.data.id;const letter=await db.from('pieces_capsule_letters').insert({envelope_id:envelope,author_id:uid,body});if(letter.error)throw letter.error;$('capsuleBody').value='';await load();notify('편지가 미래로 봉인됐어 ✉️')}catch(e){console.error(e);if(envelope)await db.from('pieces_capsule_envelopes').delete().eq('id',envelope);notify('봉인 실패. Supabase SQL 설정을 확인해 줘')}finally{$('sealButton').disabled=false}}
-function oldRecords(){try{let v=JSON.parse(localStorage.getItem(OLD_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
-function backup(){const data=localStorage.getItem(OLD_KEY)||'[]';const blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='오늘의조각들_이전기록_'+dayKST()+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
-async function moveOld(){if(!ready)return notify('연결을 확인해 줘');const old=oldRecords();if(!old.length)return notify('옮길 예전 기록이 없어');if(!confirm(old.length+'개의 예전 기록을 공유 앨범에 복사할까? 기존 기기 데이터는 그대로 유지돼.'))return;let done=0,failed=0;for(const item of old){let path=null;try{const legacy_id=String(item.id);const found=await db.from('pieces_entries').select('id').eq('author_id',uid).eq('legacy_id',legacy_id).maybeSingle();if(found.error)throw found.error;if(found.data)continue;path=await uploadPhoto(item.photo||'');const r=await db.from('pieces_entries').insert({author_id:uid,legacy_id,display_name:String(item.name||'익명의 마음').slice(0,20),mood:item.mood||'🍀',body:String(item.text||'').slice(0,500),photo_path:path,created_at:item.date||new Date().toISOString(),legacy_hearts:item.hearts||0,legacy_comments:item.comments||[]});if(r.error)throw r.error;done++}catch(e){console.error(e);failed++;if(path)await db.storage.from('pieces-photos').remove([path])}}await load();notify('이전 완료 '+done+'개 · 실패 '+failed+'개. 원본은 유지돼.')}
-async function copyUserId(){if(!uid)return notify('연결 후 이용할 수 있어');try{await navigator.clipboard.writeText(uid);notify('내 계정 ID를 복사했어. Supabase 관리자 등록에만 사용해 줘.')}catch(e){prompt('내 계정 ID',uid)}}
-async function enablePush(){dialog('🔔 휴대폰 푸시 알림','이 사이트에는 푸시 발송 서버가 아직 연결되지 않았어. 단순히 알림을 허용해도 사이트를 닫은 상태에서는 새 글 알림이 오지 않아. 실제 푸시를 사용하려면 웹 푸시 구독, 서비스 워커, Supabase 발송 서버와 VAPID 키를 별도로 설정해야 해.')}
-async function load(){if(!db||!uid||loading)return;loading=true;try{const queries=[db.from('pieces_entries').select('*').order('created_at',{ascending:false}).limit(2000),db.from('pieces_comments').select('*').limit(5000),db.from('pieces_likes').select('*').limit(5000)];if(enhanced){queries.push(db.from('pieces_capsule_envelopes').select('*').order('open_on',{ascending:true}).limit(1000));queries.push(db.from('pieces_capsule_letters').select('envelope_id,body').limit(1000))}const res=await Promise.all(queries);if(res.some(r=>r.error))throw res.find(r=>r.error).error;memories=res[0].data||[];comments=res[1].data||[];likes=res[2].data||[];if(enhanced){envelopes=res[3].data||[];openedLetters=res[4].data||[]}ready=true;$('status').hidden=true;render()}catch(e){console.error(e);$('status').hidden=true;notify('⚠️ 공유 앨범 데이터를 불러오지 못했어. SQL 설정을 확인해 줘.')}finally{loading=false}}
+`.trim().split("\n");
 
-// 닉네임은 Supabase UNIQUE 인덱스로 여러 기기 간 중복을 방지합니다.
-function applyNickname(name){
-  profileNick=name;
-  $('nicknameEntry').value=name;
-  $('nicknameStatus').textContent='🌿 현재 닉네임: '+name+' · 변경하려면 새 닉네임을 입력해 줘.';
-  $('nickname').value=name;
-  $('nickname').readOnly=true;
-  $('nickname').title='닉네임은 위의 내 닉네임 설정에서 변경할 수 있어.';
-  $('capsuleName').value=name;
-  $('capsuleName').readOnly=true;
-}
-async function loadNickname(){
-  const r=await db.from('pieces_profiles').select('nickname').eq('user_id',uid).maybeSingle();
-  if(r.error){
-    nicknameBackendReady=false;
-    $('nicknameStatus').textContent='⚠️ 먼저 Supabase에 추가 닉네임 SQL을 실행해 줘.';
-    console.warn('닉네임 조회 오류',r.error);
-    return;
-  }
-  nicknameBackendReady=true;
-  if(r.data?.nickname)applyNickname(r.data.nickname);
-  else $('nicknameStatus').textContent='닉네임을 등록해야 조각을 남기거나 게임에 입장할 수 있어.';
-}
-async function claimNickname(){
-  if(!uid||!db)return notify('사이트 연결을 먼저 확인해 줘.');
-  if(!nicknameBackendReady)return notify('Supabase 추가 SQL을 먼저 실행해 줘.');
-  const name=$('nicknameEntry').value.trim().replace(/\s+/g,' ');
-  if(name.length<2||name.length>16)return notify('닉네임은 2~16자로 입력해 줘.');
-  if(/[\r\n\t]/.test(name))return notify('닉네임에 줄바꿈은 넣을 수 없어.');
-  const btn=$('nicknameClaim');btn.disabled=true;
-  try{
-    const r=await db.from('pieces_profiles')
-      .upsert({user_id:uid,nickname:name},{onConflict:'user_id'})
-      .select('nickname').single();
-    if(r.error){
-      if(r.error.code==='23505'){
-        $('nicknameStatus').textContent='이미 다른 사람이 사용 중인 닉네임이야. 다른 이름을 골라 줘.';
-        notify('동일한 닉네임은 사용할 수 없어.');
-        return;
-      }
-      throw r.error;
-    }
-    applyNickname(r.data.nickname);
-    notify('닉네임을 등록했어. 앨범과 게임에서 같은 이름을 사용할 수 있어.');
-  }catch(e){
-    console.error(e);notify('닉네임 저장에 실패했어. SQL 설정을 확인해 줘.');
-  }finally{btn.disabled=false;}
-}
-$('nicknameEntry').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){e.preventDefault();claimNickname();}
-});
+const MISSIONS = [
+  ["초록색을 발견해 봐","🍃"],
+  ["오늘의 하늘을 찍어 줘","☁️"],
+  ["빛과 그림자를 찾아 줘","🌤️"],
+  ["좋아하는 컵을 보여 줘","☕"],
+  ["조용한 길을 찍어 줘","🚶"],
+  ["작은 꽃을 찾아 줘","🌼"],
+  ["오늘의 책 한 쪽을 담아 줘","📖"],
+  ["창문 밖 풍경을 보여 줘","🪟"],
+  ["오늘의 간식을 남겨 줘","🍪"],
+  ["걸으면서 본 나무를 찍어 줘","🌳"],
+  ["가장 오래 머문 자리를 찍어 줘","🪑"],
+  ["따뜻한 조명 한 장","🕯️"],
+  ["둥근 모양을 찾아 줘","🟡"],
+  ["나를 웃게 만든 물건을 찍어 줘","😊"],
+  ["내가 좋아하는 색 찾기","🎨"],
+  ["오늘의 운동화 한 장","👟"],
+  ["물에 비친 모습을 찾아 줘","💧"],
+  ["반짝이는 것을 찍어 줘","✨"],
+  ["아침 식탁을 남겨 줘","🥐"],
+  ["해 질 무렵의 풍경","🌇"],
+  ["작은 손글씨 한 장","✍️"],
+  ["길가의 표지판을 담아 줘","🪧"],
+  ["오늘의 그림자를 찍어 줘","🌙"],
+  ["나의 작은 정리 기록","🧺"],
+  ["오래된 물건 하나","🧸"],
+  ["분홍색을 찾아 줘","🌷"],
+  ["편안한 공간 한 장","🏡"],
+  ["오늘 본 동물을 남겨 줘","🐾"],
+  ["소중한 사람을 떠올리게 하는 물건","💌"],
+  ["나만의 하루를 닮은 사진","📸"]
+];
 
-async function start(){try{if(!window.supabase)throw Error('Supabase 라이브러리를 읽지 못했어');db=window.supabase.createClient(APP_URL,APP_PUBLISHABLE_KEY);let {data:{session},error}=await db.auth.getSession();if(error)throw error;if(!session){let s=await db.auth.signInAnonymously();if(s.error)throw s.error;session=s.data.session}const me=await db.auth.getUser();if(me.error||!me.data.user)throw me.error||Error('로그인 오류');uid=me.data.user.id;await loadNickname();const adm=await db.from('pieces_admins').select('user_id').eq('user_id',uid).maybeSingle();isAdmin=Boolean(!adm.error&&adm.data);const probe=await db.from('pieces_entries').select('question_day,mission_key').limit(1);enhanced=!probe.error;
- $('moveOld').classList.toggle('hidden',!oldRecords().length);await load();if(!enhanced)notify('기능 확장 SQL 실행이 필요해. 일반 기록은 계속 사용할 수 있어.');
- db.channel('pieces-live-extended').on('postgres_changes',{event:'*',schema:'public',table:'pieces_entries'},async payload=>{if(payload.eventType==='INSERT'&&payload.new.author_id!==uid)notify('🌿 새로운 조각이 도착했어');await load()}).on('postgres_changes',{event:'*',schema:'public',table:'pieces_comments'},load).on('postgres_changes',{event:'*',schema:'public',table:'pieces_likes'},load).on('postgres_changes',{event:'*',schema:'public',table:'pieces_capsule_envelopes'},load).subscribe();
- }catch(e){console.error(e);$('status').hidden=true;notify('⚠️ 연결 오류: '+(e.message||'Supabase 설정을 확인해 줘'))}}
-/* EP01 사라진 13번째 조각 — index.html에 포함되는 게임 로직 */
-const GAME_KEY_PREFIX = 'today-pieces-escape-ep01:';
-const GAME_SCENES = ['intro', 'hall', 'greenhouse', 'post', 'photo', 'cinema', 'ending'];
-const GAME_NAMES = {
-  intro: '사라진 사진', hall: '거꾸로 흐르는 현관',
-  greenhouse: '숨을 쉬는 온실', post: '잠긴 우체통',
-  photo: '거꾸로 된 사진관', cinema: '열세 번째 상영관', ending: '마지막 장면'
-};
-const GAME_HINTS = {
-  hall: [
-    '사진을 뒤집으면 날짜가 아니라 촬영 시간이 적혀 있어.',
-    '신발장의 문장을 읽고 아침부터 밤까지 순서를 정해 봐.',
-    '새싹 7시 → 찻잔 13시 → 달 22시. 숫자는 4, 2, 7이야.'
-  ],
-  greenhouse: [
-    '현관에서 얻은 물방울을 사용해 볼까?',
-    '물뿌리개에 물방울을 넣고 중앙의 꽃부터 살펴봐.',
-    '씨앗 → 새싹 → 봉오리 → 꽃 순서로 화분을 터치해.'
-  ],
-  post: [
-    '봉투의 글씨가 보이지 않는 이유가 있을 거야.',
-    '온실에서 얻은 투명 필름을 각 봉투 위에 겹쳐 봐.',
-    '구름(어제) → 새(오늘) → 별(내일) 순서로 넣어.'
-  ],
-  photo: [
-    '카메라가 보려는 것은 무엇일까?',
-    '우체통에서 가져온 달빛 렌즈를 카메라에 끼워 봐.',
-    '위: 창틀·햇빛 / 아래: 책상·빈 의자. 두 조각씩 눌러 위치를 바꿔.'
-  ],
-  cinema: [
-    '현관 거울과 사진관에서 보았던 빈 의자를 기억해 봐.',
-    '셔터 단추를 영사기에 끼운 뒤, 시계·의자·카메라를 조사해.',
-    '열세 번째 장면은 잃어버린 과거가 아니라 지금 여기 도착한 순간이야.'
-  ]
-};
-let game = null;
-let gameRemoteAvailable = true;
-let gameSaveTimer = null;
-let gameHintRevealed = false;
-let gamePair = {channel:null, code:'', role:'', people:0, ready:false};
-let gameActive = false;
+function dayKST(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US",{
+    timeZone:"Asia/Seoul",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(date);
+  const part = type => parts.find(x => x.type === type).value;
+  return part("year")+"-"+part("month")+"-"+part("day");
+}
 
-function freshGame(){
+function dayIndex() {
+  return Math.floor(
+    Date.parse(dayKST()+"T00:00:00Z") / 86400000
+  );
+}
+
+function questionToday() {
+  return QUESTIONS[dayIndex() % QUESTIONS.length];
+}
+
+function missionToday() {
+  const index = dayIndex() % MISSIONS.length;
   return {
-    scene:'intro', inspected:[], items:[], photos:0,
-    flipped:false, hasWater:false, watered:false,
-    plants:[], mail:[], mounted:false,
-    tiles:['chair','sun','desk','frame'], selectedTile:null,
-    projector:false, finalSolved:false,
-    bonusSolved:false, ending:null,
-    hints:{}, foundAt:null
+    key:"m"+String(index).padStart(2,"0"),
+    name:MISSIONS[index][0],
+    emoji:MISSIONS[index][1]
   };
 }
-function gameHas(item){return game.items.includes(item)}
-function gameAdd(item){if(!gameHas(item))game.items.push(item)}
-function gameSeen(item){return game.inspected.includes(item)}
-function gameMark(item){if(!gameSeen(item))game.inspected.push(item)}
-function gameMessage(text){$('gameMessage').textContent=text}
-function gameSave(){
-  if(!game)return;
-  try {localStorage.setItem(GAME_KEY_PREFIX+uid,JSON.stringify(game))} catch(e){console.warn(e)}
-  if(!db || !uid || !gameRemoteAvailable)return;
-  clearTimeout(gameSaveTimer);
-  gameSaveTimer=setTimeout(async()=>{
-    const result=await db.from('pieces_game_progress').upsert({
-      user_id:uid, progress:game, updated_at:new Date().toISOString()
-    },{onConflict:'user_id'});
-    if(result.error){
-      gameRemoteAvailable=false;
-      console.warn('방탈출 원격 저장 불가: 로컬에만 저장',result.error);
-    }
-  },250);
+
+function notify(text) {
+  const el = $("toast");
+  el.textContent = text;
+  el.style.display = "block";
+  clearTimeout(notify.timer);
+  notify.timer = setTimeout(
+    () => el.style.display = "none",3500
+  );
 }
-async function gameLoad(){
-  let local=null;
-  try{local=JSON.parse(localStorage.getItem(GAME_KEY_PREFIX+uid)||'null')}catch(e){}
-  if(db && uid){
-    const r=await db.from('pieces_game_progress').select('progress')
-      .eq('user_id',uid).maybeSingle();
-    if(!r.error&&r.data?.progress?.scene){
-      game={...freshGame(),...r.data.progress};
-      return;
-    }
-    if(r.error){gameRemoteAvailable=false;console.warn(r.error)}
-  }
-  game={...freshGame(),...(local||{})};
+
+function textEl(tag,text,className) {
+  const el = document.createElement(tag);
+  el.textContent = text;
+  if (className) el.className = className;
+  return el;
 }
-async function openGame(){
-  if(!uid){notify('먼저 연결을 확인해 줘.');return}
-  if(!profileNick){
-    show('write');
-    notify('먼저 중복되지 않는 닉네임을 등록해 줘.');
-    $('nicknameEntry').focus();
-    $('nicknameSettings').scrollIntoView({behavior:'smooth',block:'center'});
+
+function openLetter(title,body) {
+  $("letterTitle").textContent = title;
+  $("letterText").textContent = body;
+  $("letter").showModal();
+}
+
+function show(id) {
+  currentPage = id;
+  [
+    "home","write","album","calendarPage",
+    "filmPage","capsulePage","surprisePage","gamePage"
+  ].forEach(name => {
+    $(name).classList.toggle("hidden",name !== id);
+  });
+  if (id === "calendarPage") drawCalendar();
+  if (id === "filmPage") drawFilm();
+  if (id === "capsulePage") renderEnvelopes();
+  window.scrollTo(0,0);
+}
+
+function chooseMode(value) {
+  mode = value;
+  const messages = {
+    normal:"자유롭게 사진이나 글을 남길 수 있어.",
+    answer:"오늘의 질문: "+questionToday(),
+    mission:"오늘의 사진 미션: "+missionToday().name
+  };
+  $("modeHint").textContent = messages[value];
+}
+
+let leafClicks = 0;
+
+$("leaf").onclick = () => {
+  leafClicks++;
+  if (leafClicks < 3) return;
+  leafClicks = 0;
+  openLetter(
+    "🍃 숨겨진 편지",
+    posts.length >= 20
+      ? "작은 조각들이 모여 우리의 정원이 자랐어."
+      : "평범한 오늘도 언젠가는 소중한 추억이 될 거야."
+  );
+};
+
+// 닉네임을 계정처럼 보존하기
+function useNickname(name,profileId) {
+  nickname = name;
+  ownerId = profileId;
+  $("nicknameEntry").value = name;
+  $("nickname").value = name;
+  $("nicknameStatus").textContent =
+    "🌿 현재 내 닉네임: "+name+
+    " · 다시 등록할 필요 없어.";
+}
+
+async function loadNickname() {
+  const response = await db.rpc("pieces_my_nickname");
+  if (response.error) {
+    $("nicknameStatus").textContent =
+      "닉네임 복구용 SQL 설정을 확인해 줘.";
     return;
   }
-  if(!game){await gameLoad()}
-  localStorage.setItem('today-pieces-escape-discovered','yes');
-  $('gameNav').hidden=false;
-  gameActive=true;
-  show('gamePage');
-  renderGame();
-}
-function gameStage(scene){
-  game.scene=scene;gameSave();renderGame();
-  $('gameWorld').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function gameHotspot(label,icon,x,y,key){
-  const b=document.createElement('button');
-  b.type='button';b.className='game-object';
-  b.style.left=x+'%';b.style.top=y+'%';
-  b.title='조사하기: '+label;
-  b.setAttribute('aria-label',label+' 조사하기');
-  const g=document.createElement('span');g.className='object-emoji';g.textContent=icon;
-  const t=document.createElement('span');t.className='object-label';t.textContent=label;
-  b.append(g,t);
-  b.onclick=()=>gameInspect(key);
-  return b;
-}
-function gameControls(html){
-  // 모든 html은 아래 정의한 정적 퍼즐 코드에서만 생성합니다.
-  $('gamePuzzle').innerHTML=html;
-}
-function gamePhotoReward(count,item,next,message){
-  game.photos=count;
-  if(item)gameAdd(item);
-  gameMessage(message);
-  gameStage(next);
-}
-function renderGame(){
-  if(!game)game=freshGame();
-  const scene=game.scene;
-  const world=$('gameWorld');
-  world.className='game-world '+scene;
-  world.replaceChildren();
-  $('gameRoom').textContent=GAME_NAMES[scene];
-  $('gameProgress').textContent=game.photos+' / 12장의 사진';
-  $('gameInventory').replaceChildren();
-  game.items.forEach(item=>{
-    const names={droplet:'💧 유리 물방울',film:'📜 투명 필름',lens:'🔍 달빛 렌즈',shutter:'🎞️ 황동 셔터',light:'🌗 빛의 필름'};
-    $('gameInventory').append(textNode('span',names[item]||item,'game-item'));
-  });
-  if(!game.items.length)$('gameInventory').append(textNode('span','아직 주운 물건이 없어.','tiny'));
-  const descriptions={
-    intro:'사진의 뒷면을 살펴보고, 열세 번째 문을 열어 봐.',
-    hall:'현관의 물건을 조사하고 세 자리 자물쇠를 열어 봐.',
-    greenhouse:'물방울을 활용하고, 화분이 자라는 순서를 찾아 봐.',
-    post:'투명 필름을 겹치고 봉투를 올바른 순서로 보내 봐.',
-    photo:'달빛 렌즈를 사용해 찢어진 사진을 복원해 봐.',
-    cinema:'사진 열두 장을 모았어. 마지막 장면이 무엇인지 알아내자.',
-    ending:'사라진 줄 알았던 사진의 정체를 알게 됐어.'
-  };
-  $('gameSceneDescription').textContent=descriptions[scene];
-  $('gameHintButton').hidden=['intro','ending'].includes(scene);
-  const hc=game.hints[scene]||0;
-  $('gameHintButton').textContent=hc>=3?'힌트 다시 보기':hc===0?'힌트 보기 (1/3)':'다음 힌트 보기 ('+(hc+1)+'/3)';
-  $('gameHintOutput').hidden=true;
-  gameHintRevealed=false;
-  $('gameMessage').textContent='물건을 누르면 자세히 조사할 수 있어.';
-  $('gameRestartButton').hidden=(scene==='intro');
-  const scenes={
-    intro:[['13번 사진','🖼️',50,43,'intro_photo']],
-    hall:[['거꾸로 된 시계','🕰️',20,18,'clock'],['새싹 사진','🌱',29,55,'seedphoto'],['찻잔 사진','☕',47,55,'cupphoto'],['달 사진','🌙',65,55,'moonphoto'],['신발장','🗄️',15,82,'shoe'],['낡은 거울','🪞',83,25,'mirror'],['잠긴 문','🚪',82,77,'door']],
-    greenhouse:[['물뿌리개','🚿',16,69,'watercan'],['가운데 꽃','🥀',51,31,'flower'],['씨앗','🫘',16,86,'seed'],['새싹','🌱',38,86,'sprout'],['봉오리','🌷',62,86,'bud'],['꽃','🌸',84,86,'bloom'],['유리함','🔒',86,30,'glass']],
-    post:[['우체통','📮',47,28,'mailbox'],['구름 봉투','☁️',24,72,'cloud'],['새 봉투','🐦',50,72,'bird'],['별 봉투','⭐',76,72,'star'],['편지 저울','⚖️',14,28,'scale'],['창문','🪟',86,27,'window']],
-    photo:[['낡은 카메라','📷',24,35,'camera'],['현상액 병','🧪',79,34,'developer'],['찢어진 사진','🧩',50,74,'tiles'],['빈 의자','🪑',82,75,'chair']],
-    cinema:[['영사기','📽️',28,45,'projector'],['멈춘 시계','🕰️',70,25,'finalclock'],['빈 의자','🪑',70,72,'finalchair'],['카메라','📷',22,83,'finalcamera'],['13번째 액자','🖼️',49,20,'frame13']],
-    ending:[['열세 번째 사진','✨',50,48,'ending_photo']]
-  };
-  (scenes[scene]||[]).forEach(args=>world.append(gameHotspot(...args)));
-  const introButtons = scene==='intro' ? `<div class="game-choices"><button class="soft" onclick="gameInspect('intro_photo')">사진 뒤집기</button><button class="primary" onclick="gameEnter()" ${game.flipped?'':'disabled'}>열세 번째 문으로 들어가기</button></div>` : '';
-  if(scene==='intro')gameControls(introButtons);
-  if(scene==='hall')gameControls(`<label class="field" for="gameLock">세 자리 현관 비밀번호</label><div class="game-inline"><input id="gameLock" inputmode="numeric" maxlength="3" placeholder="000" autocomplete="off"><button class="primary" onclick="gameSolveHall()">자물쇠 열기</button></div>`);
-  if(scene==='greenhouse')gameControls(`<p class="muted">화분을 순서대로 누르기 · 현재 ${game.plants.length}/4개 선택</p><button class="soft" onclick="game.plants=[];gameSave();renderGame()">순서 초기화</button>`);
-  if(scene==='post')gameControls(`<p class="muted">편지를 보내는 순서를 생각해 봐 · 현재 ${game.mail.length}/3개</p><button class="soft" onclick="game.mail=[];gameSave();renderGame()">봉투 다시 놓기</button>`);
-  if(scene==='photo'){
-    gameControls(`<p class="muted">사진 조각을 두 개 차례로 눌러 위치를 교환해. ${game.mounted?'렌즈가 카메라에 장착돼 있어.':'먼저 카메라를 조사해야 해.'}</p><div id="gameTiles" class="game-tiles"></div>`);
-    const labels={frame:'🪟 창틀',sun:'☀️ 햇빛',desk:'📚 책상',chair:'🪑 의자'};
-    game.tiles.forEach((piece,i)=>{
-      const b=document.createElement('button');b.className='game-tile'+(game.selectedTile===i?' selected':'');
-      b.textContent=labels[piece];b.disabled=!game.mounted;
-      b.onclick=()=>gameTile(i);$('gameTiles').append(b);
-    });
-  }
-  if(scene==='cinema'){
-    const ready=gameSeen('finalclock')&&gameSeen('finalchair')&&gameSeen('finalcamera')&&game.projector;
-    gameControls(`<p class="muted">${ready?'마지막 질문에 답할 수 있어.':'영사기를 작동시키고 시계, 의자, 카메라를 조사해.'}</p><div class="game-choices"><button class="soft" onclick="gameSolveFinal('past')" ${ready?'':'disabled'}>가장 오래된 사진</button><button class="primary" onclick="gameSolveFinal('now')" ${ready?'':'disabled'}>지금 이 방에 들어온 순간</button><button class="soft" onclick="gameSolveFinal('lost')" ${ready?'':'disabled'}>누군가 잃어버린 사진</button></div><div id="gameEndingChoices"></div>`);
-    gameRenderEndingChoices();
-  }
-  if(scene==='ending'){
-    let endings={A:['남겨진 자리','이제 이곳에도 누군가 다녀간 하루가 생겼습니다.'],B:['비워 둔 사진','모든 빈자리를 반드시 채울 필요는 없으니까.'],C:['두 개의 시선','우리는 서로 다른 곳에 있었지만, 같은 문을 열고 있었어.']};
-    const e=endings[game.ending]||endings.A;
-    gameControls(`<h3>✉️ ${e[0]}</h3><p class="game-ending-quote">“${e[1]}”</p><button class="primary" onclick="gameConfirmRestart()">다시 탐험하기</button><button class="soft" onclick="show('home')">추억 앨범으로 돌아가기</button>`);
-  }
-  $('gamePartnerArea').hidden=!['cinema','ending'].includes(scene);
-  gameRenderPartner();
-}
-function gameEnter(){
-  if(!game.flipped)return gameMessage('사진의 뒷면을 먼저 확인해 봐.');
-  gameStage('hall');gameMessage('천장에 시계가 매달린 집에 도착했어.');
-}
-function gameInspect(key){
-  if(game.scene==='intro'){
-    game.flipped=true;gameSave();renderGame();
-    return gameMessage('사진 뒷면: “열두 장은 이미 돌아왔습니다. 열세 번째 장면은 아직 돌아오지 않았습니다.”');
-  }
-  if(game.scene==='hall'){
-    if(key==='clock')return gameMessage('시계가 천장에 매달려 거꾸로 가지만, 초침 소리만은 정상적으로 들려.');
-    if(key==='mirror')return gameMessage('낡은 거울 속에는 네 얼굴 대신 아무도 앉지 않은 의자가 보여.');
-    if(key==='shoe'){gameMark('shoe');gameSave();return gameMessage('신발장 메모: “시간이 거꾸로 흐르는 집에서도 하루는 아침부터 밤까지 지나간다.”')}
-    const p={seedphoto:['새싹','오전 7시','4'],cupphoto:['찻잔','오후 1시','2'],moonphoto:['달','오후 10시','7']}[key];
-    if(p){gameMark(key);gameSave();return gameMessage(p[0]+' 사진 뒷면에는 '+p[1]+' / 숫자 '+p[2]+'가 적혀 있어.')}
-    if(key==='door')return gameMessage('세 자리 숫자를 맞히면 열리는 문이야. 신발장과 사진을 더 조사해 봐.');
-  }
-  if(game.scene==='greenhouse'){
-    if(key==='watercan'){
-      if(!gameHas('droplet'))return gameMessage('물뿌리개가 텅 비어 있어.');
-      game.hasWater=true;gameSave();return gameMessage('현관에서 찾은 유리 물방울을 물뿌리개에 담았어. 이제 꽃에 물을 줄 수 있어.');
-    }
-    if(key==='flower'){
-      if(!game.hasWater)return gameMessage('꽃이 시들어 있어. 물뿌리개를 먼저 살펴봐.');
-      game.watered=true;gameSave();return gameMessage('꽃이 숨을 쉬기 시작했어. 네 화분이 빛나고 있어.');
-    }
-    if(key==='glass')return gameMessage('유리함에는 “처음의 모습에서 마지막의 모습까지 손을 건네 주세요.”라고 새겨져 있어.');
-    if(['seed','sprout','bud','bloom'].includes(key)){
-      if(!game.watered)return gameMessage('먼저 가운데 꽃을 살려야 화분을 움직일 수 있어.');
-      const wanted=['seed','sprout','bud','bloom'];
-      if(wanted[game.plants.length]!==key){game.plants=[];gameSave();renderGame();return gameMessage('순서가 맞지 않아. 화분이 원래 자리로 돌아갔어. 처음부터 다시 시도해 봐.');}
-      game.plants.push(key);gameSave();
-      if(game.plants.length===4){
-        game.photos=6;gameAdd('film');gameStage('post');
-        return gameMessage('씨앗에서 꽃까지! 투명 필름과 사진 4~6번을 찾았어. 새 방의 우체통이 열렸어.');
-      }
-      renderGame();return gameMessage('화분이 반짝였어. '+game.plants.length+'/4');
-    }
-  }
-  if(game.scene==='post'){
-    if(key==='mailbox')return gameMessage('우체통 문장: “지나간 것부터, 머무는 것을 지나, 아직 오지 않은 것까지.”');
-    if(key==='scale')return gameMessage('편지 저울은 아무것도 달지 않아. 봉투는 저울에 올릴 수 없어.');
-    if(key==='window')return gameMessage('창문 밖을 별 모양 종이들이 헤엄치고 있어.');
-    const envelopes={cloud:['구름','어제'],bird:['새','오늘'],star:['별','내일']};
-    if(envelopes[key]){
-      if(!gameHas('film'))return gameMessage('봉투에는 아무 글씨도 없어. 무언가를 겹쳐 볼까?');
-      gameMark(key);
-      const correct=['cloud','bird','star'];
-      if(correct[game.mail.length]!==key){game.mail=[];gameSave();renderGame();return gameMessage('투명 필름을 겹치니 '+envelopes[key][0]+' 봉투에는 “'+envelopes[key][1]+'”이라고 보여. 넣는 순서가 아니었어.');}
-      game.mail.push(key);gameSave();
-      if(game.mail.length===3){
-        game.photos=9;gameAdd('lens');gameStage('photo');
-        return gameMessage('어제→오늘→내일! 우체통이 열렸어. 달빛 렌즈와 사진 7~9번을 찾았어.');
-      }
-      renderGame();return gameMessage('투명 필름을 겹치니 “'+envelopes[key][1]+'”이라는 글씨가 나타났어. '+game.mail.length+'/3');
-    }
-  }
-  if(game.scene==='photo'){
-    if(key==='developer')return gameMessage('현상액 병은 비어 있어. 이번에는 빛으로 사진을 복원해야 해.');
-    if(key==='chair')return gameMessage('사진 안의 의자와 비슷해. 누군가를 기다리는 자리 같아.');
-    if(key==='camera'){
-      if(!gameHas('lens'))return gameMessage('카메라 렌즈가 없어. 다른 방에서 찾아야 할 것 같아.');
-      game.mounted=true;gameSave();renderGame();return gameMessage('달빛 렌즈를 끼우자 찢어진 사진 조각이 선명해졌어.');
-    }
-    if(key==='tiles')return gameMessage('아래 사진 조각 두 장을 차례로 누르면 서로 자리를 바꿀 수 있어.');
-  }
-  if(game.scene==='cinema'){
-    if(key==='projector'){
-      if(!gameHas('shutter'))return gameMessage('영사기에 셔터 단추가 없어.');
-      game.projector=true;gameSave();renderGame();return gameMessage('황동 셔터를 끼우자 열두 장의 사진이 하나씩 움직이기 시작했어.');
-    }
-    const clues={finalclock:'열두 장은 지나간 시간의 기록이다.',finalchair:'이 자리는 아직 누군가를 기다리고 있다.',finalcamera:'아직 찍히지 않은 장면은 사진첩에 들어갈 수 없다.'};
-    if(clues[key]){gameMark(key);gameSave();renderGame();return gameMessage(clues[key])}
-    if(key==='frame13')return gameMessage('열세 번째 액자에는 아무것도 없어. 비어 있는 이유는 무엇일까?');
-  }
-  if(game.scene==='ending')return gameMessage('이 빈 사진은 이제 네가 이 집에 도착한 순간을 기억해.');
-}
-function gameSolveHall(){
-  const entered=$('gameLock')?.value.trim();
-  const explored=['seedphoto','cupphoto','moonphoto','shoe'].every(gameSeen);
-  if(!explored)return gameMessage('신발장과 사진 세 장을 먼저 조사해 봐.');
-  if(entered!=='427')return gameMessage('자물쇠가 열리지 않아. 아침부터 밤까지 숫자를 읽어 봐.');
-  game.photos=3;gameAdd('droplet');gameStage('greenhouse');
-  gameMessage('철컥! 유리 물방울과 사진 1~3번을 얻었어. 온실에 들어왔어.');
-}
-function gameTile(index){
-  if(!game.mounted)return gameMessage('카메라에 달빛 렌즈를 먼저 장착해.');
-  if(game.selectedTile===null){game.selectedTile=index;gameSave();renderGame();return gameMessage('첫 번째 조각을 선택했어. 바꿀 조각을 하나 더 눌러 봐.');}
-  const a=game.selectedTile;
-  [game.tiles[a],game.tiles[index]]=[game.tiles[index],game.tiles[a]];
-  game.selectedTile=null;
-  gameSave();
-  if(game.tiles.join('|')==='frame|sun|desk|chair'){
-    game.photos=12;gameAdd('shutter');gameStage('cinema');
-    return gameMessage('풍경이 완성됐어! 사진 10~12번과 황동 셔터 단추를 찾았어.');
-  }
-  renderGame();gameMessage('두 조각의 위치를 바꿨어. 창틀·햇빛 / 책상·빈 의자 순서로 완성해 봐.');
-}
-function gameSolveFinal(choice){
-  if(!game.projector||!['finalclock','finalchair','finalcamera'].every(gameSeen))return gameMessage('영사기를 작동시키고 시계·의자·카메라를 모두 조사해.');
-  if(choice!=='now')return gameMessage('아직 찍히지 않은 장면이라면 과거 사진에서 찾을 수 있을까? 다시 생각해 봐.');
-  game.finalSolved=true;gameSave();renderGame();
-  gameMessage('정답! 열세 번째 사진은 네가 이 집에 도착한 바로 지금의 장면이었어. 아래에서 결말을 골라.');
-}
-function gameRenderEndingChoices(){
-  const root=$('gameEndingChoices');
-  if(!root || !game.finalSolved)return;
-  root.replaceChildren();
-  const title=document.createElement('p');title.textContent='열세 번째 장면을 어떻게 남길까?';title.className='game-ending-prompt';root.append(title);
-  const data=[['A','📷 사진을 이 집에 남긴다'],['B','✉️ 빈 필름을 가지고 나온다']];
-  if(game.bonusSolved)data.push(['C','🌗 두 사람의 필름을 겹친다 (히든 엔딩)']);
-  data.forEach(([id,label])=>{
-    const btn=textNode('button',label,'soft');btn.onclick=()=>gameEnding(id);root.append(btn);
-  });
-}
-function gameEnding(ending){
-  if(!game.finalSolved)return;
-  if(ending==='C'&&!game.bonusSolved)return;
-  game.ending=ending;gameStage('ending');
-  gameMessage('END '+ending+' · 열세 번째 사진을 발견했어.');
-}
-function gameConfirmRestart(){
-  if(!confirm('현재 게임 진행을 초기화하고 처음부터 다시 시작할까? 기존 사진·글은 그대로 유지돼.'))return;
-  game=freshGame();gameSave();renderGame();
-}
-function gameShowHint(){
-  const scene=game.scene;
-  if(!GAME_HINTS[scene])return;
-  const index=game.hints[scene]||0;
-  $('gameHintOutput').textContent=GAME_HINTS[scene][Math.min(index,2)];
-  $('gameHintOutput').hidden=false;
-  game.hints[scene]=Math.min(index+1,3);gameSave();
-  $('gameHintButton').textContent=index>=2?'힌트 다시 보기':'다음 힌트 보기 ('+Math.min(index+2,3)+'/3)';
-}
-function randomGameCode(){
-  const abc='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  const n=new Uint32Array(6);crypto.getRandomValues(n);
-  return Array.from(n,x=>abc[x%abc.length]).join('');
-}
-async function gamePairCreate(){await gamePairConnect(randomGameCode(),'moon')}
-async function gamePairJoin(){
-  const code=($('gameJoinCode').value||'').trim().toUpperCase().replace(/[^A-Z2-9]/g,'');
-  if(code.length!==6){gameMessage('상대방에게 받은 6자리 방 코드를 입력해 줘.');return}
-  await gamePairConnect(code,'sun');
-}
-async function gamePairConnect(code,role){
-  if(!db||!uid||!profileNick)return gameMessage('닉네임을 등록한 후 협동 게임에 참여할 수 있어.');
-  await gamePairLeave();
-  gamePair.code=code;gamePair.role=role;
-  const channel=db.channel('pieces-escape-'+code,{config:{presence:{key:uid}}});
-  gamePair.channel=channel;
-  channel.on('presence',{event:'sync'},()=>{
-    const presence=channel.presenceState();
-    const others=Object.entries(presence).filter(([k,v])=>k!==uid&&v.length).length;
-    gamePair.people=Math.min(2,1+others);
-    gamePair.ready=others>=1;
-    gameRenderPartner();
-  }).on('broadcast',{event:'bonus-solved'},async()=>{
-    if(gamePair.ready){
-      game.bonusSolved=true;gameAdd('light');gameSave();
-      renderGame();gameMessage('두 사람의 빛이 하나로 모였어. 히든 엔딩이 열렸어.');
-    }
-  }).subscribe(async status=>{
-    if(status==='SUBSCRIBED')await channel.track({nickname:profileNick,role});
-    if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
-      gamePair.ready=false;gameRenderPartner();
-      gameMessage('협동방 연결에 실패했어. 네트워크를 확인해 줘.');
-    }
-  });
-  gameRenderPartner();
-}
-async function gamePairLeave(){
-  if(gamePair.channel&&db){await db.removeChannel(gamePair.channel)}
-  gamePair={channel:null,code:'',role:'',people:0,ready:false};
-  gameRenderPartner();
-}
-function gameRenderPartner(){
-  const root=$('gamePartnerInfo');if(!root)return;
-  if(!gamePair.code){
-    root.textContent='두 사람이 같은 방 코드로 접속하면 서로 다른 단서를 볼 수 있어.';
-    $('gameRoleClue').hidden=true;$('gameBonusPuzzle').hidden=true;
-    return;
-  }
-  root.textContent='방 코드: '+gamePair.code+' · '+(gamePair.ready?'두 사람 연결됨':'상대방 접속을 기다리는 중');
-  const role=$('gameRoleClue');
-  if(role){role.hidden=!gamePair.ready;role.textContent=gamePair.role==='moon'?'🌙 달의 방 · 🌙=6, 🌱=2':'☀️ 해의 방 · 🔑=4, 💧=9'}
-  const panel=$('gameBonusPuzzle');
-  if(panel)panel.hidden=!gamePair.ready||game.scene!=='cinema'||game.bonusSolved;
-  const input=$('gameBonusCode');if(input&&input.value)input.value='';
-}
-async function gamePairSolve(){
-  if(!gamePair.ready)return gameMessage('두 사람이 연결되어야 보너스 퍼즐을 풀 수 있어.');
-  const code=$('gameBonusCode').value.trim();
-  if(code!=='6429')return gameMessage('문이 열리지 않아. 🌙 → 🔑 → 🌱 → 💧 순서로 두 방의 숫자를 합쳐 봐.');
-  game.bonusSolved=true;gameAdd('light');gameSave();
-  if(gamePair.channel)await gamePair.channel.send({type:'broadcast',event:'bonus-solved',payload:{solved:true}});
-  renderGame();gameMessage('두 사람이 함께 열었어! 🌗 빛의 필름을 얻었고 히든 엔딩을 선택할 수 있어.');
+  const record = response.data?.[0];
+  if (record) useNickname(record.nickname,record.owner_id);
+  else $("nicknameStatus").textContent =
+    "처음 한 번 닉네임을 등록해 줘.";
+
+  const ids = await db.rpc("pieces_my_author_ids");
+  authorIds = new Set(
+    (ids.data || []).map(x => x.author_id)
+  );
+  authorIds.add(uid);
 }
 
+async function claimNickname() {
+  if (!uid) return notify("연결을 확인해 줘.");
+  const name = $("nicknameEntry").value.trim();
 
-$('filmMonth').value=dayKST().slice(0,7);$('capsuleDate').min=addDays(dayKST(),1);$('capsuleDate').value=addDays(dayKST(),30);chooseMode('normal');drawHome();$('gameNav').hidden=!localStorage.getItem('today-pieces-escape-discovered');start();
-let lastDay=dayKST();setInterval(()=>{const now=dayKST();if(now!==lastDay){lastDay=now;$('capsuleDate').min=addDays(now,1);drawHome();if(db&&uid)load()}},60000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&db&&uid)load()});
-</script>
-  
-<script>
-/* 내 스티커북: 처음 3개만 표시하고 펼치기/접기 */
+  if (!name || name.length > 16) {
+    return notify("닉네임은 1~16자로 입력해 줘.");
+  }
 
-(function () {
-  let stickerBookExpanded = false;
+  if (nickname && name.toLowerCase() === nickname.toLowerCase()) {
+    return notify("이미 네가 사용 중인 닉네임이야.");
+  }
 
-  const originalDrawStickers = window.drawStickers;
+  if (nickname) {
+    return notify(
+      "이미 등록된 닉네임이 있어. 다른 기기에서는 복구코드를 사용해 줘."
+    );
+  }
 
-  window.drawStickers = function () {
-    // 기존 스티커 수집 상태를 그대로 사용
-    originalDrawStickers();
+  const result = await db.from("pieces_profiles")
+    .insert({user_id:uid,nickname:name})
+    .select("nickname")
+    .single();
 
-    const root = document.getElementById("stickers");
-    if (!root) return;
+  if (result.error) {
+    if (result.error.code === "23505") {
+      return notify(
+        "이미 등록된 닉네임이야. 네 이름이라면 복구코드로 되찾아 줘."
+      );
+    }
+    return notify("닉네임 등록 실패: "+result.error.message);
+  }
 
-    const stickers = Array.from(
-      root.querySelectorAll(".sticker")
+  await loadNickname();
+  notify("닉네임을 등록했어. 다른 사람이 사용할 수 없어.");
+  await issueRecovery();
+}
+
+let recoveryValue = "";
+
+async function issueRecovery() {
+  if (!nickname) return notify("먼저 닉네임을 등록해 줘.");
+
+  const result = await db.rpc("pieces_issue_recovery_code");
+
+  if (result.error) {
+    return notify("복구코드 발급 실패: "+result.error.message);
+  }
+
+  recoveryValue = result.data;
+  $("recoveryOutput").value = recoveryValue;
+  $("recoveryBox").classList.remove("hidden");
+
+  notify("복구코드를 안전한 곳에 보관해 줘.");
+}
+
+async function copyRecovery() {
+  if (!recoveryValue) return;
+  try {
+    await navigator.clipboard.writeText(recoveryValue);
+    notify("복구코드를 복사했어.");
+  } catch {
+    prompt("복구코드 복사",recoveryValue);
+  }
+}
+
+async function recoverNickname() {
+  const name = $("recoverName").value.trim();
+  const code = $("recoverCode").value.trim();
+
+  if (!name || !code) {
+    return notify("닉네임과 복구코드를 모두 입력해 줘.");
+  }
+
+  const result = await db.rpc(
+    "pieces_recover_nickname",
+    {p_nickname:name,p_code:code}
+  );
+
+  if (result.error) {
+    return notify("복구 실패: "+result.error.message);
+  }
+
+  $("recoverCode").value = "";
+  await loadNickname();
+  await loadPosts();
+  notify("기존 닉네임 "+nickname+"을 불러왔어.");
+}
+
+// 사진을 줄여 업로드
+$("photoInput").onchange = function () {
+  const file = this.files?.[0];
+  if (!file) return;
+
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+
+  img.onload = () => {
+    const c = document.createElement("canvas");
+    const scale = Math.min(1,1000/img.width,1000/img.height);
+
+    c.width = Math.max(1,Math.round(img.width*scale));
+    c.height = Math.max(1,Math.round(img.height*scale));
+    c.getContext("2d").drawImage(
+      img,0,0,c.width,c.height
     );
 
-    // 접었을 때는 처음 3개만 표시
-    stickers.forEach((sticker, index) => {
-      sticker.style.display =
-        stickerBookExpanded || index < 3
-          ? "inline-block"
-          : "none";
-    });
+    selectedPhoto = c.toDataURL("image/jpeg",.72);
+    const preview = new Image();
+    preview.src = selectedPhoto;
+    $("preview").replaceChildren(preview);
+    URL.revokeObjectURL(url);
+  };
 
-    // 스티커가 3개 이하라면 버튼 생성 안 함
-    if (stickers.length <= 3) return;
+  img.onerror = () => {
+    URL.revokeObjectURL(url);
+    notify("사진을 읽지 못했어.");
+  };
 
-    const toggle = document.createElement("button");
-    toggle.type = "button";
-    toggle.className = "soft";
+  img.src = url;
+};
 
-    toggle.style.cssText =
-      "display:block; margin:15px auto 0;";
+async function uploadPhoto(data) {
+  if (!data) return null;
+  const blob = await (await fetch(data)).blob();
+  const path = uid+"/"+crypto.randomUUID()+".jpg";
 
-    toggle.textContent = stickerBookExpanded
-      ? "▲ 스티커북 접기"
-      : "▼ 스티커 " + (stickers.length - 3) + "개 더보기";
+  const result = await db.storage.from("pieces-photos")
+    .upload(path,blob,{contentType:"image/jpeg"});
 
-    toggle.setAttribute(
-      "aria-expanded",
-      String(stickerBookExpanded)
-    );
+  if (result.error) throw result.error;
+  return path;
+}
 
-    toggle.onclick = function () {
-      stickerBookExpanded = !stickerBookExpanded;
-      window.drawStickers();
+async function saveMemory() {
+  if (!ready) return notify("공유 앨범 연결을 확인해 줘.");
+  if (!nickname) return notify("먼저 닉네임을 등록해 줘.");
+
+  const body = $("message").value.trim();
+  if (!body && !selectedPhoto) {
+    return notify("사진이나 글을 남겨 줘.");
+  }
+  if (mode === "mission" && !selectedPhoto) {
+    return notify("미션에는 사진이 필요해.");
+  }
+
+  $("saveButton").disabled = true;
+  let photo_path = null;
+
+  try {
+    photo_path = await uploadPhoto(selectedPhoto);
+
+    const item = {
+      author_id:uid,
+      display_name:nickname,
+      mood:$("mood").value,
+      body,
+      photo_path
     };
 
-    root.appendChild(toggle);
+    if (mode === "answer") {
+      item.question_day = dayKST();
+      item.question_text = questionToday();
+    }
+
+    if (mode === "mission") {
+      item.mission_day = dayKST();
+      item.mission_key = missionToday().key;
+    }
+
+    const result = await db.from("pieces_entries")
+      .insert(item);
+
+    if (result.error) throw result.error;
+
+    $("message").value = "";
+    $("photoInput").value = "";
+    $("preview").textContent = "📷 사진을 선택해 줘";
+    selectedPhoto = "";
+
+    await loadPosts();
+    show("home");
+    notify("조각을 남겼어 🌿");
+
+  } catch (e) {
+    if (photo_path) {
+      await db.storage.from("pieces-photos")
+        .remove([photo_path]);
+    }
+    notify("저장 실패: "+e.message);
+  } finally {
+    $("saveButton").disabled = false;
+  }
+}
+
+function photoURL(item) {
+  if (!item.photo_path) return "";
+  return db.storage.from("pieces-photos")
+    .getPublicUrl(item.photo_path).data.publicUrl;
+}
+
+// 글과 댓글·하트·삭제
+function makeCard(item) {
+  const card = textEl("article","","memory");
+
+  if (item.photo_path) {
+    const img = new Image();
+    img.loading = "lazy";
+    img.alt = "추억 사진";
+    img.src = photoURL(item);
+    card.append(img);
+  }
+
+  card.append(textEl(
+    "div",
+    new Date(item.created_at).toLocaleDateString("ko-KR")
+      +" · "+item.display_name,
+    "meta"
+  ));
+
+  card.append(textEl("h3",item.mood));
+
+  if (item.question_text) {
+    card.append(textEl("p","💌 "+item.question_text,"muted"));
+  }
+  if (item.body) {
+    card.append(textEl("p",item.body));
+  }
+
+  const actions = textEl("div","","actions");
+  const liked = likes.some(
+    x => x.entry_id === item.id && x.user_id === uid
+  );
+  const hearts =
+    (item.legacy_hearts || 0)+
+    likes.filter(x => x.entry_id === item.id).length;
+
+  const heart = textEl(
+    "button",
+    (liked?"💗":"🤍")+" 마음 "+hearts,
+    "soft"
+  );
+
+  heart.onclick = async () => {
+    heart.disabled = true;
+
+    const result = liked
+      ? await db.from("pieces_likes").delete()
+          .eq("entry_id",item.id)
+          .eq("user_id",uid)
+      : await db.from("pieces_likes").insert({
+          entry_id:item.id,user_id:uid
+        });
+
+    if (result.error) notify("하트 저장 실패");
+    await loadPosts();
   };
 
-  // 처음 화면에도 즉시 적용
-  window.drawStickers();
-})();
-</script>
+  actions.append(heart);
 
+  if (authorIds.has(item.author_id) || isAdmin) {
+    const del = textEl("button","🗑 글 삭제","soft");
+
+    del.onclick = async () => {
+      if (!confirm("이 조각과 댓글을 삭제할까?")) return;
+
+      const result = await db.from("pieces_entries")
+        .delete()
+        .eq("id",item.id)
+        .select("id");
+
+      if (result.error || !result.data?.length) {
+        return notify("삭제 권한을 확인해 줘.");
+      }
+
+      if (item.photo_path) {
+        await db.storage.from("pieces-photos")
+          .remove([item.photo_path]);
+      }
+
+      await loadPosts();
+      notify("조각을 삭제했어.");
+    };
+
+    actions.append(del);
+  }
+
+  card.append(actions);
+
+  (item.legacy_comments || []).forEach(value => {
+    card.append(textEl("p","💬 "+value,"comment"));
+  });
+
+  comments.filter(x => x.entry_id === item.id)
+    .forEach(comment => {
+      const row = textEl("div","","comment");
+      row.append(textEl("span","💬 "+comment.body));
+
+      if (authorIds.has(comment.author_id) || isAdmin) {
+        const del = textEl("button","삭제");
+        del.onclick = async () => {
+          if (!confirm("댓글을 삭제할까?")) return;
+          const r = await db.from("pieces_comments")
+            .delete()
+            .eq("id",comment.id);
+
+          if (r.error) notify("댓글 삭제 실패");
+          else await loadPosts();
+        };
+        row.append(del);
+      }
+
+      card.append(row);
+    });
+
+  const input = document.createElement("input");
+  input.placeholder = "짧은 답장 남기기";
+  input.maxLength = 200;
+
+  const reply = textEl("button","답장하기","soft");
+  reply.onclick = async () => {
+    if (!input.value.trim()) return;
+
+    const r = await db.from("pieces_comments").insert({
+      entry_id:item.id,
+      author_id:uid,
+      body:input.value.trim()
+    });
+
+    if (r.error) notify("댓글 저장 실패");
+    else await loadPosts();
+  };
+
+  card.append(input,reply);
+  return card;
+}
+
+function fill(id,items,message) {
+  const root = $(id);
+  root.replaceChildren();
+
+  if (!items.length) {
+    root.append(textEl(
+      "p",message || "아직 남겨진 조각이 없어.","muted"
+    ));
+    return;
+  }
+
+  items.forEach(item => root.append(makeCard(item)));
+}
+
+function renderPosts() {
+  fill("recent",posts.slice(0,4));
+
+  const mood = $("filter").value;
+  fill(
+    "gallery",
+    posts.filter(x => mood === "all" || x.mood === mood)
+  );
+
+  renderHome();
+}
+
+function renderHome() {
+  $("question").textContent = questionToday();
+
+  const today = dayKST();
+
+  const daily = posts.filter(x => x.question_day === today);
+  const authors = new Set();
+  const answers = [];
+
+  for (const p of daily) {
+    if (!authors.has(p.author_id)) {
+      authors.add(p.author_id);
+      answers.push(p);
+    }
+  }
+
+  fill("answers",answers.slice(0,2),"오늘의 답변을 기다리고 있어.");
+
+  const ymd = today.split("-").map(Number);
+  const prev = new Date(Date.UTC(
+    ymd[0],ymd[1]-2,
+    Math.min(
+      ymd[2],
+      new Date(Date.UTC(ymd[0],ymd[1]-1,0)).getUTCDate()
+    ),
+    12
+  ));
+  const previous = dayKST(prev);
+
+  fill(
+    "oldMemories",
+    posts.filter(x => dayKST(new Date(x.created_at)) === previous),
+    "한 달 전 오늘의 기록이 아직 없어."
+  );
+
+  const mission = missionToday();
+  $("missionQuestion").textContent =
+    mission.emoji+" "+mission.name;
+
+  const missionPosts = posts.filter(
+    x => x.mission_day === today &&
+         x.mission_key === mission.key
+  );
+
+  fill(
+    "missionGallery",
+    missionExpanded ? missionPosts : missionPosts.slice(0,3),
+    "오늘의 미션 사진을 기다리고 있어."
+  );
+
+  $("missionMore").hidden = missionPosts.length <= 3;
+  $("missionMore").textContent = missionExpanded
+    ? "▲ 사진 접기"
+    : "▼ 사진 "+(missionPosts.length-3)+"개 더보기";
+
+  renderStickers();
+  renderGarden();
+  renderDrawers();
+}
+
+function renderStickers() {
+  const earned = new Set(
+    posts.filter(
+      x => authorIds.has(x.author_id) &&
+           x.mission_key &&
+           x.photo_path
+    ).map(x => x.mission_key)
+  );
+
+  const root = $("stickers");
+  root.replaceChildren();
+
+  MISSIONS.forEach((mission,index) => {
+    const key = "m"+String(index).padStart(2,"0");
+    const has = earned.has(key);
+
+    const sticker = textEl(
+      "span",
+      (has?mission[1]:"🔒")+" "+mission[0],
+      "sticker"+(has?"":" locked")
+    );
+
+    sticker.hidden = !stickersExpanded && index >= 3;
+    root.append(sticker);
+  });
+
+  $("stickerMore").textContent = stickersExpanded
+    ? "▲ 스티커북 접기"
+    : "▼ 스티커 27개 더보기";
+}
+
+function renderGarden() {
+  const count = posts.length;
+  const stages = [
+    [0,"🌱","씨앗"],
+    [2,"🍀","새싹"],
+    [5,"🌼","꽃"],
+    [10,"🌳","나무"],
+    [18,"🪑","벤치"],
+    [27,"🐈","고양이"],
+    [40,"🪷","연못"],
+    [60,"🦋","나비"]
+  ];
+
+  const opened = stages.filter(x => count >= x[0]);
+
+  $("garden").textContent =
+    opened.map(x => x[1]).join(" ")+"\n"+
+    "함께 모은 조각 "+count+"개";
+
+  const root = $("gardenObjects");
+  root.replaceChildren();
+
+  stages.forEach(stage => {
+    const available = count >= stage[0];
+    const btn = textEl(
+      "button",
+      (available?stage[1]:"🔒")+" "+stage[2],
+      "soft"
+    );
+    btn.disabled = !available;
+    btn.onclick = () => openLetter(
+      stage[1]+" "+stage[2],
+      "우리의 조각이 쌓여 새로운 장식이 열렸어."
+    );
+    root.append(btn);
+  });
+}
+
+function renderDrawers() {
+  const uniqueAuthors = new Set(
+    posts.map(x => x.author_id)
+  ).size;
+
+  const drawers = [
+    ["✉️ 첫 번째 편지",posts.length>=1,
+      "첫 번째 조각을 남겨 줘서 고마워."],
+    ["🗝️ 다섯 번째 편지",posts.length>=5,
+      "작은 하루들이 하나의 이야기가 됐어."],
+    ["💌 함께 만든 편지",uniqueAuthors>=2,
+      "서로 다른 두 사람이 같은 앨범을 열었어."],
+    ["🌼 정원의 비밀",posts.length>=20,
+      "우리가 남긴 장면으로 정원이 자랐어."],
+    ["🎁 오래된 편지",posts.length>=30,
+      "서른 개의 작은 조각을 기억하고 있어."]
+  ];
+
+  const root = $("drawers");
+  root.replaceChildren();
+
+  drawers.forEach(item => {
+    const button = textEl(
+      "button",
+      (item[1]?"":"🔒 ")+item[0],
+      "drawer"+(item[1]?"":" locked")
+    );
+    button.onclick = () => item[1]
+      ? openLetter(item[0],item[2])
+      : notify("아직 열리지 않은 서랍이야.");
+    root.append(button);
+  });
+}
+
+function drawCalendar() {
+  const now = dayKST().split("-").map(Number);
+  const y = now[0];
+  const m = now[1]-1;
+
+  $("month").textContent = y+"년 "+(m+1)+"월";
+  const root = $("calendar");
+  root.replaceChildren();
+
+  ["일","월","화","수","목","금","토"].forEach(d => {
+    root.append(textEl("b",d,"day"));
+  });
+
+  const first = new Date(y,m,1).getDay();
+  for (let i=0;i<first;i++) {
+    root.append(document.createElement("div"));
+  }
+
+  const days = new Date(y,m+1,0).getDate();
+
+  for (let d=1;d<=days;d++) {
+    const key = [
+      y,
+      String(m+1).padStart(2,"0"),
+      String(d).padStart(2,"0")
+    ].join("-");
+
+    const entries = posts.filter(
+      x => dayKST(new Date(x.created_at)) === key
+    );
+
+    const button = textEl(
+      "button",
+      d+(entries.length?" "+entries[0].mood:""),
+      "day"+(entries.length?" marked":"")
+    );
+
+    button.onclick = () => {
+      if (!entries.length) return;
+      show("album");
+      fill("gallery",entries);
+    };
+
+    root.append(button);
+  }
+}
+
+function drawFilm() {
+  const month = $("filmMonth").value;
+  const photos = posts.filter(
+    x => x.photo_path &&
+    dayKST(new Date(x.created_at)).startsWith(month)
+  );
+
+  const root = $("film");
+  root.replaceChildren();
+
+  photos.forEach(p => {
+    const btn = document.createElement("button");
+    const img = new Image();
+    img.src = photoURL(p);
+    img.alt = "필름 사진";
+
+    btn.append(img);
+    btn.onclick = () => {
+      $("filmDetail").replaceChildren(makeCard(p));
+    };
+    root.append(btn);
+  });
+
+  if (!photos.length) {
+    root.append(textEl("p","이달의 사진은 아직 없어."));
+  }
+}
+
+function surprise() {
+  show("surprisePage");
+  const root = $("surpriseResult");
+  root.replaceChildren();
+
+  if (!posts.length) {
+    root.textContent = "아직 남겨진 추억이 없어.";
+    return;
+  }
+
+  root.append(makeCard(
+    posts[Math.floor(Math.random()*posts.length)]
+  ));
+}
+
+async function sealCapsule() {
+  if (!nickname) return notify("먼저 닉네임을 등록해 줘.");
+
+  const date = $("capsuleDate").value;
+  const body = $("capsuleBody").value.trim();
+
+  if (!date || date <= dayKST()) {
+    return notify("내일 이후의 날짜를 골라 줘.");
+  }
+  if (!body) return notify("편지를 적어 줘.");
+
+  const envelope = await db.from("pieces_capsule_envelopes")
+    .insert({
+      author_id:uid,
+      display_name:nickname,
+      open_on:date
+    })
+    .select("id")
+    .single();
+
+  if (envelope.error) {
+    return notify("봉투 저장 실패: "+envelope.error.message);
+  }
+
+  const result = await db.from("pieces_capsule_letters")
+    .insert({
+      envelope_id:envelope.data.id,
+      author_id:uid,
+      body
+    });
+
+  if (result.error) {
+    await db.from("pieces_capsule_envelopes")
+      .delete().eq("id",envelope.data.id);
+    return notify("편지 저장 실패: "+result.error.message);
+  }
+
+  $("capsuleBody").value = "";
+  await loadPosts();
+  notify("미래의 편지를 봉인했어.");
+}
+
+function renderEnvelopes() {
+  const root = $("envelopes");
+  root.replaceChildren();
+
+  envelopes.forEach(e => {
+    const card = textEl("div","","notice");
+    const opened = e.open_on <= dayKST();
+
+    card.append(textEl(
+      "h3",
+      (opened?"💌 ":"🔒 ")+e.display_name
+    ));
+    card.append(textEl("p","열리는 날: "+e.open_on));
+
+    if (opened) {
+      const letter = letters.find(
+        x => x.envelope_id === e.id
+      );
+      card.append(textEl(
+        "p",
+        letter?.body || "편지를 불러올 수 없어."
+      ));
+    } else {
+      card.append(textEl("p","아직 봉인되어 있어."));
+    }
+
+    if (authorIds.has(e.author_id) || isAdmin) {
+      const del = textEl("button","편지 삭제","soft");
+      del.onclick = async () => {
+        if (!confirm("이 편지를 삭제할까?")) return;
+        const r = await db.from("pieces_capsule_envelopes")
+          .delete().eq("id",e.id);
+        if (r.error) notify("삭제 실패");
+        else await loadPosts();
+      };
+      card.append(del);
+    }
+
+    root.append(card);
+  });
+}
+
+function oldRecords() {
+  try {
+    return JSON.parse(localStorage.getItem(OLD_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function backup() {
+  const data = localStorage.getItem(OLD_KEY) || "[]";
+  const blob = new Blob([data],{type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "오늘의조각들_백업.json";
+  a.click();
+
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+}
+
+async function moveOld() {
+  const records = oldRecords();
+  if (!Array.isArray(records) || !records.length) {
+    return notify("옮길 기록이 없어.");
+  }
+
+  if (!confirm(records.length+"개를 온라인 앨범에 복사할까?")) {
+    return;
+  }
+
+  let done = 0;
+
+  for (const record of records) {
+    try {
+      const found = await db.from("pieces_entries")
+        .select("id")
+        .eq("author_id",uid)
+        .eq("legacy_id",String(record.id))
+        .maybeSingle();
+
+      if (found.data) continue;
+
+      const photo = await uploadPhoto(record.photo || "");
+
+      const result = await db.from("pieces_entries")
+        .insert({
+          author_id:uid,
+          display_name:record.name || nickname || "익명의 마음",
+          mood:record.mood || "🍀",
+          body:record.text || "",
+          photo_path:photo,
+          legacy_id:String(record.id),
+          legacy_hearts:record.hearts || 0,
+          legacy_comments:record.comments || [],
+          created_at:record.date || new Date().toISOString()
+        });
+
+      if (!result.error) done++;
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  await loadPosts();
+  notify(done+"개의 기존 기록을 옮겼어.");
+}
+
+async function copyUserId() {
+  if (!uid) return;
+  await navigator.clipboard.writeText(uid);
+  notify("내 계정 ID를 복사했어.");
+}
+
+// 실시간 공유 데이터 불러오기
+let loading = false;
+let reloadRequested = false;
+
+async function loadPosts() {
+  if (loading) {
+    reloadRequested = true;
+    return;
+  }
+
+  loading = true;
+
+  try {
+    const results = await Promise.all([
+      db.from("pieces_entries").select("*")
+        .order("created_at",{ascending:false}).limit(2000),
+      db.from("pieces_comments").select("*").limit(5000),
+      db.from("pieces_likes").select("*").limit(5000)
+    ]);
+
+    const error = results.find(r => r.error);
+    if (error) throw error.error;
+
+    posts = results[0].data || [];
+    comments = results[1].data || [];
+    likes = results[2].data || [];
+
+    if (enhanced) {
+      const [a,b] = await Promise.all([
+        db.from("pieces_capsule_envelopes").select("*"),
+        db.from("pieces_capsule_letters").select("*")
+      ]);
+
+      if (!a.error) envelopes = a.data || [];
+      if (!b.error) letters = b.data || [];
+    }
+
+    ready = true;
+    renderPosts();
+
+    if (currentPage === "calendarPage") drawCalendar();
+    if (currentPage === "filmPage") drawFilm();
+    if (currentPage === "capsulePage") renderEnvelopes();
+
+  } catch (e) {
+    notify("공유 앨범 오류: "+e.message);
+  } finally {
+    loading = false;
+    if (reloadRequested) {
+      reloadRequested = false;
+      loadPosts();
+    }
+  }
+}
+
+// ========================================
+// 방탈출: 사라진 13번째 조각
+// ========================================
+
+const ROOMS = [
+  "사라진 사진",
+  "거꾸로 흐르는 현관",
+  "숨을 쉬는 온실",
+  "잠긴 우체통",
+  "거꾸로 된 사진관",
+  "열세 번째 상영관",
+  "마지막 장면"
+];
+
+const HINTS = [
+  [],
+  [
+    "사진 세 장의 촬영 시간을 살펴봐.",
+    "아침부터 밤까지 순서대로 배열해.",
+    "오전 7시 → 오후 1시 → 오후 10시. 숫자는 427."
+  ],
+  [
+    "현관에서 받은 물방울을 기억해.",
+    "물뿌리개에 물방울을 넣고 꽃에 물을 줘.",
+    "씨앗 → 새싹 → 봉오리 → 꽃."
+  ],
+  [
+    "봉투의 그림을 시간에 연결해 봐.",
+    "구름은 어제, 새는 오늘, 별은 내일이야.",
+    "구름 → 새 → 별."
+  ],
+  [
+    "카메라를 먼저 살펴봐.",
+    "달빛 렌즈를 카메라에 장착해.",
+    "창틀·햇빛 / 책상·빈 의자 순서로 맞춰."
+  ],
+  [
+    "빈 의자와 카메라를 조사해.",
+    "열세 번째 사진은 과거의 사진이 아닐 수도 있어.",
+    "정답은 지금 이 방에 들어온 순간."
+  ]
+];
+
+function freshGame() {
+  return {
+    room:0,
+    photos:0,
+    items:[],
+    inspected:[],
+    flipped:false,
+    water:false,
+    watered:false,
+    plants:[],
+    mail:[],
+    mounted:false,
+    tiles:["chair","sun","desk","frame"],
+    tileSelected:null,
+    projector:false,
+    solved:false,
+    bonus:false,
+    ending:null,
+    hints:{}
+  };
+}
+
+function hasItem(item) {
+  return currentGame.items.includes(item);
+}
+
+function giveItem(item) {
+  if (!hasItem(item)) currentGame.items.push(item);
+}
+
+function markGame(key) {
+  if (!currentGame.inspected.includes(key)) {
+    currentGame.inspected.push(key);
+  }
+  saveGame();
+}
+
+function gameLog(text) {
+  $("gameLog").textContent = text;
+}
+
+let gameSaveTimer = null;
+
+function saveGame() {
+  if (!currentGame) return;
+
+  localStorage.setItem(
+    GAME_KEY+(ownerId || uid),
+    JSON.stringify(currentGame)
+  );
+
+  clearTimeout(gameSaveTimer);
+  gameSaveTimer = setTimeout(async () => {
+    if (!uid) return;
+
+    const result = await db.from("pieces_game_progress")
+      .upsert({
+        user_id:ownerId || uid,
+        progress:currentGame,
+        updated_at:new Date().toISOString()
+      },{onConflict:"user_id"});
+
+    if (result.error) console.warn(result.error);
+  },350);
+}
+
+async function openGame() {
+  if (!nickname) {
+    show("write");
+    return notify("먼저 닉네임을 등록해 줘.");
+  }
+
+  if (!currentGame) {
+    const saved = localStorage.getItem(
+      GAME_KEY+(ownerId || uid)
+    );
+
+    currentGame = saved
+      ? {...freshGame(),...JSON.parse(saved)}
+      : freshGame();
+
+    const remote = await db.from("pieces_game_progress")
+      .select("progress")
+      .eq("user_id",ownerId || uid)
+      .maybeSingle();
+
+    if (!remote.error && remote.data?.progress) {
+      currentGame = {
+        ...freshGame(),
+        ...remote.data.progress
+      };
+    }
+  }
+
+  show("gamePage");
+  renderGame();
+}
+
+function gameButton(label,icon,action) {
+  const b = document.createElement("button");
+  b.className = "game-object";
+  b.append(textEl("span",icon),textEl("small",label));
+  b.onclick = action;
+  return b;
+}
+
+function enterRoom(number) {
+  currentGame.room = number;
+  saveGame();
+  renderGame();
+}
+
+function finishRoom(number,item,nextRoom) {
+  currentGame.photos = number;
+  if (item) giveItem(item);
+  enterRoom(nextRoom);
+}
+
+function renderGame() {
+  const g = currentGame;
+  const room = g.room;
+
+  $("gameRoom").textContent =
+    ROOMS[room]+" · "+g.photos+"/12장의 사진";
+
+  const world = $("gameWorld");
+  const puzzle = $("gamePuzzle");
+  world.replaceChildren();
+  puzzle.replaceChildren();
+
+  const inventory = $("inventory");
+  inventory.replaceChildren();
+
+  const itemNames = {
+    droplet:"💧 유리 물방울",
+    film:"📜 투명 필름",
+    lens:"🔍 달빛 렌즈",
+    shutter:"🎞️ 황동 셔터",
+    light:"🌗 빛의 필름"
+  };
+
+  g.items.forEach(item => {
+    inventory.append(textEl("span",itemNames[item]));
+  });
+
+  function add(label,icon,key) {
+    world.append(gameButton(
+      label,icon,() => inspect(key)
+    ));
+  }
+
+  if (room === 0) {
+    add("13번 사진","🖼️","intro");
+    puzzle.append(gameButton(
+      "열세 번째 문으로 들어가기","🚪",
+      () => g.flipped
+        ? enterRoom(1)
+        : gameLog("먼저 사진을 뒤집어 봐.")
+    ));
+  }
+
+  if (room === 1) {
+    add("새싹 사진","🌱","seed");
+    add("찻잔 사진","☕","cup");
+    add("달 사진","🌙","moon");
+    add("신발장","🗄️","shoe");
+    add("거울","🪞","mirror");
+    add("잠긴 문","🚪","door");
+
+    const input = document.createElement("input");
+    input.placeholder = "세 자리 비밀번호";
+    input.maxLength = 3;
+
+    const button = textEl("button","열기","primary");
+    button.onclick = () => {
+      const needed = ["seed","cup","moon","shoe"];
+      if (!needed.every(k => g.inspected.includes(k))) {
+        return gameLog("사진과 신발장을 조사해 봐.");
+      }
+      if (input.value.trim() !== "427") {
+        return gameLog("자물쇠가 열리지 않아.");
+      }
+      finishRoom(3,"droplet",2);
+    };
+
+    puzzle.append(input,button);
+  }
+
+  if (room === 2) {
+    add("물뿌리개","🚿","watercan");
+    add("시든 꽃","🥀","flower");
+    add("씨앗","🫘","seedplant");
+    add("새싹","🌱","sprout");
+    add("봉오리","🌷","bud");
+    add("꽃","🌸","bloom");
+    add("유리함","🔒","glass");
+    puzzle.append(textEl(
+      "p","화분 선택 "+g.plants.length+"/4"
+    ));
+  }
+
+  if (room === 3) {
+    add("구름 봉투","☁️","cloud");
+    add("새 봉투","🐦","bird");
+    add("별 봉투","⭐","star");
+    add("우체통","📮","mailbox");
+    puzzle.append(textEl(
+      "p","봉투 선택 "+g.mail.length+"/3"
+    ));
+  }
+
+  if (room === 4) {
+    add("카메라","📷","camera");
+    add("찢어진 사진","🧩","picture");
+    add("빈 의자","🪑","chair");
+
+    const tiles = textEl("div","","");
+    tiles.id = "tiles";
+
+    const names = {
+      frame:"🪟 창틀",
+      sun:"☀️ 햇빛",
+      desk:"📚 책상",
+      chair:"🪑 빈 의자"
+    };
+
+    g.tiles.forEach((tile,index) => {
+      const button = textEl("button",names[tile]);
+      if (g.tileSelected === index) {
+        button.className = "selected";
+      }
+      button.onclick = () => swapTile(index);
+      tiles.append(button);
+    });
+
+    puzzle.append(tiles);
+  }
+
+  if (room === 5) {
+    add("영사기","📽️","projector");
+    add("시계","🕰️","finalclock");
+    add("빈 의자","🪑","finalchair");
+    add("카메라","📷","finalcamera");
+    add("13번째 액자","🖼️","frame13");
+
+    if (!g.solved) {
+      const choices = [
+        ["오래된 사진","old"],
+        ["지금 이 방에 들어온 순간","now"],
+        ["잃어버린 사진","lost"]
+      ];
+
+      choices.forEach(([label,key]) => {
+        const btn = textEl("button",label,"soft");
+        btn.onclick = () => solveFinal(key);
+        puzzle.append(btn);
+      });
+    } else {
+      [
+        ["A","사진을 남긴다"],
+        ["B","빈 필름을 가지고 나온다"],
+        ...(g.bonus?[["C","두 사람의 필름을 겹친다"]]:[])
+      ].forEach(([key,label]) => {
+        const btn = textEl("button",label,"soft");
+        btn.onclick = () => {
+          g.ending = key;
+          enterRoom(6);
+        };
+        puzzle.append(btn);
+      });
+    }
+  }
+
+  if (room === 6) {
+    const messages = {
+      A:"이제 이곳에도 누군가 다녀간 하루가 생겼습니다.",
+      B:"모든 빈자리를 반드시 채울 필요는 없으니까.",
+      C:"우리는 서로 다른 곳에 있었지만 같은 문을 열고 있었어."
+    };
+
+    puzzle.append(textEl(
+      "h3","END "+g.ending
+    ));
+    puzzle.append(textEl(
+      "p",messages[g.ending] || ""
+    ));
+  }
+
+  $("coopArea").hidden = room !== 5;
+}
+
+function inspect(key) {
+  const g = currentGame;
+  markGame(key);
+
+  if (g.room === 0) {
+    g.flipped = true;
+    saveGame();
+    return gameLog(
+      "사진 뒷면: 열두 장은 돌아왔지만 열세 번째 장면은 아직 돌아오지 않았습니다."
+    );
+  }
+
+  if (g.room === 1) {
+    const clues = {
+      seed:"새싹 · 오전 7시 · 숫자 4",
+      cup:"찻잔 · 오후 1시 · 숫자 2",
+      moon:"달 · 오후 10시 · 숫자 7",
+      shoe:"하루는 아침부터 밤까지 지나간다.",
+      mirror:"거울 속에는 빈 의자가 보여.",
+      door:"세 자리 자물쇠가 걸려 있어."
+    };
+    return gameLog(clues[key]);
+  }
+
+  if (g.room === 2) {
+    if (key === "watercan") {
+      g.water = hasItem("droplet");
+      saveGame();
+      return gameLog("물뿌리개에 유리 물방울을 담았어.");
+    }
+
+    if (key === "flower") {
+      if (!g.water) return gameLog("꽃에 줄 물이 없어.");
+      g.watered = true;
+      saveGame();
+      return gameLog("꽃이 살아났어. 화분을 순서대로 눌러 봐.");
+    }
+
+    if (key === "glass") {
+      return gameLog(
+        "처음의 모습에서 마지막의 모습까지 손을 건네 주세요."
+      );
+    }
+
+    const order = ["seedplant","sprout","bud","bloom"];
+
+    if (order.includes(key)) {
+      if (!g.watered) return gameLog("먼저 꽃에 물을 줘.");
+
+      if (order[g.plants.length] !== key) {
+        g.plants = [];
+        saveGame();
+        return gameLog("순서가 틀렸어. 처음부터 다시.");
+      }
+
+      g.plants.push(key);
+      saveGame();
+
+      if (g.plants.length === 4) {
+        return finishRoom(6,"film",3);
+      }
+      return gameLog("화분이 빛났어.");
+    }
+  }
+
+  if (g.room === 3) {
+    const order = ["cloud","bird","star"];
+
+    if (key === "mailbox") {
+      return gameLog("어제, 오늘, 내일 순서로 편지를 넣어 줘.");
+    }
+
+    if (order.includes(key)) {
+      if (order[g.mail.length] !== key) {
+        g.mail = [];
+        saveGame();
+        return gameLog("순서가 틀렸어.");
+      }
+
+      g.mail.push(key);
+      saveGame();
+
+      if (g.mail.length === 3) {
+        return finishRoom(9,"lens",4);
+      }
+
+      return gameLog("편지를 우체통에 넣었어.");
+    }
+  }
+
+  if (g.room === 4) {
+    if (key === "camera") {
+      g.mounted = hasItem("lens");
+      saveGame();
+      return gameLog("카메라에 달빛 렌즈를 장착했어.");
+    }
+    return gameLog("흩어진 사진 조각이 보여.");
+  }
+
+  if (g.room === 5) {
+    if (key === "projector") {
+      g.projector = hasItem("shutter");
+      saveGame();
+      return gameLog("영사기가 작동하기 시작했어.");
+    }
+
+    const clues = {
+      finalclock:"열두 장은 지나간 시간의 기록이다.",
+      finalchair:"이 자리는 누군가를 기다리고 있다.",
+      finalcamera:"아직 찍히지 않은 장면은 사진첩에 들어갈 수 없다.",
+      frame13:"열세 번째 액자는 비어 있어."
+    };
+    return gameLog(clues[key]);
+  }
+}
+
+function swapTile(index) {
+  const g = currentGame;
+  if (!g.mounted) return gameLog("카메라에 렌즈를 끼워 줘.");
+
+  if (g.tileSelected === null) {
+    g.tileSelected = index;
+  } else {
+    const a = g.tileSelected;
+    [g.tiles[a],g.tiles[index]] = [g.tiles[index],g.tiles[a]];
+    g.tileSelected = null;
+  }
+
+  saveGame();
+
+  if (g.tiles.join("|") === "frame|sun|desk|chair") {
+    return finishRoom(12,"shutter",5);
+  }
+
+  renderGame();
+}
+
+function solveFinal(answer) {
+  const g = currentGame;
+
+  if (!g.projector ||
+      !["finalclock","finalchair","finalcamera"].every(
+        x => g.inspected.includes(x)
+      )) {
+    return gameLog(
+      "영사기를 작동시키고 세 가지 물건을 모두 조사해."
+    );
+  }
+
+  if (answer !== "now") {
+    return gameLog("다시 생각해 봐.");
+  }
+
+  g.solved = true;
+  saveGame();
+  renderGame();
+  gameLog("열세 번째 사진은 바로 지금의 장면이었어.");
+}
+
+function gameHint() {
+  if (!currentGame) return;
+  const room = currentGame.room;
+  const hints = HINTS[room] || [];
+
+  if (!hints.length) return;
+
+  const level = currentGame.hints[room] || 0;
+  $("gameHintText").textContent =
+    hints[Math.min(level,hints.length-1)];
+
+  currentGame.hints[room] = Math.min(level+1,hints.length-1);
+  saveGame();
+}
+
+function restartGame() {
+  if (!confirm("게임 진행을 처음부터 시작할까?")) return;
+  currentGame = freshGame();
+  saveGame();
+  renderGame();
+}
+
+// 두 사람이 하는 보너스 퍼즐
+function randomCode() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const numbers = new Uint32Array(6);
+  crypto.getRandomValues(numbers);
+  return Array.from(numbers,x => alphabet[x%alphabet.length]).join("");
+}
+
+async function createCoop() {
+  await connectCoop(randomCode(),"moon");
+}
+
+async function joinCoop() {
+  const code = $("coopCode").value.trim().toUpperCase();
+  if (code.length !== 6) {
+    return notify("6자리 방 코드를 입력해 줘.");
+  }
+  await connectCoop(code,"sun");
+}
+
+async function connectCoop(code,role) {
+  if (coopChannel) await db.removeChannel(coopChannel);
+
+  coopRole = role;
+  coopReady = false;
+
+  coopChannel = db.channel("pieces-game-"+code,{
+    config:{presence:{key:uid}}
+  });
+
+  coopChannel
+    .on("presence",{event:"sync"},() => {
+      const state = coopChannel.presenceState();
+      coopReady = Object.keys(state).length >= 2;
+
+      $("coopStatus").textContent =
+        "방 코드: "+code+
+        (coopReady?" · 두 사람 연결됨":" · 상대방 대기 중");
+
+      $("coopClue").textContent = coopReady
+        ? role === "moon"
+          ? "🌙=6, 🌱=2"
+          : "🔑=4, 💧=9"
+        : "";
+    })
+    .on("broadcast",{event:"solved"},() => {
+      currentGame.bonus = true;
+      giveItem("light");
+      saveGame();
+      renderGame();
+    })
+    .subscribe(async status => {
+      if (status === "SUBSCRIBED") {
+        await coopChannel.track({nickname});
+      }
+    });
+
+  $("coopStatus").textContent = "방 코드: "+code;
+}
+
+async function solveCoop() {
+  if (!coopReady) {
+    return notify("상대방이 연결되어야 해.");
+  }
+
+  if ($("coopAnswer").value.trim() !== "6429") {
+    return notify("암호가 맞지 않아.");
+  }
+
+  currentGame.bonus = true;
+  giveItem("light");
+  saveGame();
+
+  await coopChannel.send({
+    type:"broadcast",
+    event:"solved",
+    payload:{solved:true}
+  });
+
+  renderGame();
+  notify("히든 엔딩이 열렸어.");
+}
+
+// 시작
+async function start() {
+  try {
+    const session = await db.auth.getSession();
+
+    if (session.error) throw session.error;
+
+    if (!session.data.session) {
+      const login = await db.auth.signInAnonymously();
+      if (login.error) throw login.error;
+    }
+
+    const me = await db.auth.getUser();
+    if (me.error) throw me.error;
+
+    uid = me.data.user.id;
+    authorIds.add(uid);
+
+    await loadNickname();
+
+    const admin = await db.from("pieces_admins")
+      .select("user_id")
+      .eq("user_id",uid)
+      .maybeSingle();
+
+    isAdmin = !!admin.data && !admin.error;
+
+    const check = await db.from("pieces_entries")
+      .select("question_day,mission_key").limit(1);
+
+    enhanced = !check.error;
+
+    await loadPosts();
+
+    db.channel("pieces-album-live")
+      .on("postgres_changes",{
+        event:"*",
+        schema:"public",
+        table:"pieces_entries"
+      },loadPosts)
+      .on("postgres_changes",{
+        event:"*",
+        schema:"public",
+        table:"pieces_comments"
+      },loadPosts)
+      .on("postgres_changes",{
+        event:"*",
+        schema:"public",
+        table:"pieces_likes"
+      },loadPosts)
+      .on("postgres_changes",{
+        event:"*",
+        schema:"public",
+        table:"pieces_capsule_envelopes"
+      },loadPosts)
+      .subscribe();
+
+  } catch (e) {
+    notify("연결 오류: "+e.message);
+  }
+}
+
+$("filmMonth").value = dayKST().slice(0,7);
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate()+1);
+$("capsuleDate").min = dayKST(tomorrow);
+$("capsuleDate").value = dayKST(tomorrow);
+
+chooseMode("normal");
+renderHome();
+start();
+
+setInterval(() => {
+  renderHome();
+  if (currentPage === "capsulePage") renderEnvelopes();
+},60000);
+
+document.addEventListener("visibilitychange",() => {
+  if (!document.hidden && uid) loadPosts();
+});
+</script>
 </body>
 </html>
